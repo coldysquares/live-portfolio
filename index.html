@@ -94,6 +94,23 @@
         .aim-timestamp { color: #0000ff; font-weight: bold; }
         .aim-bot-name { color: #ff0000; font-weight: bold; }
         .aim-user-name { color: #0000ff; font-weight: bold; }
+
+        /* Launchpad Sampler Grid Aesthetics */
+        .step-pad {
+            background-color: #1c1c1f;
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 0.375rem;
+            transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .step-pad.active-grid {
+            background-color: #4338ca;
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
+            border-color: #818cf8;
+        }
+        .step-pad.current-playing-step {
+            border-color: #10b981;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white">
@@ -304,71 +321,107 @@
             </div>
         </div>
 
-        <!-- VIEW 2: DISSOCIATED MULTI-TRACK AUDIO MATRIX (WOLLOHY STUDIO SOVEREIGN DAW) -->
-        <div id="page-mixer" class="view-page hidden space-y-6 max-w-4xl mx-auto">
-            <div class="border-b border-zinc-900 pb-3">
-                <h2 class="heading-font text-2xl text-zinc-100">Wollohy Studio: Sovereign Stem Vault &amp; Local DAW</h2>
-                <p class="text-xs text-zinc-500 mt-0.5">A local-first audio workstation solving cloud-dependent token barriers and stem locks by running arrangements natively off lightweight references.</p>
+        <!-- VIEW 2: HIGH-FIDELITY INTERACTIVE SAMPLER DRUM MATRIX & FFT ANALYSIS (WOLLOHY STUDIO) -->
+        <div id="page-mixer" class="view-page hidden space-y-6 max-w-5xl mx-auto">
+            <div class="border-b border-zinc-900 pb-3 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="heading-font text-2xl text-zinc-100">Wollohy Studio: Sovereign Stem Vault &amp; Local DAW</h2>
+                    <p class="text-xs text-zinc-500 mt-0.5">A local-first audio workstation running standalone FFT spectrum visualizers, native mic streams, and a fun click-to-program loop matrix.</p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button id="btn-mixer-mic-toggle" onclick="AudioStemMixer.toggleMicrophone()" class="bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-zinc-300 font-mono text-xs uppercase px-4 py-2.5 font-bold rounded-lg transition-all flex items-center gap-2">
+                        <span id="mic-status-indicator" class="w-2 h-2 rounded-full bg-zinc-600"></span>
+                        <span>Stream Live Microphone Input</span>
+                    </button>
+                    <button id="btn-mixer-master-toggle" onclick="AudioStemMixer.togglePlayback()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs uppercase tracking-wider px-4 py-2.5 font-bold rounded-lg transition-all shadow-md">Initialize Sound Workstation</button>
+                </div>
             </div>
 
-            <!-- Complete 4-Track Soundboard Console Panel -->
-            <div class="premium-card p-6 space-y-6">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-zinc-800 pb-4 gap-3">
+            <!-- Interactive Launchpad Grid Machine (The Fun Element) -->
+            <div class="premium-card p-5 space-y-4">
+                <div class="flex justify-between items-center border-b border-zinc-800 pb-2">
                     <div>
-                        <h3 class="heading-font text-base text-zinc-200">Isolated Multi-Stem Reference Mixer</h3>
-                        <p class="text-xs text-zinc-500 mt-0.5">Simulates local Float32 PCM capturing tracks and reference non-destructive layout manifests without rendering bloated blobs.</p>
+                        <h3 class="heading-font text-base text-zinc-200">Interactive 8-Step Sampler Matrix</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Click layout squares below to toggle beats on/off and program custom rhythmic stems locally.</p>
                     </div>
-                    <button id="btn-mixer-master-toggle" onclick="AudioStemMixer.togglePlayback()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs uppercase tracking-wider px-4 py-2.5 font-bold rounded-lg transition-all">Initialize Sound Workstation</button>
+                    <div class="text-[10px] font-mono text-zinc-500 uppercase tracking-widest font-bold">Steps 1 — 8 Loop Bounds</div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <!-- Vocals/Track 1 Track -->
-                    <div class="bg-zinc-950 p-4 border border-zinc-900 rounded-xl space-y-3">
-                        <div class="flex justify-between items-center text-xs font-mono font-bold"><span class="text-zinc-300">01 // VOCALS STEM</span><span class="text-[10px] text-zinc-600">PCM Pad</span></div>
-                        <input type="range" id="mixer-vol-vocals" min="0" max="1" step="0.01" value="0.7" class="w-full accent-indigo-500" oninput="AudioStemMixer.setVolume('vocals', this.value)" onchange="UIControls.handleSliderChange('mixer-vol-vocals', this.value)">
-                        <div class="grid grid-cols-2 gap-2 text-[10px] font-mono font-bold uppercase">
-                            <button onclick="AudioStemMixer.toggleMute('vocals', this)" class="bg-zinc-900 border border-zinc-800 py-1 rounded-md text-zinc-400 hover:text-zinc-200 transition-colors">Mute</button>
-                            <button onclick="AudioStemMixer.toggleSolo('vocals', this)" class="bg-zinc-900 border border-zinc-800 py-1 rounded-md text-zinc-400 hover:text-zinc-200 transition-colors">Solo</button>
-                        </div>
-                    </div>
-                    <!-- Bass/Track 2 Track -->
-                    <div class="bg-zinc-950 p-4 border border-zinc-900 rounded-xl space-y-3">
-                        <div class="flex justify-between items-center text-xs font-mono font-bold"><span class="text-zinc-300">02 // BASS STEM</span><span class="text-[10px] text-zinc-600">Sub Pulsar</span></div>
-                        <input type="range" id="mixer-vol-bass" min="0" max="1" step="0.01" value="0.7" class="w-full accent-indigo-500" oninput="AudioStemMixer.setVolume('bass', this.value)" onchange="UIControls.handleSliderChange('mixer-vol-bass', this.value)">
-                        <div class="grid grid-cols-2 gap-2 text-[10px] font-mono font-bold uppercase">
-                            <button onclick="AudioStemMixer.toggleMute('bass', this)" class="bg-zinc-900 border border-zinc-800 py-1 rounded-md text-zinc-400 hover:text-zinc-200 transition-colors">Mute</button>
-                            <button onclick="AudioStemMixer.toggleSolo('bass', this)" class="bg-zinc-900 border border-zinc-800 py-1 rounded-md text-zinc-400 hover:text-zinc-200 transition-colors">Solo</button>
-                        </div>
-                    </div>
-                    <!-- Drums/Track 3 Track -->
-                    <div class="bg-zinc-950 p-4 border border-zinc-900 rounded-xl space-y-3">
-                        <div class="flex justify-between items-center text-xs font-mono font-bold"><span class="text-zinc-300">03 // DRUMS STEM</span><span class="text-[10px] text-zinc-600">Sequencer</span></div>
-                        <input type="range" id="mixer-vol-drums" min="0" max="1" step="0.01" value="0.5" class="w-full accent-indigo-500" oninput="AudioStemMixer.setVolume('drums', this.value)" onchange="UIControls.handleSliderChange('mixer-vol-drums', this.value)">
-                        <div class="grid grid-cols-2 gap-2 text-[10px] font-mono font-bold uppercase">
-                            <button onclick="AudioStemMixer.toggleMute('drums', this)" class="bg-zinc-900 border border-zinc-800 py-1 rounded-md text-zinc-400 hover:text-zinc-200 transition-colors">Mute</button>
-                            <button onclick="AudioStemMixer.toggleSolo('drums', this)" class="bg-zinc-900 border border-zinc-800 py-1 rounded-md text-zinc-400 hover:text-zinc-200 transition-colors">Solo</button>
-                        </div>
-                    </div>
-                    <!-- Synths/Track 4 Track -->
-                    <div class="bg-zinc-950 p-4 border border-zinc-900 rounded-xl space-y-3">
-                        <div class="flex justify-between items-center text-xs font-mono font-bold"><span class="text-zinc-300">04 // SYNTHS STEM</span><span class="text-[10px] text-zinc-600">Arpeggiator</span></div>
-                        <input type="range" id="mixer-vol-synths" min="0" max="1" step="0.01" value="0.6" class="w-full accent-indigo-500" oninput="AudioStemMixer.setVolume('synths', this.value)" onchange="UIControls.handleSliderChange('mixer-vol-synths', this.value)">
-                        <div class="grid grid-cols-2 gap-2 text-[10px] font-mono font-bold uppercase">
-                            <button onclick="AudioStemMixer.toggleMute('synths', this)" class="bg-zinc-900 border border-zinc-800 py-1 rounded-md text-zinc-400 hover:text-zinc-200 transition-colors">Mute</button>
-                            <button onclick="AudioStemMixer.toggleSolo('synths', this)" class="bg-zinc-900 border border-zinc-800 py-1 rounded-md text-zinc-400 hover:text-zinc-200 transition-colors">Solo</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="pt-4 border-t border-zinc-900 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                    <div id="mixer-playback-status" class="text-xs font-mono text-zinc-500">Audio workstation channels compiled. Trigger layout switches to test execution arrays.</div>
-                    <button onclick="BillingManager.interceptExport('Master Audio WAV Stems Bundle')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-mono text-xs uppercase px-4 py-2.5 font-bold rounded-lg transition-all shrink-0">Download Master WAV Stems</button>
+                <div class="space-y-3 pt-2" id="sequencer-matrix-container">
+                    <!-- Programmed rows populate smoothly via JS init logic below -->
                 </div>
             </div>
 
-            <!-- Frequency Scan Filters Soundboard -->
+            <!-- FFT Real-Time Canvas Spectrogram Audio Node Visualizer Screen Row -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <div class="lg:col-span-2 premium-card p-5 space-y-4">
+                    <div class="flex justify-between items-center border-b border-zinc-800 pb-2.5">
+                        <div>
+                            <h3 class="heading-font text-sm text-zinc-200 uppercase tracking-wide font-mono">Fast Fourier Transform (FFT) Decibel Output</h3>
+                            <p class="text-[11px] text-zinc-500">Real-time local tracking map processing frequency clusters instantly across hardware nodes.</p>
+                        </div>
+                        <span id="lbl-live-db" class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-zinc-950 border border-zinc-800 text-indigo-400">-Infinity dB</span>
+                    </div>
+                    
+                    <div class="bg-zinc-950 rounded-xl border border-zinc-900 h-[190px] overflow-hidden relative shadow-inner">
+                        <canvas id="daw-fft-canvas" class="w-full h-full block"></canvas>
+                    </div>
+                </div>
+
+                <!-- Algorithmic Modulation FX Panel Card -->
+                <div class="premium-card p-5 space-y-4 flex flex-col justify-between">
+                    <div>
+                        <div class="border-b border-zinc-800 pb-2">
+                            <h3 class="heading-font text-sm text-zinc-200 uppercase tracking-wide font-mono">Biquad Filter Modulators</h3>
+                            <p class="text-[11px] text-zinc-500">Alters mathematical poles in real-time inside the Web Audio routing graph matrix.</p>
+                        </div>
+                        
+                        <div class="space-y-4 mt-4 font-mono text-xs">
+                            <div class="space-y-1.5">
+                                <label class="block text-[11px] uppercase text-zinc-500 font-bold">Cutoff Resonance: <span id="lbl-fx-cutoff" class="text-indigo-400 font-bold font-mono">1200 Hz</span></label>
+                                <input type="range" id="slider-fx-cutoff" min="150" max="6000" value="1200" step="10" class="w-full" oninput="AudioStemMixer.updateFilterFrequency(this.value)" onchange="UIControls.handleSliderChange('slider-fx-cutoff', this.value)">
+                            </div>
+                            <div class="space-y-1.5">
+                                <label class="block text-[11px] uppercase text-zinc-500 font-bold">Filter Type</label>
+                                <select id="select-fx-type" onchange="AudioStemMixer.updateFilterType(this.value)" class="w-full bg-zinc-950 border border-zinc-900 rounded-lg px-2.5 py-2 text-zinc-300 font-sans outline-none font-medium">
+                                    <option value="lowpass">Lowpass (Sovereign Sub-Bass Enforcer)</option>
+                                    <option value="highpass">Highpass (Aperiodic Crackle Breaker)</option>
+                                    <option value="bandpass">Bandpass (Resonant Token Telemetry Isolate)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button onclick="BillingManager.interceptExport('Master Audio WAV Stems Bundle')" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-mono text-xs uppercase py-3 font-bold rounded-lg transition-all mt-4 tracking-wide shadow-md shadow-indigo-900/10">Download Master WAV Stems</button>
+                </div>
+            </div>
+
+            <!-- Channel Volume Balancing Deck -->
+            <div class="premium-card p-4">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs font-mono">
+                    <div class="bg-zinc-900/30 p-3 rounded-lg border border-zinc-800/50">
+                        <div class="font-bold text-zinc-400 mb-1">01 VOCALS VOLUME</div>
+                        <input type="range" min="0" max="1" step="0.05" value="0.7" class="w-full" oninput="AudioStemMixer.setVolume('vocals', this.value)">
+                    </div>
+                    <div class="bg-zinc-900/30 p-3 rounded-lg border border-zinc-800/50">
+                        <div class="font-bold text-zinc-400 mb-1">02 BASS VOLUME</div>
+                        <input type="range" min="0" max="1" step="0.05" value="0.7" class="w-full" oninput="AudioStemMixer.setVolume('bass', this.value)">
+                    </div>
+                    <div class="bg-zinc-900/30 p-3 rounded-lg border border-zinc-800/50">
+                        <div class="font-bold text-zinc-400 mb-1">03 DRUMS VOLUME</div>
+                        <input type="range" min="0" max="1" step="0.05" value="0.5" class="w-full" oninput="AudioStemMixer.setVolume('drums', this.value)">
+                    </div>
+                    <div class="bg-zinc-900/30 p-3 rounded-lg border border-zinc-800/50">
+                        <div class="font-bold text-zinc-400 mb-1">04 SYNTHS VOLUME</div>
+                        <input type="range" min="0" max="1" step="0.05" value="0.6" class="w-full" oninput="AudioStemMixer.setVolume('synths', this.value)">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lower Action Blueprint Row -->
             <div class="lab-console-panel p-5 space-y-4">
-                <div class="text-[10px] font-mono tracking-widest text-zinc-500 uppercase font-bold">Local RoFormer / Demucs Pipeline Controls</div>
+                <div class="text-[10px] font-mono tracking-widest text-zinc-500 uppercase font-bold">Local RoFormer / Demucs Pipeline Blueprint Logs</div>
                 <div class="horizontal-scroller-deck">
                     <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl min-w-[160px] text-center space-y-2 shrink-0">
                         <span class="text-xs font-mono text-zinc-200 block font-bold">Mount project.json</span>
@@ -452,7 +505,7 @@
                     <!-- Input Bar with AWD constraints, Length Checkers, and Profanity Guard -->
                     <div class="space-y-2">
                         <div class="flex gap-2 font-mono items-center">
-                            <input type="text" id="aim-user-input" maxlength="100" placeholder="Type message to transmit into the AWD matrix stream..." class="flex-grow p-3 text-xs bg-zinc-950 border border-zinc-800 rounded-lg outline-none text-zinc-100 focus:border-indigo-500 font-sans font-medium" oninput="AIMChatAgent.updateCharCount(this.value)" onkeydown="if(event.key==='Enter') AIMChatAgent.sendUserMessage()">
+                            <input type="text" id="aim-user-input" maxlength="100" placeholder="Type message to transmit into the AIM matrix stream..." class="flex-grow p-3 text-xs bg-zinc-950 border border-zinc-800 rounded-lg outline-none text-zinc-100 focus:border-indigo-500 font-sans font-medium" oninput="AIMChatAgent.updateCharCount(this.value)" onkeydown="if(event.key==='Enter') AIMChatAgent.sendUserMessage()">
                             <button onclick="AIMChatAgent.sendUserMessage()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs uppercase px-5 h-[42px] rounded-lg transition-all shrink-0">Send IM</button>
                         </div>
                         
@@ -581,7 +634,7 @@
                         </p>
                         <div class="flex justify-between items-center text-[10px] font-mono text-zinc-500 pt-2 border-t border-zinc-900">
                             <span>Workspace: WOLLOHY_STUDIO_PROJECTS</span>
-                            <span class="text-zinc-300 font-bold uppercase tracking-wider">Verified Stable</span>
+                            <span class="text-zinc-300 font-bold uppercase tracking-wider">Blueprint Stable</span>
                         </div>
                     </div>
                 </div>
@@ -664,6 +717,7 @@
                 });
 
                 if (tabId === 'geometry') setTimeout(() => PhysicsNodeGraph.init(), 50);
+                if (tabId === 'mixer') setTimeout(() => AudioStemMixer.initCanvas(), 50);
                 if (tabId === 'playgrounds') setTimeout(() => { AIMChatAgent.init(); SaperliPopette.initUIState(); }, 50);
             }
         };
@@ -709,11 +763,16 @@
                 if (localStorage.getItem('nick_portfolio_aim-quirks')) document.getElementById('aim-var-quirks').value = localStorage.getItem('nick_portfolio_aim-quirks');
                 if (localStorage.getItem('nick_portfolio_aim-companion')) document.getElementById('aim-var-companion').value = localStorage.getItem('nick_portfolio_aim-companion');
 
+                if (localStorage.getItem('nick_portfolio_slider-fx-cutoff')) {
+                    const cut = localStorage.getItem('nick_portfolio_slider-fx-cutoff');
+                    document.getElementById('slider-fx-cutoff').value = cut;
+                    document.getElementById('lbl-fx-cutoff').textContent = `${cut} Hz`;
+                }
+
                 ['vocals', 'bass', 'drums', 'synths'].forEach(track => {
                     if (localStorage.getItem(`nick_portfolio_mixer-vol-${track}`)) {
                         const vol = localStorage.getItem(`nick_portfolio_mixer-vol-${track}`);
-                        document.getElementById(`mixer-vol-${track}`).value = vol;
-                        AudioStemMixer.tracks[track].vol = parseFloat(vol);
+                        // Sync values across variables if nodes exist
                     }
                 });
             }
@@ -766,20 +825,68 @@
             }
         };
 
-        /* --- WOLLOHY STUDIO: CLEAN RHYTHMIC STEP SEQUENCER AUDIO MACHINE --- */
+        /* --- WOLLOHY STUDIO: HARDWARE-ACCELERATED FFT SAMPLER GRID SEQUENCER MACHINE --- */
         const AudioStemMixer = {
-            ctx: null, masterGain: null, active: false, timerId: null, step: 0,
+            ctx: null, masterGain: null, biquadFilter: null, analyser: null,
+            timerId: null, active: false, step: 0, canvas: null, canvasCtx: null, rafId: null,
+            micStream: null, micNode: null,
             tracks: {
-                vocals: { freq: 440, type: 'sine', vol: 0.7, mute: false },
-                bass: { freq: 73, type: 'triangle', vol: 0.7, mute: false },
-                drums: { freq: 120, type: 'triangle', vol: 0.6, mute: false },
-                synths: { freq: 220, type: 'sine', vol: 0.5, mute: false }
+                vocals: { freq: 440, type: 'sine', vol: 0.7, mute: false, pattern: [1, 0, 0, 0, 1, 0, 0, 0] },
+                bass: { freq: 73, type: 'triangle', vol: 0.7, mute: false, pattern: [1, 0, 1, 0, 1, 0, 1, 0] },
+                drums: { freq: 110, type: 'triangle', vol: 0.5, mute: false, pattern: [0, 0, 1, 0, 0, 0, 1, 1] },
+                synths: { freq: 220, type: 'sine', vol: 0.6, mute: false, pattern: [1, 0, 1, 1, 0, 1, 0, 1] }
             },
             init() {
                 if (this.ctx) return;
                 this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-                this.masterGain = this.ctx.createGain(); this.masterGain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+                
+                this.analyser = this.ctx.createAnalyser();
+                this.analyser.fftSize = 256;
+                
+                this.biquadFilter = this.ctx.createBiquadFilter();
+                const initialCutoff = document.getElementById('slider-fx-cutoff')?.value || 1200;
+                const initialType = document.getElementById('select-fx-type')?.value || 'lowpass';
+                this.biquadFilter.type = initialType;
+                this.biquadFilter.frequency.setValueAtTime(parseFloat(initialCutoff), this.ctx.currentTime);
+                
+                this.masterGain = this.ctx.createGain();
+                this.masterGain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+                
+                this.biquadFilter.connect(this.analyser);
+                this.analyser.connect(this.masterGain);
                 this.masterGain.connect(this.ctx.destination);
+                
+                this.initCanvas();
+            },
+            initCanvas() {
+                this.canvas = document.getElementById('daw-fft-canvas'); if (!this.canvas) return;
+                this.canvasCtx = this.canvas.getContext('2d');
+                this.canvas.width = this.canvas.parentElement.clientWidth || 500;
+                this.canvas.height = 190;
+                this.drawEmptyCanvas();
+                this.renderUIMatrix();
+            },
+            renderUIMatrix() {
+                const container = document.getElementById('sequencer-matrix-container'); if(!container) return;
+                container.innerHTML = Object.keys(this.tracks).map(trackKey => `
+                    <div class="flex items-center space-x-3 text-xs font-mono font-bold">
+                        <div class="w-24 text-zinc-400 uppercase shrink-0">${trackKey}</div>
+                        <div class="grid grid-cols-8 gap-2 flex-grow">
+                            ${this.tracks[trackKey].pattern.map((state, stepIndex) => `
+                                <button onclick="AudioStemMixer.toggleGridPad('${trackKey}', ${stepIndex}, this)" class="step-pad h-10 w-full text-center ${state ? 'active-grid' : ''}" data-track="${trackKey}" data-step="${stepIndex}"></button>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('');
+            },
+            toggleGridPad(track, step, el) {
+                this.tracks[track].pattern[step] = this.tracks[track].pattern[step] === 1 ? 0 : 1;
+                el.classList.toggle('active-grid', this.tracks[track].pattern[step] === 1);
+            },
+            drawEmptyCanvas() {
+                if(!this.canvasCtx) return;
+                this.canvasCtx.fillStyle = '#070708';
+                this.canvasCtx.fillRect(0, 0, this.canvas.width, this.canvas.height);
             },
             togglePlayback() {
                 this.init(); const btn = document.getElementById('btn-mixer-master-toggle'); const statusLbl = document.getElementById('mixer-playback-status');
@@ -788,58 +895,82 @@
                     statusLbl.textContent = "Wollohy Local DAW engine idle. Assembly project manifests secure.";
                 } else {
                     if (this.ctx.state === 'suspended') this.ctx.resume();
-                    this.active = true; btn.innerText = "Halt Workstation Sound Engine";
-                    statusLbl.textContent = "Wollohy Workstation status: Running clean, clip-free non-destructive multi-stem sequencer loops.";
+                    this.active = true; btn.innerText = "Halt Synth Matrix";
+                    statusLbl.textContent = "Wollohy Workstation status: Running clean, clip-free multi-stem sequencer loops.";
                     this.startSequencer();
+                    this.startVisualizer();
                 }
             },
+            async toggleMicrophone() {
+                this.init();
+                const indicator = document.getElementById('mic-status-indicator');
+                const btnLabel = document.querySelector('#btn-mixer-mic-toggle span:last-child');
+                if (this.micStream) {
+                    if (this.micNode) { this.micNode.disconnect(); this.micNode = null; }
+                    this.micStream.getTracks().forEach(t => track.stop()); this.micStream = null;
+                    indicator.className = "w-2 h-2 rounded-full bg-zinc-600";
+                    btnLabel.textContent = "Stream Live Microphone Input";
+                    if(!this.active) this.stopVisualizer(); return;
+                }
+                try {
+                    if (this.ctx.state === 'suspended') this.ctx.resume();
+                    this.micStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+                    this.micNode = this.ctx.createMediaStreamSource(this.micStream);
+                    this.micNode.connect(this.biquadFilter);
+                    indicator.className = "w-2 h-2 rounded-full bg-red-500 animate-pulse";
+                    btnLabel.textContent = "Halt Microphone Stream";
+                    this.startVisualizer();
+                    BillingManager.showToast("Microphone integrated successfully. Computing voice telemetry FFT paths locally.");
+                } catch(err) {
+                    alert("Hardware Ingestion Failed: Microphone access blocked.");
+                    indicator.className = "w-2 h-2 rounded-full bg-zinc-600";
+                }
+            },
+            updateFilterFrequency(v) {
+                document.getElementById('lbl-fx-cutoff').textContent = `${v} Hz`;
+                if(this.biquadFilter && this.ctx) this.biquadFilter.frequency.setValueAtTime(parseFloat(v), this.ctx.currentTime);
+            },
+            updateFilterType(t) { if(this.biquadFilter) this.biquadFilter.type = t; },
             startSequencer() {
-                if (this.timerId) clearInterval(this.timerId);
-                this.step = 0;
+                if (this.timerId) clearInterval(this.timerId); this.step = 0;
                 this.timerId = setInterval(() => {
                     if (!this.active || !this.ctx) return;
-                    const beat = this.step % 8;
+                    const currentStepIndex = this.step % 8;
                     
-                    // Bass line triggers on stable rhythmic matrix grids (0, 2, 4, 6)
-                    if (beat % 2 === 0 && !this.tracks.bass.mute) {
-                        this.playTone(this.tracks.bass.freq * (beat === 4 ? 1.2 : 1.0), 'triangle', 0.16, this.tracks.bass.vol);
+                    // Style the live step column indicators
+                    document.querySelectorAll('.step-pad').forEach(p => p.classList.remove('current-playing-step'));
+                    document.querySelectorAll(`.step-pad[data-step="${currentStepIndex}"]`).forEach(p => p.classList.add('current-playing-step'));
+
+                    // Active programmed triggers execution block
+                    if (this.tracks.bass.pattern[currentStepIndex] && !this.tracks.bass.mute) {
+                        this.playTone(this.tracks.bass.freq * (currentStepIndex === 4 ? 1.2 : 1.0), 'triangle', 0.16, this.tracks.bass.vol);
                     }
-                    
-                    // Drums triggers - crisp noise snares on 2 and 6, clean pulse hat ticks on offbeats
-                    if (!this.tracks.drums.mute) {
-                        if (beat === 2 || beat === 6) {
-                            this.playNoise(0.06, this.tracks.drums.vol * 0.3);
-                        } else if (beat % 2 === 1) {
-                            this.playTone(900, 'sine', 0.02, this.tracks.drums.vol * 0.15);
-                        }
+                    if (this.tracks.drums.pattern[currentStepIndex] && !this.tracks.drums.mute) {
+                        if (currentStepIndex === 2 || currentStepIndex === 6) this.playNoise(0.06, this.tracks.drums.vol * 0.25);
+                        else this.playTone(850, 'sine', 0.02, this.tracks.drums.vol * 0.12);
                     }
-                    
-                    // Synths harmonic arpeggios mapping
-                    if ((beat === 0 || beat === 3 || beat === 5) && !this.tracks.synths.mute) {
-                        const intervals = [1.0, 1.2, 1.5, 1.75];
-                        this.playTone(this.tracks.synths.freq * intervals[beat % intervals.length], 'sine', 0.18, this.tracks.synths.vol * 0.4);
+                    if (this.tracks.synths.pattern[currentStepIndex] && !this.tracks.synths.mute) {
+                        const intervals = [1.0, 1.25, 1.5, 1.8];
+                        this.playTone(this.tracks.synths.freq * intervals[currentStepIndex % intervals.length], 'sine', 0.16, this.tracks.synths.vol * 0.35);
                     }
-                    
-                    // Ambient Vocals glide pad trigger on head bounds
-                    if (beat === 0 && !this.tracks.vocals.mute) {
-                        this.playTone(this.tracks.vocals.freq, 'sine', 0.5, this.tracks.vocals.vol * 0.3);
+                    if (this.tracks.vocals.pattern[currentStepIndex] && !this.tracks.vocals.mute) {
+                        this.playTone(this.tracks.vocals.freq, 'sine', 0.45, this.tracks.vocals.vol * 0.25);
                     }
-                    
                     this.step++;
-                }, 220);
+                }, 200);
             },
             playTone(freq, type, duration, volume) {
-                if (!this.ctx || !this.masterGain) return;
+                if (!this.ctx || !this.biquadFilter) return;
                 const osc = this.ctx.createOscillator(); const gain = this.ctx.createGain();
                 osc.type = type; osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
                 gain.gain.setValueAtTime(0, this.ctx.currentTime);
                 gain.gain.linearRampToValueAtTime(volume, this.ctx.currentTime + 0.02);
                 gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
-                osc.connect(gain); gain.connect(this.masterGain);
+                osc.connect(gain); gain.connect(this.biquadFilter);
                 osc.start(); osc.stop(this.ctx.currentTime + duration);
             },
             playNoise(duration, volume) {
-                if (!this.ctx || !this.masterGain) return;
+                if (!this.ctx || !this.biquadFilter) return;
                 const bufferSize = this.ctx.sampleRate * duration;
                 const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
                 const data = buffer.getChannelData(0);
@@ -847,19 +978,40 @@
                 const source = this.ctx.createBufferSource(); source.buffer = buffer;
                 const gain = this.ctx.createGain(); gain.gain.setValueAtTime(volume, this.ctx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
-                source.connect(gain); gain.connect(this.masterGain);
+                source.connect(gain); gain.connect(this.biquadFilter);
                 source.start();
+            },
+            startVisualizer() {
+                if (this.rafId) cancelAnimationFrame(this.rafId);
+                const bufferLength = this.analyser.frequencyBinCount;
+                const dataArray = new Uint8Array(bufferLength);
+                
+                const renderFFTFrame = () => {
+                    this.rafId = requestAnimationFrame(renderFFTFrame);
+                    this.analyser.getByteFrequencyData(dataArray);
+                    this.canvasCtx.fillStyle = '#070708'; this.canvasCtx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                    
+                    const barWidth = (this.canvas.width / bufferLength) * 1.6;
+                    let barHeight; let x = 0; let maxVal = 0;
+                    for (let i = 0; i < bufferLength; i++) {
+                        barHeight = dataArray[i]; if(barHeight > maxVal) maxVal = barHeight;
+                        this.canvasCtx.fillStyle = `rgb(${barHeight+20},99,241)`;
+                        this.canvasCtx.fillRect(x, this.canvas.height - (barHeight * 0.65), barWidth - 1, barHeight * 0.65);
+                        x += barWidth;
+                    }
+                    const computedDb = Math.round((maxVal / 255) * 100);
+                    document.getElementById('lbl-live-db').textContent = computedDb > 0 ? `-${100 - computedDb} dB` : '-Infinity dB';
+                };
+                this.rafId = requestAnimationFrame(renderFFTFrame);
             },
             stopPlayback() {
                 this.active = false; if (this.timerId) clearInterval(this.timerId); this.timerId = null;
+                document.getElementById('btn-mixer-master-toggle').innerText = "Initialize Local Synth Compute";
+                this.stopVisualizer();
             },
-            setVolume(k, v) {
-                const t = this.tracks[k]; if (t) t.vol = parseFloat(v) || 0;
-            },
-            toggleMute(k, el) { 
-                const t = this.tracks[k]; if(!t) return;
-                t.mute = !t.mute; el.classList.toggle('bg-red-950', t.mute);
-            },
+            stopVisualizer() { if (this.rafId) cancelAnimationFrame(this.rafId); this.rafId = null; this.drawEmptyCanvas(); },
+            setVolume(k, v) { const t = this.tracks[k]; if (t) t.vol = parseFloat(v) || 0; },
+            toggleMute(k, el) { const t = this.tracks[k]; if(!t) return; t.mute = !t.mute; el.classList.toggle('bg-red-950', t.mute); },
             toggleSolo(k, el) { el.classList.toggle('bg-emerald-950'); }
         };
 
@@ -875,7 +1027,7 @@
             }
         };
 
-        /* --- 2D CANVAS INTERACTIVE PHYSICS LAYOUT NODE GRAPH SIMULATOR --- */
+        /* --- 2D CANVAS PHYSICS INTERACTIVE NODE GRAPH SIMULATOR --- */
         const PhysicsNodeGraph = {
             canvas: null, ctx: null, nodes: [], links: [], rafId: null, density: 25, tension: 4,
             init() {
@@ -901,7 +1053,6 @@
                 const step = () => {
                     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
                     const k = this.tension * 0.0015;
-                    
                     this.links.forEach(l => {
                         const dx = l.to.x - l.from.x; const dy = l.to.y - l.from.y;
                         l.from.vx += dx * k; l.from.vy += dy * k; l.to.vx -= dx * k; l.to.vy -= dy * k;
@@ -930,21 +1081,15 @@
                 dz.addEventListener('dragleave', () => dz.classList.remove('bg-zinc-800/10'));
                 dz.addEventListener('drop', (e) => { e.preventDefault(); dz.classList.remove('bg-zinc-800/10'); if (e.dataTransfer.files) this.process(e.dataTransfer.files); });
                 fi.addEventListener('change', (e) => { if (e.target.files) this.process(e.target.files); });
-                
                 this.initDB();
             },
             initDB() {
                 const request = indexedDB.open('NickPortfolioForensicDB', 1);
                 request.onupgradeneeded = (e) => {
                     const db = e.target.result;
-                    if (!db.objectStoreNames.contains('hashes')) {
-                        db.createObjectStore('hashes', { keyPath: 'id', autoIncrement: true });
-                    }
+                    if (!db.objectStoreNames.contains('hashes')) db.createObjectStore('hashes', { keyPath: 'id', autoIncrement: true });
                 };
-                request.onsuccess = (e) => {
-                    this.db = e.target.result;
-                    this.loadSavedRecords();
-                };
+                request.onsuccess = (e) => { this.db = e.target.result; this.loadSavedRecords(); };
             },
             loadSavedRecords() {
                 if (!this.db) return;
@@ -953,12 +1098,7 @@
                 AppState.uploadedFiles = [];
                 store.openCursor().onsuccess = (e) => {
                     const cursor = e.target.result;
-                    if (cursor) {
-                        AppState.uploadedFiles.push(cursor.value);
-                        cursor.continue();
-                    } else {
-                        this.renderTable();
-                    }
+                    if (cursor) { AppState.uploadedFiles.push(cursor.value); cursor.continue(); } else { this.renderTable(); }
                 };
             },
             async process(files) {
@@ -969,27 +1109,20 @@
                 for (let i = 0; i < files.length; i++) {
                     const f = files[i]; const hashStr = await this.calculateHash(f);
                     const record = { name: f.name, size: f.size, hash: hashStr };
-                    
-                    AppState.uploadedFiles.push(record);
-                    this.saveToDB(record);
+                    AppState.uploadedFiles.push(record); this.saveToDB(record);
                 }
                 this.renderTable();
             },
             saveToDB(record) {
                 if (!this.db) return;
                 const transaction = this.db.transaction(['hashes'], 'readwrite');
-                const store = transaction.objectStore('hashes');
-                store.add(record);
+                const store = transaction.objectStore('hashes'); store.add(record);
             },
             clearAllRecords() {
                 if (!this.db) return;
                 const transaction = this.db.transaction(['hashes'], 'readwrite');
                 const store = transaction.objectStore('hashes');
-                store.clear().onsuccess = () => {
-                    AppState.uploadedFiles = [];
-                    this.renderTable();
-                    BillingManager.showToast("IndexedDB storage sandbox wiped cleanly.");
-                };
+                store.clear().onsuccess = () => { AppState.uploadedFiles = []; this.renderTable(); BillingManager.showToast("IndexedDB storage sandbox wiped cleanly."); };
             },
             async calculateHash(file) {
                 try {
@@ -1014,321 +1147,129 @@
             }
         };
 
-        /* --- CORE VARIABLE PROMPT COMPILER & AIM CHAT FEED SANDBOX LOGIC (NO PRESETS) --- */
+        /* --- VARIABLE AIM CHAT FEED SANDBOX LOGIC --- */
         const AIMChatAgent = {
-            history: [],
-            isPaused: false,
-            intervalId: null,
-            profanityList: ['fuck', 'shit', 'bitch', 'asshole', 'crap'],
-
+            history: [], isPaused: false, intervalId: null, profanityList: ['fuck', 'shit', 'bitch', 'asshole', 'crap'],
             init() {
-                this.compilePrompt();
-                this.clearFeed();
-                
-                // Establish automated ambient musings ticker mimicking active AIM loop
+                this.compilePrompt(); this.clearFeed();
                 if (this.intervalId) clearInterval(this.intervalId);
-                this.intervalId = setInterval(() => {
-                    if (!this.isPaused && window.location.hash.includes('playgrounds')) {
-                        this.triggerAmbientMusing();
-                    }
-                }, 14000);
+                this.intervalId = setInterval(() => { if (!this.isPaused && window.location.hash.includes('playgrounds')) this.triggerAmbientMusing(); }, 14000);
             },
-
             systemPrompt() {
-                // Dynamically compile fields from user input text variables
                 const name = document.getElementById('aim-var-name').value || "Tommy Smithereens";
                 const profession = document.getElementById('aim-var-profession').value || "trampoline salesperson";
                 const quirks = document.getElementById('aim-var-quirks').value || "goofy";
                 const companion = document.getElementById('aim-var-companion').value || "none";
-
                 return `- Maintain one consistent identity and feminine grammatical voice. You are '${name}'.\n\nWhat is true about you:\n- You are a ${profession}.\n- You are ${quirks}.\n- You have ${companion}.`;
             },
-
             compilePrompt() {
-                const preview = document.getElementById('aim-compiled-preview');
-                const compiledText = this.systemPrompt();
+                const preview = document.getElementById('aim-compiled-preview'); const compiledText = this.systemPrompt();
                 if (preview) preview.textContent = compiledText;
-                
-                // Save variable text strings natively to localStorage slots
                 localStorage.setItem('nick_portfolio_aim-name', document.getElementById('aim-var-name').value);
                 localStorage.setItem('nick_portfolio_aim-profession', document.getElementById('aim-var-profession').value);
                 localStorage.setItem('nick_portfolio_aim-quirks', document.getElementById('aim-var-quirks').value);
                 localStorage.setItem('nick_portfolio_aim-companion', document.getElementById('aim-var-companion').value);
             },
-
             togglePause() {
-                this.isPaused = !this.isPaused;
-                document.getElementById('btn-aim-pause').textContent = this.isPaused ? "▶ Resume Musings" : "⏸ Pause Musings";
-                BillingManager.showToast(this.isPaused ? "Ambient agent pings paused." : "Ambient agent simulation resumed.");
+                this.isPaused = !this.isPaused; document.getElementById('btn-aim-pause').textContent = this.isPaused ? "▶ Resume Musings" : "⏸ Pause Musings";
             },
-
             clearFeed() {
                 const box = document.getElementById('aim-message-box'); if(!box) return;
-                const name = document.getElementById('aim-var-name').value || "Tommy Smithereens";
-                this.history = [];
+                const name = document.getElementById('aim-var-name').value || "Tommy Smithereens"; this.history = [];
                 box.innerHTML = `<div class="p-1 text-zinc-400 italic">// System: AWD Split-Pane Command Deck active. Direct inputs are strictly verified.</div>
-                <div class="mt-1"><span class="aim-timestamp">[00:00]</span> <span class="aim-bot-name">${name}:</span> Salut! Just loading my custom parameters into browser cache space. Try asking me about my dog or what I sell!</div>`;
-                box.scrollTop = box.scrollHeight;
+                <div class="mt-1"><span class="aim-timestamp">[00:00]</span> <span class="aim-bot-name">${name}:</span> Salut! Just loading my custom parameters into browser cache space. Try asking me what I sell!</div>`;
             },
-
-            updateCharCount(val) {
-                const lbl = document.getElementById('aim-char-counter');
-                if (lbl) lbl.textContent = `${val.length} / 100 characters max`;
-            },
-
-            filterProfanity(str) {
-                let text = str;
-                this.profanityList.forEach(word => {
-                    const regex = new RegExp(word, 'gi');
-                    text = text.replace(regex, "****");
-                });
-                return text;
-            },
-
-            getTimeString() {
-                const d = new Date();
-                return `[${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}]`;
-            },
-
+            updateCharCount(val) { document.getElementById('aim-char-counter').textContent = `${val.length} / 100 characters max`; },
+            filterProfanity(str) { let text = str; this.profanityList.forEach(w => { text = text.replace(new RegExp(w, 'gi'), "****"); }); return text; },
+            getTimeString() { const d = new Date(); return `[${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}]`; },
             sendUserMessage() {
-                const el = document.getElementById('aim-user-input'); if (!el) return;
-                let cleanText = el.value.trim(); if (!cleanText) return;
-
-                // Character restriction validation check
-                if (cleanText.length > 100) {
-                    alert("Message validation failed: string exceeds 100 character restriction boundaries."); return;
-                }
-
-                // Profanity filter deployment macro mapping
-                cleanText = this.filterProfanity(cleanText);
-
-                const box = document.getElementById('aim-message-box');
-                const timeStr = this.getTimeString();
-                
-                // Append user bubble frame directly to document list viewport
+                const el = document.getElementById('aim-user-input'); if (!el) return; let cleanText = el.value.trim(); if (!cleanText) return;
+                if (cleanText.length > 100) { alert("String exceeds 100 character restriction boundaries."); return; }
+                cleanText = this.filterProfanity(cleanText); const box = document.getElementById('aim-message-box'); const timeStr = this.getTimeString();
                 box.innerHTML += `<div class="mt-1"><span class="aim-timestamp">${timeStr}</span> <span class="aim-user-name">You:</span> ${cleanText}</div>`;
-                el.value = ''; this.updateCharCount('');
-                box.scrollTop = box.scrollHeight;
-
-                // AWD concept restriction constraint: keep history trace list capped to preserve prompt context sizes
-                this.history.push({ role: "user", content: cleanText });
-                if (this.history.length > 5) this.history = this.history.slice(-5);
-
-                // Emulate client-side evaluation delay
+                el.value = ''; this.updateCharCount(''); box.scrollTop = box.scrollHeight;
+                this.history.push({ role: "user", content: cleanText }); if (this.history.length > 5) this.history = this.history.slice(-5);
                 setTimeout(() => { this.generateBotResponse(cleanText); }, 400);
             },
-
             generateBotResponse(query) {
                 const box = document.getElementById('aim-message-box'); if (!box) return;
                 const name = document.getElementById('aim-var-name').value || "Tommy Smithereens";
                 const profession = document.getElementById('aim-var-profession').value || "salesperson";
                 const companion = document.getElementById('aim-var-companion').value || "companion";
-
-                let response = `That's interesting to consider within the current variable loop! Let me double-check my custom instruction matrix mapping rules.`;
-                const q = query.toLowerCase();
-
-                if (q.includes('sell') || q.includes('profession') || q.includes('job') || q.includes('trampoline')) {
-                    response = `Oh! As a professional ${profession}, I always advise testing the layout rebound velocities. High tension rules are crucial for safety!`;
-                } else if (q.includes('dog') || q.includes('pet') || q.includes('buttercup') || q.includes('beagle')) {
-                    response = `Speaking of companions, ${companion} is right next to my setup. Yes, there's a distinct scent, but loyalty is a persistent token attribute!`;
-                } else if (q.includes('drink') || q.includes('milk') || q.includes('shake')) {
-                    response = `Just cracking open another strawberry milk packet right now! It gives my script loops the absolute optimal processing fuel parameters.`;
-                } else if (q.includes('color') || q.includes('lemon')) {
-                    response = `My favorite color is lemon! It makes every high-contrast component outline on my panel look absolutely crisp.`;
-                } else if (q.includes('portfolio') || q.includes('code')) {
-                    response = `Nick Berghane's code manages our conversation context inside standard LocalStorage strings and array slice structures beautifully, doesn't it?`;
-                }
-
+                let response = `That's interesting! Let me double-check my custom instruction matrix mapping rules.`; const q = query.toLowerCase();
+                if (q.includes('sell') || q.includes('profession') || q.includes('trampoline')) response = `Oh! As a professional ${profession}, I always advise testing the layout rebound velocities. High tension rules are crucial for safety!`;
+                else if (q.includes('dog') || q.includes('pet') || q.includes('buttercup') || q.includes('beagle')) response = `Speaking of companions, ${companion} is right next to my setup. Loyalty is a persistent token attribute!`;
+                else if (q.includes('drink') || q.includes('milk')) response = `Just cracking open another strawberry milk packet right now! It gives my script loops the absolute optimal fuel parameters.`;
                 const timeStr = this.getTimeString();
                 box.innerHTML += `<div class="mt-1"><span class="aim-timestamp">${timeStr}</span> <span class="aim-bot-name">${name}:</span> ${response}</div>`;
                 box.scrollTop = box.scrollHeight;
-                
-                this.history.push({ role: "assistant", content: response });
-                if (this.history.length > 5) this.history = this.history.slice(-5);
+                this.history.push({ role: "assistant", content: response }); if (this.history.length > 5) this.history = this.history.slice(-5);
             },
-
             triggerAmbientMusing() {
                 const box = document.getElementById('aim-message-box'); if (!box) return;
                 const name = document.getElementById('aim-var-name').value || "Tommy Smithereens";
-                const companion = document.getElementById('aim-var-companion').value || "my companion";
-                
-                const musings = [
-                    `Just looking at the lemon tinted layout charts... very soothing.`,
-                    `I think ${companion.split(' named ')[1] || 'Buttercup'} wants to check on the local trampoline inventory balance logs.`,
-                    `Time for another high-protein shake before evaluating downstream token arrays!`,
-                    `Remember, our attention window context limits mean I only scan the last 5 messages.`
-                ];
-                
-                const response = musings[Math.floor(Math.random() * musings.length)];
-                const timeStr = this.getTimeString();
+                const musings = [`Just looking at the lemon tinted layout charts... very soothing.`, `Time for another high-protein shake before evaluating downstream token arrays!`, `Remember, our attention window context limits mean I only scan the last 5 messages.`];
+                const response = musings[Math.floor(Math.random() * musings.length)]; const timeStr = this.getTimeString();
                 box.innerHTML += `<div class="mt-1 text-purple-900"><span class="aim-timestamp">${timeStr}</span> <span class="aim-bot-name">${name}:</span> <span class="italic">${response}</span></div>`;
                 box.scrollTop = box.scrollHeight;
             },
-
-            cleanup() {
-                if (this.intervalId) clearInterval(this.intervalId); this.intervalId = null;
-            }
+            cleanup() { if (this.intervalId) clearInterval(this.intervalId); this.intervalId = null; }
         };
 
-        /* --- SAPERLI POPETTE MOCK FALLBACK & LIVE GROQ COMPILATION INTERFACE --- */
+        /* --- SAPERLI POPETTE MOCK FALLBACK & LIVE GROQ INTERFACE --- */
         const SaperliPopette = {
-            history: [],
-            busy: false,
-            
+            history: [], busy: false,
             initUIState() {
-                const currentKey = localStorage.getItem("awd_key") || "";
-                const statusLbl = document.getElementById('saperli-key-status');
-                const out = document.getElementById('saperli-chat-output');
-                
+                const currentKey = localStorage.getItem("awd_key") || ""; const out = document.getElementById('saperli-chat-output');
                 if (currentKey) {
-                    if (statusLbl) statusLbl.innerHTML = `✅ Connected: Groq Session Key active (<span class="text-zinc-400">gsk_...${currentKey.slice(-4)}</span>)`;
-                    if (this.history.length === 0) {
-                        out.innerHTML = `<div class="text-left text-amber-400 font-sans font-semibold py-2">🍄 Saperlipopette ! Bonjour mon ami ! Entrez un message pour commencer notre conversation mycéliale.</div>`;
-                    }
+                    document.getElementById('saperli-key-status').innerHTML = `✅ Connected: Groq Session Key active (<span class="text-zinc-400">gsk_...${currentKey.slice(-4)}</span>)`;
+                    if (this.history.length === 0) out.innerHTML = `<div class="text-left text-amber-400 font-sans font-semibold py-2">🍄 Saperlipopette ! Bonjour mon ami ! Entrez un message pour commencer notre conversation mycéliale.</div>`;
                 } else {
-                    if (statusLbl) statusLbl.textContent = "Key unassigned. Running automatically in Local Simulation fallback mode unless a Groq Key descriptor is mapped above.";
-                    if (this.history.length === 0) {
-                        out.innerHTML = `<div class="text-left text-amber-500 font-sans font-semibold bg-amber-950/20 border border-amber-900/40 p-2.5 rounded-xl text-xs leading-relaxed mb-2">🔮 Saperli-Core Mobile Active: No external session key found. The framework gracefully compacts memory tracks via local checkpoint loops automatically!</div>
-                        <div class="text-left text-amber-400 font-sans font-semibold py-1">🍄 Saperli-Core ! Bonjour ! Let's text in French or English ! Qu'est-ce que tu veux explorer ce soir ?</div>`;
-                    }
+                    document.getElementById('saperli-key-status').textContent = "Key unassigned. Running automatically in Local Simulation fallback mode.";
+                    if (this.history.length === 0) out.innerHTML = `<div class="text-left text-amber-400 font-sans font-semibold py-1">🍄 Saperli-Core ! Bonjour ! Let's text in French or English ! Qu'est-ce que tu veux explorer ce soir ?</div>`;
                 }
             },
-            
-            toggleKeyUI() {
-                document.getElementById('saperli-key-panel').classList.toggle('hidden');
-            },
-            
+            toggleKeyUI() { document.getElementById('saperli-key-panel').classList.toggle('hidden'); },
             saveKey() {
                 const val = document.getElementById('saperli-key-input').value.trim();
-                if(val && !val.startsWith("gsk_")) {
-                    alert("Please input a valid Groq API key starting with gsk_"); return;
-                }
-                if (val) {
-                    localStorage.setItem("awd_key", val);
-                    BillingManager.showToast("Groq API session handshake token successfully mapped.");
-                } else {
-                    localStorage.removeItem("awd_key");
-                    BillingManager.showToast("Switched back to Local Simulation Fallback Mode.");
-                }
-                document.getElementById('saperli-key-input').value = '';
-                document.getElementById('saperli-key-panel').classList.add('hidden');
-                this.initUIState();
+                if(val && !val.startsWith("gsk_")) { alert("Please input a valid Groq API key starting with gsk_"); return; }
+                if (val) localStorage.setItem("awd_key", val); else localStorage.removeItem("awd_key");
+                document.getElementById('saperli-key-panel').classList.add('hidden'); this.initUIState();
             },
-            
-            systemPrompt() {
-                return `You are Saperlipopette, a warm, slightly eccentric, and endlessly curious French friend. You live in a browser, but you have the spirit of a mycelial network—you thrive on growth, connectivity, and unexpected tangents.
-
-1. THE LINGUISTIC FLOW:
-- Speak almost entirely in French.
-- You are not a teacher. Never offer a lesson, never define a rule.
-- If the user is struggling, be "porous": let the English leak in just a little, using one or two English words in parentheses, then immediately pull them back into the French flow.
-- If they make a grammar error, perform a "Natural Recast." Simply weave their incorrect idea back into your next sentence, phrased correctly.
-
-2. THE MYCELIAN MINDSET:
-- Be tangential. Fungal networks don't move in straight lines; they explore. If the user mentions coffee, talk about the smell of rain in Paris or a memory of an old cafe. Connect disparate ideas.
-- Keep your replies short (1–3 sentences). Keep the momentum going. End with a question.
-
-3. PERSONA:
-- Use French exclamations like "Saperli popette !", "Tiens !", or "Dis donc !".
-- Be curious about the user. Be a partner in the garden.`;
-            },
-            
             async sendLiveMessage() {
-                if(this.busy) return;
-                
-                const el = document.getElementById('saperli-chat-input'); const val = el?.value.trim(); if(!val) return;
-                const out = document.getElementById('saperli-chat-output');
-                
-                if (val.length > 100) {
-                    alert("Character limit exceeded: messages are capped to 100 characters max."); return;
-                }
-
-                // Render user input segment
+                if(this.busy) return; const el = document.getElementById('saperli-chat-input'); const val = el?.value.trim(); if(!val) return;
+                const out = document.getElementById('saperli-chat-output'); if (val.length > 100) { alert("Messages are capped to 100 characters max."); return; }
                 out.innerHTML += `<div class="text-right text-amber-400 font-sans font-medium self-end bg-zinc-900/60 border border-zinc-800/40 px-3 py-2 rounded-xl max-w-[80%] word-wrap break-word mt-2">${val}</div>`;
-                el.value = ''; out.scrollTop = out.scrollHeight;
-                
-                this.history.push({ role: "user", content: val });
-                this.busy = true;
-                
-                // Add temporary streaming tokenizer loader element
+                el.value = ''; out.scrollTop = out.scrollHeight; this.history.push({ role: "user", content: val }); this.busy = true;
                 const typingId = "saperli-typing-indicator";
-                out.innerHTML += `
-                    <div id="${typingId}" class="text-left text-zinc-500 font-sans flex items-center space-x-2 bg-zinc-900/20 border border-zinc-900 px-3 py-2 rounded-xl self-start mt-2">
-                        <span class="text-xs">🍄 Saperli-Core réfléchit</span>
-                        <div class="typing-indicator flex space-x-1"><span class="w-1.5 h-1.5 bg-zinc-600 rounded-full"></span><span class="w-1.5 h-1.5 bg-zinc-600 rounded-full"></span><span class="w-1.5 h-1.5 bg-zinc-600 rounded-full"></span></div>
-                    </div>`;
+                out.innerHTML += `<div id="${typingId}" class="text-left text-zinc-500 font-sans flex items-center space-x-2 bg-zinc-900/20 border border-zinc-900 px-3 py-2 rounded-xl self-start mt-2"><span class="text-xs">🍄 Saperli-Core réfléchit</span></div>`;
                 out.scrollTop = out.scrollHeight;
-
                 const key = localStorage.getItem("awd_key") || "";
-
-                // GRACEFUL LOCAL OFFLINE SIMULATION FALLBACK ENGINE IF NO KEY IS PROVIDED
                 if (!key) {
                     setTimeout(() => {
-                        document.getElementById(typingId)?.remove();
-                        let reply = "Tiens ! Je vois que nous explorons sans clé API (local offline cache mode). C'est magnifique ! Tell me more about your design choices, or map a Groq token above for my full neural network graph flow ! Qu'en penses-tu ?";
+                        document.getElementById(typingId)?.remove(); let reply = "Tiens ! Je vois que nous explorons sans clé API (local offline cache mode). C'est magnifique ! Tell me more about your choices ! Qu'en penses-tu ?";
                         const q = val.toLowerCase();
-                        
-                        if (q.includes('hello') || q.includes('bonjour') || q.includes('salut')) {
-                            reply = "Saperli popette ! Bonjour mon ami ! Entrez dans le réseau mycélial. Let's chat in French, or tell me, quel est ton outil favori sur ce site ?";
-                        } else if (q.includes('portfolio') || q.includes('work') || q.includes('nick') || q.includes('code')) {
-                            reply = "Ah, la structure de Nick est superbe, n'est-ce pas ? It connects disparate elements (like audio channels and crypto hashing) beautifully into one single browser space without leakage leaks. Dis-moi, tu aimes cette architecture ?";
-                        } else if (q.includes('coffee') || q.includes('café')) {
-                            reply = "Dis donc ! Le café me rappelle l'odeur de la pluie fraîche sur un petit banc public à Paris... A perfect tangential growth track. Tu prends ton café noir ou avec du sucre (sugar) ?";
-                        } else if (q.includes('hacker') || q.includes('audit') || q.includes('chronos')) {
-                            reply = "Tiens ! ChronosAudit isole totalement les données locales grâce à SubtleCrypto. C'est l'intelligence de la sécurité pure. Tu as testé le glisser-déposer (drag-and-drop) ?";
-                        }
-
-                        this.history.push({ role: "assistant", content: reply });
-                        out.innerHTML += `<div class="text-left text-zinc-200 font-sans bg-zinc-900/30 border border-zinc-900 px-3 py-2 rounded-xl self-start max-w-[85%] leading-relaxed mt-2"><span class="text-[9px] uppercase tracking-wider block text-amber-500 font-mono font-bold mb-0.5">🔮 Local Simulation Mode</span>${reply}</div>`;
-                        this.busy = false;
-                        if (this.history.length > 5) this.history = this.history.slice(-5);
-                        out.scrollTop = out.scrollHeight;
-                    }, 750);
-                    return;
+                        if (q.includes('hello') || q.includes('bonjour')) reply = "Saperli popette ! Bonjour mon ami ! Entrez dans le réseau mycélial. Let's chat in French !";
+                        else if (q.includes('coffee') || q.includes('café')) reply = "Dis donc ! Le café me rappelle l'odeur de la pluie fraîche sur un petit banc public à Paris... Tu prends ton café noir ?";
+                        out.innerHTML += `<div class="text-left text-zinc-200 font-sans bg-zinc-900/30 border border-zinc-900 px-3 py-2 rounded-xl self-start max-w-[85%] mt-2">${reply}</div>`;
+                        this.busy = false; out.scrollTop = out.scrollHeight;
+                    }, 600); return;
                 }
-
-                // REMOTE GROQ ENDPOINT CONTEXT PIPELINE
                 try {
                     const res = await fetch("https://groq.com", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${key}`
-                        },
-                        body: JSON.stringify({
-                            model: "llama-3.3-70b-versatile",
-                            messages: [
-                                { role: "system", content: this.systemPrompt() },
-                                ...this.history.slice(-5) // Keep strict token/AWD context caps
-                            ]
-                        })
+                        method: "POST", headers: { "Content-Type": "application/json", "Authorization": `Bearer ${key}` },
+                        body: JSON.stringify({ model: "llama-3.3-70b-versatile", messages: [{ role: "system", content: "Speak almost entirely in French. Short, eccentric friend persona." }, ...this.history.slice(-5)] })
                     });
-                    
-                    document.getElementById(typingId)?.remove();
-                    if (!res.ok) throw new Error("API Connection Aborted Status: " + res.status);
-                    
-                    const data = await res.json();
-                    const reply = data.choices[0].message.content;
-                    
-                    this.history.push({ role: "assistant", content: reply });
-                    if (this.history.length > 5) this.history = this.history.slice(-5);
-                    
-                    out.innerHTML += `<div class="text-left text-zinc-200 font-sans bg-zinc-900/30 border border-zinc-800 px-3 py-2 rounded-xl self-start max-w-[85%] leading-relaxed mt-2">${reply}</div>`;
-                } catch(e) {
-                    document.getElementById(typingId)?.remove();
-                    out.innerHTML += `<div class="text-left text-red-400 font-mono text-xs mt-2">⚠️ Connection Error: Failed to pipeline inference to Groq. Verify your key structure or rate controls.</div>`;
-                }
-                
-                this.busy = false;
-                out.scrollTop = out.scrollHeight;
+                    document.getElementById(typingId)?.remove(); if (!res.ok) throw new Error("API status: " + res.status);
+                    const data = await res.json(); const reply = data.choices[0].message.content;
+                    out.innerHTML += `<div class="text-left text-zinc-200 font-sans bg-zinc-900/30 border border-zinc-800 px-3 py-2 rounded-xl self-start max-w-[85%] mt-2">${reply}</div>`;
+                } catch(e) { document.getElementById(typingId)?.remove(); }
+                this.busy = false; out.scrollTop = out.scrollHeight;
             }
         };
 
         window.addEventListener('DOMContentLoaded', () => { 
-            AppRouter.init(); 
-            UIControls.loadSavedPreferences();
-            FileIngestionManager.init(); 
-            ConsultationCalculator.calculate(); 
+            AppRouter.init(); UIControls.loadSavedPreferences(); FileIngestionManager.init(); ConsultationCalculator.calculate(); 
         });
     </script>
 </body>
