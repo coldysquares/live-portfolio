@@ -16,7 +16,7 @@ def replace_once(old: str, new: str, label: str) -> None:
 
 def sub_once(pattern: str, repl: str, label: str, flags: int = re.S) -> None:
     global text
-    updated, count = re.subn(pattern, repl, text, count=1, flags=flags)
+    updated, count = re.subn(pattern, lambda _match: repl, text, count=1, flags=flags)
     if count != 1:
         raise RuntimeError(f'Expected one regex match for {label}; got {count}')
     text = updated
