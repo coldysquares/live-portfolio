@@ -57,7 +57,6 @@ copy_changes = {
     '>Arpeggiator</span>': '>Audio / synth</span>',
     'FFT Frequency Graph': 'Spectrum',
     'Biquad Cutoff:': 'Low-pass cutoff:',
-    '>Export WAV</button>\n                        </div>\n\n                    </div>\n                </div>\n            </div>\n        </div>\n\n        <!-- VIEW 3': '>Render WAV</button>\n                        </div>\n\n                    </div>\n                </div>\n            </div>\n        </div>\n\n        <!-- VIEW 3',
     'Agent Identity Name': 'Agent name',
     'Core Profession Profile': 'Role or profession',
     'Behavior Quirks &amp; Traits': 'Behavior notes',
@@ -68,6 +67,12 @@ copy_changes = {
 }
 for old, new in copy_changes.items():
     replace_once(old, new, f'copy polish: {old[:38]}')
+
+replace_once(
+    '''<button onclick="AudioStemMixer.runPipelineStep('flush')" class="btn-sub" style="font-size: 10px; padding: 4px 8px; margin-top: auto; align-self: flex-start;">Export WAV</button>''',
+    '''<button onclick="AudioStemMixer.runPipelineStep('flush')" class="btn-sub" style="font-size: 10px; padding: 4px 8px; margin-top: auto; align-self: flex-start;">Render WAV</button>''',
+    'distinguish secondary WAV action',
+)
 
 # The mixer toggle stops and restarts sources; call that action what it does.
 replace_once(
