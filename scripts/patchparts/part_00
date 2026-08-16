@@ -36,9 +36,9 @@ replace_once(
     '    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">',
     'remove broken blocking CDN and add metadata',
 )
-replace_once(
-    "        @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');\n",
-    '',
+sub_once(
+    r"\s*@import url\('https://fonts\.googleapis\.com/css2\?family=.*?display=swap'\);\s*",
+    "\n",
     'remove render-blocking CSS import',
 )
 
