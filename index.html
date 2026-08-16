@@ -1,3 +1,5 @@
+# Nick Berghane — Personal Production Portfolio &amp; ChronosAudit Workspace
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +18,7 @@
             --color-accent-indigo: #818cf8;
             --radius-component: 0.75rem;
         }
+
 
         body {
             font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
@@ -36,6 +39,7 @@
             border-bottom: 1px solid var(--color-border-line); 
         }
 
+
         .premium-card {
             background-color: var(--color-surface-card); 
             border: 1px solid var(--color-border-line);
@@ -55,6 +59,7 @@
         
         .horizontal-scroller-deck { 
             display: flex; overflow-x: auto; gap: 1rem; padding-bottom: 0.5rem; 
+
             scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.1) transparent; 
         }
 
@@ -74,6 +79,7 @@
         .chat-scroll-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
 
         .typing-indicator span {
+
             width: 6px; height: 6px; background-color: #6366f1; border-radius: 50%; display: inline-block;
             animation: bounceDots 1.4s infinite both;
         }
@@ -93,6 +99,7 @@
         }
         .aim-timestamp { color: #0000ff; font-weight: bold; }
         .aim-bot-name { color: #ff0000; font-weight: bold; }
+
         .aim-user-name { color: #0000ff; font-weight: bold; }
     </style>
 </head>
@@ -112,6 +119,7 @@
             </div>
             
             <nav class="hidden md:flex space-x-1.5 items-center text-[11px] font-bold uppercase tracking-wider font-mono" id="global-nav-links">
+
                 <button onclick="AppRouter.navigate('home')" id="nav-home" class="px-3.5 py-2 rounded-md transition-all">ChronosAudit</button>
                 <button onclick="AppRouter.navigate('mixer')" id="nav-mixer" class="px-3.5 py-2 rounded-md transition-all">Audio Studio</button>
                 <button onclick="AppRouter.navigate('playgrounds')" id="nav-playgrounds" class="px-3.5 py-2 rounded-md transition-all">AI Playgrounds</button>
@@ -131,6 +139,7 @@
             <div class="flex justify-between items-center border-b border-zinc-900 pb-3">
                 <div>
                     <h3 class="heading-font text-lg text-zinc-100">Project Scoping Calculator</h3>
+
                     <p class="text-xs text-zinc-500 mt-0.5">Select features to dynamically generate an architecture brief and investment scope statement.</p>
                 </div>
                 <button onclick="UIControls.closeModal('modal-consultation')" class="text-zinc-500 hover:text-zinc-300">✕</button>
@@ -150,6 +159,7 @@
                             <input type="checkbox" id="chk-wasm" onchange="ConsultationCalculator.calculate()" class="rounded border-zinc-800 bg-zinc-950 text-indigo-600 focus:ring-0 w-4 h-4">
                             <span class="font-sans font-medium text-zinc-200">Wasm / Local AI Inference Sandbox</span>
                         </div>
+
                         <span class="text-zinc-500">+$2,500 // +6 Days</span>
                     </label>
                     <label class="flex items-center justify-between bg-zinc-900/40 p-3.5 rounded-xl border border-zinc-800/60 cursor-pointer select-none hover:border-zinc-700/60 transition-colors">
@@ -169,6 +179,7 @@
                             <option value="1.4">Accelerated Sprint Timeline Matrix (1.4x)</option>
                         </select>
                     </div>
+
                     <div class="bg-zinc-900/40 border border-zinc-800/60 p-4 rounded-xl flex flex-col justify-center text-zinc-400 space-y-1">
                         <div class="font-sans">Estimated Investment: <span id="lbl-calc-budget" class="text-indigo-400 font-mono font-bold">$25,000</span></div>
                         <div class="font-sans">Production Timeline: <span id="lbl-calc-days" class="text-emerald-400 font-mono font-bold">30 Days</span></div>
@@ -188,6 +199,7 @@
             <div class="w-12 h-12 bg-red-950/40 border border-red-500/30 text-red-400 flex items-center justify-center text-xl rounded-xl mx-auto">⚠️</div>
             <div class="space-y-1">
                 <h3 class="heading-font text-lg text-zinc-100">Sandbox Processing Limits Reached</h3>
+
                 <p class="text-xs text-zinc-400 max-w-xs mx-auto leading-relaxed">Upgrade to process unlimited batch folders locally. Local memory footprints require explicit allocation space handles.</p>
             </div>
             <div class="bg-zinc-900/50 p-3.5 border border-zinc-800 font-mono text-[11px] text-zinc-500 rounded-xl">
@@ -207,6 +219,7 @@
             <div class="w-12 h-12 bg-indigo-950 border border-indigo-500/30 text-indigo-400 flex items-center justify-center text-xl rounded-xl mx-auto">💎</div>
             <div class="space-y-1">
                 <h3 class="heading-font text-lg text-zinc-100">Premium Artifact Export</h3>
+
                 <p class="text-xs text-zinc-400 max-w-xs mx-auto leading-relaxed">Unlock instant download handles, master WAV stem packages, and signed verification manifests for a flat asset generation fee.</p>
             </div>
             <button onclick="BillingManager.paySingleFee()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-mono text-xs font-bold uppercase py-3 rounded-lg transition-all shadow-md shadow-indigo-600/10">Unlock Asset Generation Manifest ($19)</button>
@@ -226,6 +239,7 @@
                 <p class="text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed font-medium">
                     A specialized developer workspace designed to demonstrate client-side timeline extraction. Ingest messy file structures natively to check metadata integrity without data leaks, server pipelines, or API dependencies.
                 </p>
+
             </div>
 
             <!-- Core Lead Generator Try-Out Sandbox Area Grid -->
@@ -245,6 +259,7 @@
                         <svg class="w-8 h-8 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                         <div class="text-xs text-zinc-400">Drag &amp; drop file packages here or click to <span class="text-indigo-400 font-bold underline">browse folders</span></div>
                         <input type="file" id="file-input" multiple class="hidden">
+
                     </div>
 
                     <!-- Local Hash Output Data Table Register -->
@@ -264,6 +279,7 @@
                             <tbody id="crypto-table-body" class="text-zinc-400">
                                 <tr id="crypto-empty-row"><td colspan="3" class="py-4 text-center text-zinc-600 italic font-sans font-medium">No files parsed yet. Import data packets above to compile instant device token fingerprints locally.</td></tr>
                             </tbody>
+
                         </table>
                     </div>
                 </div>
@@ -283,6 +299,7 @@
                                     <option value="triangle">Triangle Wave (Deep Sub-Bass Pitch Element)</option>
                                     <option value="sawtooth">Sawtooth Wave (Harmonic Data Signal Stream)</option>
                                     <option value="square">Square Wave (High-Frequency Clipping Simulator)</option>
+
                                 </select>
                             </div>
                             <div class="space-y-1.5">
@@ -302,6 +319,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
         <!-- VIEW 2: DISSOCIATED MULTI-TRACK AUDIO MATRIX DISCOVERED DEEPER IN -->
@@ -320,6 +338,7 @@
                     </div>
                     <button id="btn-mixer-master-toggle" onclick="AudioStemMixer.togglePlayback()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs uppercase tracking-wider px-4 py-2.5 font-bold rounded-lg transition-all">Initialize Sound Workstation</button>
                 </div>
+
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <!-- Vocals/Track 1 Track -->
@@ -340,6 +359,7 @@
                             <button onclick="AudioStemMixer.toggleSolo('bass', this)" class="bg-zinc-900 border border-zinc-800 py-1 rounded-md text-zinc-400 hover:text-zinc-200 transition-colors">Solo</button>
                         </div>
                     </div>
+
                     <!-- Drums/Track 3 Track -->
                     <div class="bg-zinc-950 p-4 border border-zinc-900 rounded-xl space-y-3">
                         <div class="flex justify-between items-center text-xs font-mono font-bold"><span class="text-zinc-300">03 // TRACK C</span><span class="text-[10px] text-zinc-600">Noise Mod</span></div>
@@ -360,6 +380,7 @@
                     </div>
                 </div>
 
+
                 <div class="pt-4 border-t border-zinc-900 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div id="mixer-playback-status" class="text-xs font-mono text-zinc-500">Audio workstation channels compiled. Trigger layout switches to test execution arrays.</div>
                     <button onclick="BillingManager.interceptExport('Master Audio WAV Stems Bundle')" class="bg-indigo-600 hover:bg-indigo-500 text-white font-mono text-xs uppercase px-4 py-2.5 font-bold rounded-lg transition-all shrink-0">Download Master WAV Stems</button>
@@ -379,6 +400,7 @@
                         <button onclick="AudioControls.playSoundboard('drill')" class="w-full bg-zinc-950 border border-zinc-800 hover:bg-zinc-800 text-xs py-1.5 font-mono rounded-md text-zinc-400 font-medium">🔊 Click</button>
                     </div>
                     <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl min-w-[160px] text-center space-y-2 shrink-0">
+
                         <span class="text-xs font-mono text-zinc-200 block font-bold">Square Filter // Chopper</span>
                         <button onclick="AudioControls.playSoundboard('chopper')" class="w-full bg-zinc-950 border border-zinc-800 hover:bg-zinc-800 text-xs py-1.5 font-mono rounded-md text-zinc-400 font-medium">🔊 Click</button>
                     </div>
@@ -393,11 +415,12 @@
         <!-- VIEW 3: INTERACTIVE LAB PLAYGROUNDS (CUSTOM PROMPT VARIABLE COMPILER & AIM CHAT FEED SANDBOX) -->
         <div id="page-playgrounds" class="view-page hidden space-y-12 max-w-6xl mx-auto">
             <div class="border-b border-zinc-900 pb-3 text-center md:text-left">
-                <h2 class="heading-font text-2xl text-zinc-100">Variable Prompt Compiler &amp; AIM Chat Feed</h2>
-                <p class="text-xs text-zinc-400 mt-0.5">Input custom trait parameters to construct system directive templates, feeding a real-time conversational AIM matrix feed simulation.</p>
+                <h2 class="heading-font text-2xl text-zinc-100">AI Intelligence Sandboxes</h2>
+                <p class="text-xs text-zinc-400 mt-0.5">Explore serverless local parameter simulation tools alongside live API-connected LLM experiences.</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
                 
                 <!-- PLAYGROUND LEFT PANEL: Free-Form Variable Prompter Settings Deck -->
                 <div class="lg:col-span-5 premium-card p-5 space-y-4">
@@ -417,6 +440,7 @@
                         </div>
                         <div class="space-y-1.5">
                             <label class="block text-[10px] text-zinc-400 uppercase font-bold tracking-wider">Goofy Habits &amp; Fluid Quirks</label>
+
                             <textarea id="aim-var-quirks" rows="2" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-2.5 text-zinc-200 outline-none focus:border-indigo-500 font-sans" onchange="AIMChatAgent.compilePrompt()">usually a little goofy. Only drinks strawberry milk or protein shakes. Favorite color is lemon.</textarea>
                         </div>
                         <div class="space-y-1.5">
@@ -436,6 +460,7 @@
                     <div class="border-b border-zinc-800 pb-2 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                         <div>
                             <h3 class="heading-font text-base text-zinc-200">AIM Instant Message Feed Panel</h3>
+
                             <p class="text-[11px] text-zinc-500 font-sans">Simulates retro conversation matrices with live interactive text evaluation hooks.</p>
                         </div>
                         <div class="flex gap-2">
@@ -455,6 +480,7 @@
                             <input type="text" id="aim-user-input" maxlength="100" placeholder="Type message to transmit into the AIM matrix stream..." class="flex-grow p-3 text-xs bg-zinc-950 border border-zinc-800 rounded-lg outline-none text-zinc-100 focus:border-indigo-500 font-sans font-medium" oninput="AIMChatAgent.updateCharCount(this.value)" onkeydown="if(event.key==='Enter') AIMChatAgent.sendUserMessage()">
                             <button onclick="AIMChatAgent.sendUserMessage()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs uppercase px-5 h-[42px] rounded-lg transition-all shrink-0">Send IM</button>
                         </div>
+
                         
                         <div class="flex flex-col sm:flex-row justify-between text-[10px] font-mono text-zinc-500 gap-1">
                             <div class="flex items-center gap-1.5">
@@ -474,6 +500,7 @@
                     <div class="flex items-center space-x-2.5">
                         <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-700 flex items-center justify-center text-base shadow-md">🍄</div>
                         <div>
+
                             <h3 class="heading-font text-lg text-zinc-100 leading-tight">Saperli Popette Workspace</h3>
                             <p class="text-xs text-zinc-500 font-sans">Mycelian French Conversation Module with Automatic Intelligent Fallback Engine</p>
                         </div>
@@ -493,6 +520,7 @@
 
                 <!-- Live Conversation Thread Window Screen -->
                 <div id="saperli-chat-output" class="bg-zinc-950 border border-zinc-900 p-4 h-52 overflow-y-auto text-sm space-y-3.5 rounded-xl chat-scroll-area flex flex-col">
+
                     <!-- Default state loaded programmatically via initUIState arrays -->
                 </div>
 
@@ -512,6 +540,7 @@
                         <h2 class="heading-font text-xl text-zinc-100">Dynamic 2D Physics Evidence Graph</h2>
                         <p class="text-xs text-zinc-500 mt-0.5">Real-time HTML5 canvas simulation plotting document records as interactive coordinate physics nodes.</p>
                     </div>
+
                     <div class="flex items-center space-x-4 shrink-0 text-xs font-mono text-zinc-400">
                         <div class="space-y-1">
                             <label class="block text-[10px] text-zinc-500 uppercase font-bold font-sans">Node Density</label>
@@ -530,6 +559,7 @@
                 </div>
             </div>
         </div>
+
 
         <!-- VIEW 5: ABOUT NICK BERGHANE — DESIGN BLUEPRINT PORTFOLIO DECK CASE STUDY -->
         <div id="page-about" class="view-page hidden max-w-5xl mx-auto">
@@ -550,6 +580,7 @@
                         <div class="premium-card p-5 space-y-2">
                             <h4 class="heading-font text-base text-zinc-200 flex justify-between"><span>🧩 Encapsulated Object Module Scopes</span><span class="text-[10px] font-mono text-indigo-400 uppercase font-bold">Design Patterns</span></h4>
                             <p class="text-xs text-zinc-400 leading-relaxed">Bundles separate navigation layers, particle step calculations, and audio node frequencies into private namespace matrices (`AppRouter`, `AudioStemMixer`, `PhysicsNodeGraph`), completely eliminating window namespace pollution.</p>
+
                         </div>
                         <div class="premium-card p-5 space-y-2">
                             <h4 class="heading-font text-base text-zinc-200 flex justify-between"><span>📊 Persistent Storage Sandboxes</span><span class="text-[10px] font-mono text-indigo-400 uppercase font-bold">Local Caching</span></h4>
@@ -568,6 +599,7 @@
                         </div>
                         <p class="text-xs text-zinc-400 leading-relaxed px-2 font-normal">Technical engineer crafting fast web application interfaces, single-file deployment modules, and fully secure browser execution tools.</p>
                     </div>
+
 
                     <!-- Relational Scaling Blueprint Roadmap -->
                     <div class="premium-card p-5 space-y-3 bg-zinc-900/20">
@@ -589,6 +621,7 @@
 
     </main>
 
+
     <!-- Technical Layout Footer -->
     <footer class="border-t border-zinc-900 bg-zinc-950/40 py-6 text-center text-[11px] text-zinc-600 font-mono uppercase tracking-widest">
         Nick Berghane Portfolio &copy; 2026 — Secure Client Isolation Monitored.
@@ -608,6 +641,7 @@
                     this.showToast(`Success: Export package compiled for [${artifactName}]`);
                 } else {
                     UIControls.showModal('modal-premium-export');
+
                 }
             },
             upgradeTier(label) {
@@ -627,6 +661,7 @@
                 setTimeout(() => { toast.classList.add('hidden'); }, 3500);
             }
         };
+
 
         const AppRouter = {
             defaultTab: 'home',
@@ -648,6 +683,7 @@
                 PhysicsNodeGraph.cleanup();
                 AIMChatAgent.cleanup();
 
+
                 document.querySelectorAll('.view-page').forEach(p => p.classList.add('hidden'));
                 targetPage.classList.remove('hidden');
                 
@@ -667,6 +703,7 @@
         const UIControls = {
             updateFrequencyLabel(v) {
                 document.getElementById('lbl-frequency').textContent = `${v}Hz`;
+
                 if (AudioManager.isPlaying) AudioManager.startPreview();
             },
             toggleAudio() {
@@ -686,6 +723,7 @@
                 if (localStorage.getItem('nick_portfolio_audio-frequency')) {
                     const freq = localStorage.getItem('nick_portfolio_audio-frequency');
                     document.getElementById('audio-freq-slider').value = freq;
+
                     document.getElementById('lbl-frequency').textContent = `${freq}Hz`;
                 }
                 if (localStorage.getItem('nick_portfolio_slider-density')) {
@@ -704,6 +742,7 @@
                 if (localStorage.getItem('nick_portfolio_aim-profession')) document.getElementById('aim-var-profession').value = localStorage.getItem('nick_portfolio_aim-profession');
                 if (localStorage.getItem('nick_portfolio_aim-quirks')) document.getElementById('aim-var-quirks').value = localStorage.getItem('nick_portfolio_aim-quirks');
                 if (localStorage.getItem('nick_portfolio_aim-companion')) document.getElementById('aim-var-companion').value = localStorage.getItem('nick_portfolio_aim-companion');
+
 
                 ['vocals', 'bass', 'drums', 'synths'].forEach(track => {
                     if (localStorage.getItem(`nick_portfolio_mixer-vol-${track}`)) {
@@ -724,6 +763,7 @@
                 const factor = parseFloat(document.getElementById('select-speed')?.value || 1.0) || 1.0;
                 document.getElementById('lbl-calc-budget').textContent = `$` + (cost * factor).toLocaleString();
                 document.getElementById('lbl-calc-days').textContent = `${Math.round(days * (factor === 1.4 ? 0.75 : 1.0))} Days`;
+
             },
             handleExport(e) {
                 e.preventDefault();
@@ -743,6 +783,7 @@
                 if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
                 this.stopAll(); if (this.ctx.state === 'suspended') this.ctx.resume();
                 const waveType = document.getElementById('audio-waveform').value;
+
                 const freqVal = parseFloat(document.getElementById('audio-freq-slider').value) || 440;
                 
                 this.osc = this.ctx.createOscillator(); this.gain = this.ctx.createGain();
@@ -761,6 +802,7 @@
                 document.getElementById('btn-audio-toggle').textContent = "Activate Generator Preview";
             }
         };
+
 
         /* --- 4-CHANNEL SYNTH MULTI-TRACK AUDIO MATRIX --- */
         const AudioStemMixer = {
@@ -781,6 +823,7 @@
                     t.gainNode.gain.setValueAtTime(t.vol, this.ctx.currentTime); t.gainNode.connect(this.masterGain);
                 });
             },
+
             togglePlayback() {
                 this.init(); const btn = document.getElementById('btn-mixer-master-toggle'); const statusLbl = document.getElementById('mixer-playback-status');
                 if (this.active) {
@@ -800,6 +843,7 @@
                     t.oscNode.connect(t.gainNode); t.oscNode.start();
                 });
             },
+
             stopOscillators() {
                 Object.keys(this.tracks).forEach(k => {
                     const t = this.tracks[k]; if (t.oscNode) { try{t.oscNode.stop();}catch(e){} t.oscNode.disconnect(); t.oscNode = null; }
@@ -819,6 +863,7 @@
                 if (!AudioStemMixer.ctx) AudioStemMixer.init();
                 const ctx = AudioStemMixer.ctx; if (ctx.state === 'suspended') ctx.resume();
                 let osc = ctx.createOscillator(); let gain = ctx.createGain(); osc.connect(gain); gain.connect(ctx.destination);
+
                 if (type === 'ledger') { osc.frequency.setValueAtTime(880, ctx.currentTime); gain.gain.setValueAtTime(0.04, ctx.currentTime); osc.start(); osc.stop(ctx.currentTime + 0.1); }
                 else if (type === 'drill') { osc.type = 'sawtooth'; osc.frequency.setValueAtTime(55, ctx.currentTime); gain.gain.setValueAtTime(0.12, ctx.currentTime); osc.start(); osc.stop(ctx.currentTime + 0.3); }
                 else if (type === 'chopper') { osc.type = 'square'; osc.frequency.value = 35; gain.gain.setValueAtTime(0.08, ctx.currentTime); osc.start(); osc.stop(ctx.currentTime + 0.45); }
@@ -826,7 +871,7 @@
             }
         };
 
-        /* --- 2D CANVAS INTERACTIVE PHYSICS LAYOUT NODE GRAPH SIMULATOR --- */
+        /* --- 2D CANVAS PHYSICS INTERACTIVE NODE GRAPH SIMULATOR --- */
         const PhysicsNodeGraph = {
             canvas: null, ctx: null, nodes: [], links: [], rafId: null, density: 25, tension: 4,
             init() {
@@ -838,6 +883,7 @@
             updateDensity(v) { this.density = parseInt(v, 10) || 25; this.build(); },
             updateTension(v) { this.tension = parseInt(v, 10) || 4; },
             build() {
+
                 this.nodes = []; this.links = [];
                 const w = this.canvas ? this.canvas.width : 700; const h = this.canvas ? this.canvas.height : 320;
                 for (let i = 0; i < this.density; i++) {
@@ -857,6 +903,7 @@
                         const dx = l.to.x - l.from.x; const dy = l.to.y - l.from.y;
                         l.from.vx += dx * k; l.from.vy += dy * k; l.to.vx -= dx * k; l.to.vy -= dy * k;
                         this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)'; this.ctx.lineWidth = 1;
+
                         this.ctx.beginPath(); this.ctx.moveTo(l.from.x, l.from.y); this.ctx.lineTo(l.to.x, l.to.y); this.ctx.stroke();
                     });
                     this.nodes.forEach(n => {
@@ -876,6 +923,7 @@
             db: null,
             init() {
                 const dz = document.getElementById('drop-zone'); const fi = document.getElementById('file-input'); if(!dz || !fi) return;
+
                 dz.addEventListener('click', () => fi.click());
                 dz.addEventListener('dragover', (e) => { e.preventDefault(); dz.classList.add('bg-zinc-800/10'); });
                 dz.addEventListener('dragleave', () => dz.classList.remove('bg-zinc-800/10'));
@@ -895,6 +943,7 @@
                 request.onsuccess = (e) => {
                     this.db = e.target.result;
                     this.loadSavedRecords();
+
                 };
             },
             loadSavedRecords() {
@@ -914,6 +963,7 @@
             },
             async process(files) {
                 let incomingTotalBytes = 0; for(let i=0; i<files.length; i++) incomingTotalBytes += files[i].size;
+
                 if (!AppState.isPremium && (AppState.uploadedFiles.length + files.length >= 4 || AppState.getTotalSize() + incomingTotalBytes > 50 * 1024 * 1024)) {
                     UIControls.showModal('modal-usage-gate'); return;
                 }
@@ -933,6 +983,7 @@
                 store.add(record);
             },
             clearAllRecords() {
+
                 if (!this.db) return;
                 const transaction = this.db.transaction(['hashes'], 'readwrite');
                 const store = transaction.objectStore('hashes');
@@ -952,6 +1003,7 @@
             renderTable() {
                 const tbody = document.getElementById('crypto-table-body'); if(!tbody) return;
                 if (AppState.uploadedFiles.length === 0) {
+
                     tbody.innerHTML = `<tr id="crypto-empty-row"><td colspan="3" class="py-4 text-center text-zinc-600 italic font-sans font-medium">No files parsed yet. Import data packets above to compile instant device token fingerprints locally.</td></tr>`;
                     return;
                 }
@@ -971,6 +1023,7 @@
             isPaused: false,
             intervalId: null,
             profanityList: ['fuck', 'shit', 'bitch', 'asshole', 'crap'],
+
 
             init() {
                 this.compilePrompt();
@@ -992,6 +1045,7 @@
                 const quirks = document.getElementById('aim-var-quirks').value || "goofy";
                 const companion = document.getElementById('aim-var-companion').value || "none";
 
+
                 return `- Maintain one consistent identity and feminine grammatical voice. You are '${name}'.\n\nWhat is true about you:\n- You are a ${profession}.\n- You are ${quirks}.\n- You have ${companion}.`;
             },
 
@@ -1011,6 +1065,7 @@
                 this.isPaused = !this.isPaused;
                 document.getElementById('btn-aim-pause').textContent = this.isPaused ? "▶ Resume Musings" : "⏸ Pause Musings";
                 BillingManager.showToast(this.isPaused ? "Ambient agent pings paused." : "Ambient agent simulation resumed.");
+
             },
 
             clearFeed() {
@@ -1030,6 +1085,7 @@
             filterProfanity(str) {
                 let text = str;
                 this.profanityList.forEach(word => {
+
                     const regex = new RegExp(word, 'gi');
                     text = text.replace(regex, "****");
                 });
@@ -1050,6 +1106,7 @@
                     alert("Message validation failed: string exceeds 100 character restriction boundaries."); return;
                 }
 
+
                 // Profanity filter deployment macro mapping
                 cleanText = this.filterProfanity(cleanText);
 
@@ -1068,6 +1125,7 @@
                 // Emulate client-side evaluation delay
                 setTimeout(() => { this.generateBotResponse(cleanText); }, 400);
             },
+
 
             generateBotResponse(query) {
                 const box = document.getElementById('aim-message-box'); if (!box) return;
@@ -1088,6 +1146,7 @@
                     response = `My favorite color is lemon! It makes every high-contrast component outline on my panel look absolutely crisp.`;
                 } else if (q.includes('portfolio') || q.includes('code')) {
                     response = `Nick Berghane's code manages our conversation context inside standard LocalStorage strings and array slice structures beautifully, doesn't it?`;
+
                 }
 
                 const timeStr = this.getTimeString();
@@ -1107,6 +1166,7 @@
                     `Just looking at the lemon tinted layout charts... very soothing.`,
                     `I think ${companion.split(' named ')[1] || 'Buttercup'} wants to check on the local trampoline inventory balance logs.`,
                     `Time for another high-protein shake before evaluating downstream token arrays!`,
+
                     `Remember, our attention window context limits mean I only scan the last 5 messages.`
                 ];
                 
@@ -1126,6 +1186,7 @@
             history: [],
             busy: false,
             
+
             initUIState() {
                 const currentKey = localStorage.getItem("awd_key") || "";
                 const statusLbl = document.getElementById('saperli-key-status');
@@ -1145,6 +1206,7 @@
                 }
             },
             
+
             toggleKeyUI() {
                 document.getElementById('saperli-key-panel').classList.toggle('hidden');
             },
@@ -1164,25 +1226,24 @@
                 document.getElementById('saperli-key-input').value = '';
                 document.getElementById('saperli-key-panel').classList.add('hidden');
                 this.initUIState();
+
             },
             
             systemPrompt() {
                 return `You are Saperlipopette, a warm, slightly eccentric, and endlessly curious French friend. You live in a browser, but you have the spirit of a mycelial network—you thrive on growth, connectivity, and unexpected tangents.
-
 1. THE LINGUISTIC FLOW:
 - Speak almost entirely in French.
 - You are not a teacher. Never offer a lesson, never define a rule.
 - If the user is struggling, be "porous": let the English leak in just a little, using one or two English words in parentheses, then immediately pull them back into the French flow.
 - If they make a grammar error, perform a "Natural Recast." Simply weave their incorrect idea back into your next sentence, phrased correctly.
-
 2. THE MYCELIAN MINDSET:
 - Be tangential. Fungal networks don't move in straight lines; they explore. If the user mentions coffee, talk about the smell of rain in Paris or a memory of an old cafe. Connect disparate ideas.
 - Keep your replies short (1–3 sentences). Keep the momentum going. End with a question.
-
 3. PERSONA:
 - Use French exclamations like "Saperli popette !", "Tiens !", or "Dis donc !".
 - Be curious about the user. Be a partner in the garden.`;
             },
+
             
             async sendLiveMessage() {
                 if(this.busy) return;
@@ -1202,6 +1263,7 @@
                 this.busy = true;
                 
                 // Add temporary streaming tokenizer loader element
+
                 const typingId = "saperli-typing-indicator";
                 out.innerHTML += `
                     <div id="${typingId}" class="text-left text-zinc-500 font-sans flex items-center space-x-2 bg-zinc-900/20 border border-zinc-900 px-3 py-2 rounded-xl self-start mt-2">
@@ -1221,6 +1283,7 @@
                         
                         if (q.includes('hello') || q.includes('bonjour') || q.includes('salut')) {
                             reply = "Saperli popette ! Bonjour mon ami ! Entrez dans le réseau mycélial. Let's chat in French, or tell me, quel est ton outil favori sur ce site ?";
+
                         } else if (q.includes('portfolio') || q.includes('work') || q.includes('nick') || q.includes('code')) {
                             reply = "Ah, la structure de Nick est superbe, n'est-ce pas ? It connects disparate elements (like audio channels and crypto hashing) beautifully into one single browser space without leakage leaks. Dis-moi, tu aimes cette architecture ?";
                         } else if (q.includes('coffee') || q.includes('café')) {
@@ -1240,6 +1303,7 @@
 
                 // REMOTE GROQ ENDPOINT CONTEXT PIPELINE
                 try {
+
                     const res = await fetch("https://groq.com", {
                         method: "POST",
                         headers: {
@@ -1259,6 +1323,7 @@
                     if (!res.ok) throw new Error("API Connection Aborted Status: " + res.status);
                     
                     const data = await res.json();
+
                     const reply = data.choices[0].message.content;
                     
                     this.history.push({ role: "assistant", content: reply });
@@ -1278,9 +1343,12 @@
         window.addEventListener('DOMContentLoaded', () => { 
             AppRouter.init(); 
             UIControls.loadSavedPreferences();
+
             FileIngestionManager.init(); 
             ConsultationCalculator.calculate(); 
         });
     </script>
 </body>
 </html>
+
+
