@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nick Berghane — Portfolio &amp; ChronosAudit Workspace</title>
+    <!-- Supabase JS Client CDN Library for Real-Time Full-Stack Persistence -->
+    <script src="https://jsdelivr.net"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght=700;800&family=JetBrains+Mono:wght=400;500;700&family=Plus+Jakarta+Sans:wght=400;500;600;700&display=swap');
 
@@ -15,8 +17,8 @@
             --color-accent-indigo: #818cf8;
             --color-accent-emerald: #10b981;
             --radius-component: 0.75rem;
+            --font-display-md: clamp(1.75rem, 3vw + 1rem, 2.75rem);
         }
-
 
         * {
             box-sizing: border-box;
@@ -37,8 +39,7 @@
         .heading-font { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; letter-spacing: -0.03em; color: #f4f4f5; }
         .mono-font { font-family: 'JetBrains Mono', monospace; }
 
-
-        /* Custom Pure CSS Layout Flex/Grid Classes to Eliminate Tailwind Production Warnings */
+        /* Structural Pure CSS Layout Utilities */
         .wrapper-layout {
             width: 100%;
             max-width: 80rem;
@@ -57,14 +58,6 @@
             backdrop-filter: blur(16px); 
             -webkit-backdrop-filter: blur(16px); 
             border-bottom: 1px solid var(--color-border-line); 
-
-        }
-
-        .nav-container {
-            display: flex;
-            width: 100%;
-            justify-content: justify-between;
-            align-items: center;
         }
 
         .premium-card {
@@ -77,7 +70,6 @@
         .premium-card:hover { 
             transform: translateY(-2px); 
             border-color: rgba(129, 140, 248, 0.25); 
-
         }
 
         .lab-console-panel { 
@@ -86,18 +78,12 @@
             border-radius: var(--radius-component); 
             padding: 1.25rem;
         }
-        
-        .horizontal-scroller-deck { 
-            display: flex; overflow-x: auto; gap: 1rem; padding-bottom: 0.5rem; 
-            scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.1) transparent; 
-        }
 
         .eq-bar { display: inline-block; inline-size: 4px; block-size: 12px; background-color: var(--color-accent-indigo); margin-inline-end: 3px; transition: block-size 0.12s ease; }
         .playing .eq-bar:nth-child(1) { animation: bounceEq 0.5s ease-in-out infinite alternate; }
         .playing .eq-bar:nth-child(2) { animation: bounceEq 0.8s ease-in-out infinite alternate 0.1s; }
         .playing .eq-bar:nth-child(3) { animation: bounceEq 0.6s ease-in-out infinite alternate 0.2s; }
         .playing .eq-bar:nth-child(4) { animation: bounceEq 0.7s ease-in-out infinite alternate 0.3s; }
-
         .playing .eq-bar:nth-child(5) { animation: bounceEq 0.4s ease-in-out infinite alternate 0.15s; }
         @keyframes bounceEq { 0% { block-size: 4px; } 100% { block-size: 24px; } }
 
@@ -105,25 +91,14 @@
         input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; inline-size: 14px; block-size: 14px; background: #6366f1; border-radius: 9999px; cursor: pointer; transition: transform 0.1s ease; }
         input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.2); }
 
-        .chat-scroll-area::-webkit-scrollbar { width: 4px; }
-        .chat-scroll-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
-
-        .typing-indicator span {
-            width: 6px; height: 6px; background-color: #6366f1; border-radius: 50%; display: inline-block;
-            animation: bounceDots 1.4s infinite both;
-        }
-
-        /* AIM Style Specific UI Overrides for Chatbox Functionality */
+        /* AIM Style Chatbox View Mechanics */
         .aim-feed {
             background-color: #ffffff;
             color: #000000;
-
             font-family: "MS Sans Serif", "Courier New", monospace;
             border: 2px inset #e2e8f0;
         }
         .aim-timestamp { color: #0000ff; font-weight: bold; }
-        .aim-bot-name { color: #ff0000; font-weight: bold; }
-        .aim-user-name { color: #0000ff; font-weight: bold; }
 
         /* Launchpad Sampler Grid Aesthetics */
         .step-pad {
@@ -137,7 +112,6 @@
         }
         .step-pad.active-grid {
             background-color: #4338ca;
-
             box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
             border-color: #818cf8;
         }
@@ -146,7 +120,7 @@
             transform: scale(1.05);
         }
 
-        /* Native Utility Grid Replacements */
+        /* Native Utility Grid Formats */
         .grid-3-col { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
         .grid-12-col { display: grid; grid-template-columns: 1fr; gap: 2rem; }
         .hidden { display: none !important; }
@@ -157,27 +131,96 @@
             .span-7 { grid-column: span 7 / span 7; }
             .span-5 { grid-column: span 5 / span 5; }
             .span-8 { grid-column: span 8 / span 8; }
-
             .span-4 { grid-column: span 4 / span 4; }
         }
 
-        /* Global Structural Utilities */
-        .btn-prime { background: #4f46e5; color: #fff; font-weight: 700; border: none; padding: 0.65rem 1.25rem; border-radius: 0.5rem; cursor: pointer; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s; }
+        /* Global Structural UI Utilities */
+        .btn-prime { background: #4f46e5; color: #fff; font-weight: 700; border: none; padding: 0.65rem 1.25rem; border-radius: 0.5rem; cursor: pointer; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s; font-family: 'JetBrains Mono'; }
         .btn-prime:hover { background: #4338ca; }
-        .btn-sub { background: #18181b; color: #d4d4d8; font-weight: 700; border: 1px solid var(--color-border-line); padding: 0.65rem 1.25rem; border-radius: 0.5rem; cursor: pointer; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s; }
+        .btn-sub { background: #18181b; color: #d4d4d8; font-weight: 700; border: 1px solid var(--color-border-line); padding: 0.65rem 1.25rem; border-radius: 0.5rem; cursor: pointer; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; transition: background 0.2s; font-family: 'JetBrains Mono'; }
         .btn-sub:hover { background: #27272a; }
         .input-text { background: #0b0b0c; border: 1px solid var(--color-border-line); border-radius: 0.5rem; padding: 0.75rem; color: #fff; width: 100%; outline: none; }
         .input-text:focus { border-color: var(--color-accent-indigo); }
     </style>
+
+    <!-- CRITICAL CORE ROUTER MANDATORY HOOK INJECTION (LOADS BEFORE LAYOUT OBJECTS RENDERING) -->
+    <script>
+        // Central Application Router Definition Namespace Statement
+        const AppRouter = {
+            defaultTab: 'home',
+            init() {
+                const currentHash = window.location.hash.replace('#/', '');
+                this.navigate(currentHash || this.defaultTab);
+                window.addEventListener('hashchange', () => {
+                    const hash = window.location.hash.replace('#/', ''); if (hash) this.renderView(hash);
+                });
+            },
+            navigate(tabId) { window.location.hash = `#/${tabId}`; this.renderView(tabId); },
+            renderView(tabId) {
+                const targetPage = document.getElementById(`page-${tabId}`); if (!targetPage) return;
+                
+                // Clear active running streams cleanly to eliminate downstream memory leaks
+                if (typeof AudioManager !== 'undefined') AudioManager.stopAll();
+                if (typeof AudioStemMixer !== 'undefined') AudioStemMixer.stopPlayback();
+                if (typeof PhysicsNodeGraph !== 'undefined') PhysicsNodeGraph.cleanup();
+                if (typeof AIMChatAgent !== 'undefined') AIMChatAgent.cleanup();
+
+                document.querySelectorAll('.view-page').forEach(p => p.classList.add('hidden'));
+                targetPage.classList.remove('hidden');
+                
+                document.querySelectorAll('#global-nav-links button').forEach(btn => {
+                    if (btn.id === `nav-${tabId}`) {
+                        btn.style.color = '#818cf8'; btn.style.background = '#141416'; btn.style.border = '1px solid #27272a';
+                    } else {
+                        btn.style.color = '#71717a'; btn.style.background = 'none'; btn.style.border = 'none';
+                    }
+                });
+
+                if (tabId === 'geometry' && typeof PhysicsNodeGraph !== 'undefined') setTimeout(() => PhysicsNodeGraph.init(), 40);
+                if (tabId === 'mixer' && typeof AudioStemMixer !== 'undefined') setTimeout(() => AudioStemMixer.initCanvas(), 40);
+                if (tabId === 'playgrounds' && typeof AIMChatAgent !== 'undefined') setTimeout(() => { AIMChatAgent.init(); SaperliPopette.initUIState(); }, 40);
+            }
+        };
+
+        const UIControls = {
+            updateFrequencyLabel(v) {
+                document.getElementById('lbl-frequency').textContent = `${v}Hz`;
+                if (typeof AudioManager !== 'undefined' && AudioManager.isPlaying) AudioManager.startPreview();
+            },
+            toggleAudio() { if (typeof AudioManager !== 'undefined') { if (AudioManager.isPlaying) AudioManager.stopAll(); else AudioManager.startPreview(); } },
+            showModal(id) { document.getElementById(id)?.classList.replace('hidden', 'flex'); },
+            closeModal(id) { document.getElementById(id)?.classList.replace('flex', 'hidden'); },
+            handleSliderChange(key, value) { localStorage.setItem(`nick_pref_${key}`, value); },
+            loadSavedPreferences() {
+                if (localStorage.getItem('nick_pref_audio-frequency')) {
+                    const freq = localStorage.getItem('nick_pref_audio-frequency');
+                    document.getElementById('audio-freq-slider').value = freq;
+                    document.getElementById('lbl-frequency').textContent = `${freq}Hz`;
+                }
+                if (localStorage.getItem('nick_pref_slider-density')) {
+                    const dens = localStorage.getItem('nick_pref_slider-density');
+                    document.getElementById('slider-density').value = dens; if(typeof PhysicsNodeGraph !== 'undefined') PhysicsNodeGraph.density = parseInt(dens, 10);
+                }
+                if (localStorage.getItem('nick_pref_slider-tension')) {
+                    const tens = localStorage.getItem('nick_pref_slider-tension');
+                    document.getElementById('slider-tension').value = tens; if(typeof PhysicsNodeGraph !== 'undefined') PhysicsNodeGraph.tension = parseInt(tens, 10);
+                }
+                if (localStorage.getItem('nick_pref_slider-fx-cutoff')) {
+                    const cut = localStorage.getItem('nick_pref_slider-fx-cutoff');
+                    const slider = document.getElementById('slider-fx-cutoff'); if (slider) slider.value = cut;
+                    const lbl = document.getElementById('lbl-fx-cutoff'); if (lbl) lbl.textContent = `${cut} Hz`;
+                }
+            }
+        };
+    </script>
 </head>
 <body>
 
-    <!-- Global Header -->
+    <!-- Global Header Nav -->
     <header class="glass-nav">
         <div class="wrapper-layout" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
             <div style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer;" onclick="AppRouter.navigate('home')">
                 <div style="width: 2rem; height: 2rem; border-radius: 0.5rem; background: #18181b; border: 1px solid #27272a; display: flex; align-items: center; justify-content: center; color: #818cf8; font-family: monospace; font-size: 12px; font-weight: bold;">&lt;/&gt;</div>
-
                 <div>
                     <span style="font-size: 13px; font-weight: 800; tracking: 0.1em; color: #f4f4f5; display: block; text-transform: uppercase; font-family: 'JetBrains Mono';">NICK<span style="color: #818cf8;">BERGHANE</span></span>
                     <span style="font-size: 9px; color: #52525b; font-weight: bold; text-transform: uppercase; display: block; font-family: monospace;">Sovereign Compute Suite</span>
@@ -197,7 +240,6 @@
     </header>
 
     <!-- Scoping Builder Modal -->
-
     <div id="modal-consultation" class="hidden" style="position: fixed; inset: 0; z-index: 100; align-items: center; justify-content: center; padding: 1rem; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);" role="dialog" aria-modal="true">
         <div style="background: #09090b; border: 1px solid #27272a; max-width: 32rem; width: 100%; border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;">
             <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1c1c1f; padding-bottom: 0.75rem;">
@@ -217,7 +259,6 @@
                     <label style="display: flex; justify-content: space-between; align-items: center; background: #141416; border: 1px solid #27272a; padding: 0.75rem; border-radius: 0.5rem; cursor: pointer;">
                         <span style="display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" id="chk-wasm" onchange="ConsultationCalculator.calculate()"> Edge AI Inference Sandbox</span>
                         <span style="color: #71717a;">+$2,200</span>
-
                     </label>
                 </div>
 
@@ -233,11 +274,10 @@
 
     <!-- Usage Limit Gate Modal -->
     <div id="modal-usage-gate" class="hidden" style="position: fixed; inset: 0; z-index: 100; align-items: center; justify-content: center; padding: 1rem; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px);">
-        <div style="background: #09090b; border: 1px solid #27272a; max-width: 24rem; width: 100%; border-radius: 1rem; padding: 1.5rem; text-center; display: flex; flex-direction: column; gap: 1rem; text-align: center;">
+        <div style="background: #09090b; border: 1px solid #27272a; max-width: 24rem; width: 100%; border-radius: 1rem; padding: 1.5rem; text-align: center; display: flex; flex-direction: column; gap: 1rem;">
             <div style="font-size: 1.5rem;">⚠️</div>
             <h3 class="heading-font" style="font-size: 1.125rem;">Local Storage Limit Tripped</h3>
             <p style="font-size: 12px; color: #a1a1aa; line-height: 1.5;">Sandbox caps processing boundaries at a maximum of 3 files to save browser heap space allocations.</p>
-
             <button onclick="UIControls.closeModal('modal-usage-gate')" class="btn-sub">Dismiss Ingestion Warning</button>
         </div>
     </div>
@@ -257,7 +297,6 @@
                 <div class="span-7 premium-card" style="display: flex; flex-direction: column; gap: 1.5rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border-line); padding-bottom: 0.75rem;">
                         <div>
-
                             <h2 class="heading-font" style="font-size: 1.125rem;">Live Ingestion Sandbox</h2>
                             <p style="font-size: 11px; color: #52525b; margin-top: 1px;">Compute isolated binary token signatures via native hardware Crypto headers.</p>
                         </div>
@@ -269,18 +308,26 @@
                         <input type="file" id="file-input" multiple class="hidden">
                     </div>
 
+                    <!-- Clean Global Real-Time Live Sync Status Badge -->
+                    <div class="lab-console-panel" style="display: flex; justify-content: space-between; align-items: center; border-color: rgba(16,185,129,0.15); padding: 0.85rem 1.25rem;">
+                        <span style="font-size: 10px; font-weight: bold; color: var(--color-accent-emerald); font-family: 'JetBrains Mono'; text-transform: uppercase;">🌐 Global Real-Time Audit Ledger Connected</span>
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <span style="width: 6px; height: 6px; border-radius: 50%; background: #10b981; display: inline-block; animation: pulse 2s infinite;"></span>
+                            <span id="supabase-status-lbl" style="font-family: 'JetBrains Mono'; font-size: 9px; color: #a1a1aa; font-weight: bold;">SYNC ACTIVE (POSTGRES LIVE LINKED)</span>
+                        </div>
+                    </div>
+
                     <div style="background: #0b0b0c; border: 1px solid #1c1c1f; border-radius: 0.5rem; padding: 1rem; overflow-x: auto;">
                         <table style="width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono'; font-size: 11px; text-align: left;">
                             <thead>
-                                <tr style="border-b: 1px solid #27272a; color: #52525b; text-transform: uppercase; font-size: 9px;">
+                                <tr style="border-bottom: 1px solid #27272a; color: #52525b; text-transform: uppercase; font-size: 9px;">
                                     <th style="padding-bottom: 0.5rem;">File Descriptor</th>
                                     <th style="padding-bottom: 0.5rem;">Allocation</th>
                                     <th style="padding-bottom: 0.5rem;">WebCrypto SHA-256 Manifest String</th>
                                 </tr>
-
                             </thead>
                             <tbody id="crypto-table-body" style="color: #d4d4d8;">
-                                <tr id="crypto-empty-row"><td colspan="3" style="padding: 1.5rem 0; text-align: center; color: #52525b; font-style: italic;">No active data blocks committed to IndexedDB cache buffers. Drop files above to footprint layout keys.</td></tr>
+                                <tr id="crypto-empty-row"><td colspan="3" style="padding: 1.5rem 0; text-align: center; color: #52525b; font-style: italic;">No active data blocks committed to database buffers. Drop files above to footprint layout keys.</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -297,7 +344,6 @@
                         <div style="display: flex; flex-direction: column; gap: 1rem; font-family: 'JetBrains Mono'; font-size: 11px;">
                             <div style="display: flex; flex-direction: column; gap: 0.35rem;">
                                 <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Target Signal Format</label>
-
                                 <select id="audio-waveform" style="background: #0b0b0c; border: 1px solid #27272a; padding: 0.65rem; border-radius: 0.375rem; color: #fff; outline: none;">
                                     <option value="sine">Sine Wave (Pure Linear Vector)</option>
                                     <option value="triangle">Triangle Wave (Deep Sub-Bass Pitch Element)</option>
@@ -317,13 +363,12 @@
                         <p style="font-size: 12px; color: #71717a; line-height: 1.5;">This frontend portal operates 100% serverless. It showcases immediate technical competence with native WebCrypto API configurations before clients ever explore the deeper code playdecks.</p>
                     </div>
                 </div>
-
             </div>
         </div>
 
         <!-- VIEW 2: WOLLOHY STUDIO DRUM MACHINE LAUNCHPAD GRID & SPECTROGRAM -->
         <div id="page-mixer" class="view-page hidden" style="display: flex; flex-direction: column; gap: 1.5rem;">
-            <div style="border-bottom: 1px solid var(--color-border-line); padding-bottom: 1rem; display: flex; flex-direction: column; md-flex-direction: row; justify-content: space-between; align-items: flex-start; md-align-items: center; gap: 1rem;">
+            <div style="border-bottom: 1px solid var(--color-border-line); padding-bottom: 1rem; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; gap: 1rem;">
                 <div>
                     <h2 class="heading-font" style="font-size: 1.5rem;">Wollohy Studio: Sovereign Stem Vault &amp; Local DAW</h2>
                     <p style="font-size: 12px; color: #52525b; margin-top: 2px;">An interactive 8-step launcher matrix executing hardware-accelerated FFT spectrum maps and native mic capturing filters.</p>
@@ -337,7 +382,6 @@
                 </div>
             </div>
 
-
             <!-- Launcher Step Sequence Grid Layout -->
             <div class="premium-card" style="display: flex; flex-direction: column; gap: 1.25rem;">
                 <div>
@@ -345,11 +389,11 @@
                     <p style="font-size: 11px; color: #52525b; margin-top: 1px;">Toggle hardware node channels live to write arrangements into reference list manifests.</p>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 0.75rem; padding-top: 0.5rem;" id="sequencer-matrix-container">
-                    <!-- Tracks render programmatically via logic initialization blocks below -->
+                    <!-- Rendered programmatically -->
                 </div>
             </div>
 
-            <!-- Fast Fourier Transform Processing Analysis Block Layout -->
+            <!-- FFT Visualizer Spectrogram Row Layout -->
             <div class="grid-12-col">
                 <div class="span-8 premium-card" style="display: flex; flex-direction: column; gap: 1rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border-line); padding-bottom: 0.5rem;">
@@ -357,7 +401,6 @@
                         <span id="lbl-live-db" style="font-family: 'JetBrains Mono'; font-size: 11px; color: #818cf8; font-weight: bold;">-Infinity dB</span>
                     </div>
                     <div style="background: #070708; border: 1px solid #1c1c1f; border-radius: 0.5rem; height: 180px; overflow: hidden;">
-
                         <canvas id="daw-fft-canvas" style="width: 100%; height: 100%; display: block;"></canvas>
                     </div>
                 </div>
@@ -377,10 +420,9 @@
                     <div style="font-family: 'JetBrains Mono'; font-size: 10px; color: #3f3f46; text-transform: uppercase;">Status: Project arrangements secure.</div>
                 </div>
             </div>
-
         </div>
 
-        <!-- VIEW 3: SOVEREIGN AI PLAYGROUND WORKBENCH (AIM STYLE FEED) -->
+        <!-- VIEW 3: AI WORKBENCH -->
         <div id="page-playgrounds" class="view-page hidden">
             <div style="border-bottom: 1px solid var(--color-border-line); padding-bottom: 1rem; margin-bottom: 2rem;">
                 <h2 class="heading-font" style="font-size: 1.5rem;">Sovereign AI Playgrounds: AWD Workbench &amp; Saperli-Core</h2>
@@ -388,7 +430,7 @@
             </div>
 
             <div class="grid-12-col">
-                <!-- Left Prompt Configuration Assembly Deck -->
+                <!-- Left System Controls Matrix -->
                 <div class="span-5 premium-card" style="display: flex; flex-direction: column; gap: 1rem;">
                     <div>
                         <h3 class="heading-font" style="font-size: 1rem;">USS ZWEFF Variables</h3>
@@ -397,7 +439,6 @@
 
                     <div style="display: flex; flex-direction: column; gap: 0.75rem; font-family: 'JetBrains Mono'; font-size: 11px;">
                         <div style="display: flex; flex-direction: column; gap: 0.25rem;">
-
                             <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Agent Identity Name</label>
                             <input type="text" id="aim-var-name" value="Tommy Smithereens" class="input-text" style="font-family: sans-serif; font-size: 12px;" onchange="AIMChatAgent.compilePrompt()">
                         </div>
@@ -413,12 +454,11 @@
                     
                     <div style="background: #0b0b0c; border: 1px solid #1c1c1f; padding: 0.75rem; border-radius: 0.5rem;">
                         <span style="font-size: 9px; font-weight: bold; color: #818cf8; text-transform: uppercase; font-family: 'JetBrains Mono'; display: block; margin-bottom: 0.25rem;">Compiled Instruction State Directive</span>
-                        <div id="aim-compiled-preview" style="font-family: 'JetBrains Mono'; font-size: 10px; color: #52525b; whitespace: pre-wrap; line-height: 1.4; max-height: 100px; overflow-y: auto;"></div>
+                        <div id="aim-compiled-preview" style="font-family: 'JetBrains Mono'; font-size: 10px; color: #52525b; white-space: pre-wrap; line-height: 1.4; max-height: 100px; overflow-y: auto;"></div>
                     </div>
                 </div>
 
-
-                <!-- Right AIM Instant Messenger Feed Screen -->
+                <!-- Right Messenger View Screen -->
                 <div class="span-7 premium-card" style="display: flex; flex-direction: column; gap: 1rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border-line); padding-bottom: 0.5rem;">
                         <div>
@@ -429,7 +469,7 @@
                     </div>
 
                     <div class="aim-feed" id="aim-message-box" style="height: 240px; overflow-y: auto; padding: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 12px; border-radius: 0.25rem;">
-                        <!-- Content pipes dynamically via namespaces -->
+                        <!-- Content injection vectors -->
                     </div>
 
                     <div style="display: flex; flex-direction: column; gap: 0.5rem;">
@@ -437,7 +477,6 @@
                             <input type="text" id="aim-user-input" placeholder="Transmit direct messages into the AIM loop client..." class="input-text" style="font-size: 12px;" oninput="AIMChatAgent.updateCharCount(this.value)" onkeydown="if(event.key==='Enter') AIMChatAgent.sendUserMessage()">
                             <button onclick="AIMChatAgent.sendUserMessage()" class="btn-prime">Send IM</button>
                         </div>
-
                         <div style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono'; font-size: 9px; color: #52525b;">
                             <div>🛡️ Profanity censor filter &amp; AWD sliding-history compaction loop active.</div>
                             <div id="aim-char-counter">0 / 100 Max</div>
@@ -446,7 +485,7 @@
                 </div>
             </div>
 
-            <!-- LOWER SUB-SECTION ROW: SAPERLI-CORE MOBILE WORKSPACE CONSOLE -->
+            <!-- LOWER SAPERLI-CORE MOBILE WORKSPACE CONSOLE -->
             <div class="premium-card" style="max-w: 48rem; margin: 3rem auto 0 auto; display: flex; flex-direction: column; gap: 1rem; border-color: rgba(245,158,11,0.15);">
                 <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1c1c1f; padding-bottom: 0.75rem;">
                     <div style="display: flex; align-items: center; gap: 0.5rem;">
@@ -456,32 +495,20 @@
                             <p style="font-size: 11px; color: #52525b; margin-top: 1px;">Air-gapped mycelial conversation companion looping porous conversational French summaries.</p>
                         </div>
                     </div>
-                    <button onclick="SaperliPopette.toggleKeyUI()" class="btn-sub" style="font-size: 10px; padding: 0.4rem 0.75rem; border-color: rgba(245,158,11,0.2);">⚙️ Configure Key</button>
-
-                </div>
-
-                <div id="saperli-key-panel" class="lab-console-panel hidden" style="display: flex; flex-direction: column; gap: 0.5rem; font-family: 'JetBrains Mono'; font-size: 11px; border-color: rgba(245,158,11,0.2);">
-                    <div style="color: #a1a1aa;">Paste your personal Groq completed credential below to handshake with cloud processing models. Otherwise, Saperli-Core defaults to air-gapped cache simulation vectors.</div>
-                    <div style="display: flex; gap: 0.5rem;">
-                        <input id="saperli-key-input" type="password" placeholder="gsk_..." class="input-text" style="font-size: 11px; padding: 0.5rem;">
-                        <button onclick="SaperliPopette.saveKey()" class="btn-prime" style="background: #f59e0b; color: #000;">Save Token</button>
-                    </div>
-                    <div id="saperli-key-status" style="font-size: 9px; color: #52525b;">Status: Channel unassigned. Local cache simulation active.</div>
                 </div>
 
                 <div id="saperli-chat-output" style="background: #050506; border: 1px solid #1c1c1f; border-radius: 0.5rem; height: 160px; overflow-y: auto; padding: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 13px;">
-                    <!-- Populations stream programmatically -->
+                    <!-- Population -->
                 </div>
 
                 <div style="display: flex; gap: 0.5rem;">
                     <input id="saperli-chat-input" placeholder="Parlez-moi en français... (Capped to 100 characters max)" class="input-text" style="font-size: 12px;" onkeydown="if(event.key==='Enter') SaperliPopette.sendLiveMessage()">
                     <button onclick="SaperliPopette.sendLiveMessage()" class="btn-prime" style="background: #f59e0b; color: #000;">Transmit</button>
                 </div>
-
             </div>
         </div>
 
-        <!-- VIEW 4: COORDINATE PHYSICS SYSTEM CANVAS NODE GRAPH (DATA GEOMETRY) -->
+        <!-- VIEW 4: COORDINATE PHYSICS GRAPH -->
         <div id="page-geometry" class="view-page hidden">
             <div class="premium-card" style="display: flex; flex-direction: column; gap: 1.5rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border-line); padding-bottom: 0.75rem;">
@@ -497,16 +524,14 @@
 
                 <div style="background: #050506; border: 1px solid #1c1c1f; border-radius: 0.75rem; height: 320px; overflow: hidden;">
                     <canvas id="physics-canvas" style="width: 100%; height: 100%; display: block;"></canvas>
-
                 </div>
             </div>
         </div>
 
-        <!-- VIEW 5: ABOUT NICK BERGHANE CASE STUDY MATRIX PORTFOLIO DESK -->
+        <!-- VIEW 5: ABOUT PORTFOLIO PROFILE CASE STUDIES -->
         <div id="page-about" class="view-page hidden">
             <div class="grid-12-col">
-                <!-- Case Study Details Column -->
-                <div class="span-7 style-span-layout" style="display: flex; flex-direction: column; gap: 2rem;">
+                <div class="span-7" style="display: flex; flex-direction: column; gap: 2rem;">
                     <div style="display: flex; flex-direction: column; gap: 0.5rem;">
                         <span style="font-family: 'JetBrains Mono'; font-size: 9px; font-weight: bold; color: #818cf8; text-transform: uppercase; tracking: 0.1em;">Ecosystem Production Map Blueprint</span>
                         <h2 class="heading-font" style="font-size: 1.75rem;">Nick Berghane Architecture Briefs</h2>
@@ -514,22 +539,20 @@
                     </div>
 
                     <div style="display: flex; flex-direction: column; gap: 1rem;">
-                        <div class="premium-card" style="display: flex; flex-direction: column; gap: 0.25rem;">
+                        <div class="premium-card">
                             <h4 class="heading-font" style="font-size: 1rem; display: flex; justify-content: space-between;"><span>🎚️ App 1: Wollohy Studio Local DAW</span><span style="color: #818cf8; font-family: monospace; font-size: 10px;">PROSUMER AUDIO</span></h4>
                             <p style="font-size: 12px; color: #71717a; line-height: 1.5; margin-top: 0.25rem;">Captures hardware audio signals via pure Float32 layouts. Saves multi-stem arrangements as non-destructive list matrices inside lightweight `project.json` sheets to eliminate corporate cloud subscription locks completely.</p>
-
                         </div>
-                        <div class="premium-card" style="display: flex; flex-direction: column; gap: 0.25rem;">
+                        <div class="premium-card">
                             <h4 class="heading-font" style="font-size: 1rem; display: flex; justify-content: space-between;"><span>🍄 App 2: Saperli-Core Mobile Companion</span><span style="color: #818cf8; font-family: monospace; font-size: 10px;">SPEECH COMPACT</span></h4>
                             <p style="font-size: 12px; color: #71717a; line-height: 1.5; margin-top: 0.25rem;">An air-gapped conversational coach compressing text timelines using dedicated `maybeCompact` macros. This cuts overall context token footprint limits down natively, writing flashcard logs to local device memory pools.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Right Biography Card Panel -->
                 <div class="span-5" style="display: flex; flex-direction: column; gap: 1.5rem;">
                     <div class="premium-card" style="text-align: center; display: flex; flex-direction: column; gap: 1rem; background: rgba(255,255,255,0.01);">
-                        <div style="width: 4rem; height: 4rem; background: #0b0b0c; border: 1px solid #27272a; color: #818cf8; font-family: monospace; font-size: 1.5rem; font-weight: bold; display: flex; align-items: center; justify-center; margin: 0 auto; border-radius: 0.75rem; justify-content: center;">&lt;/&gt;</div>
+                        <div style="width: 4rem; height: 4rem; background: #0b0b0c; border: 1px solid #27272a; color: #818cf8; font-family: monospace; font-size: 1.5rem; font-weight: bold; display: flex; align-items: center; justify-content: center; margin: 0 auto; border-radius: 0.75rem;">&lt;/&gt;</div>
                         <div>
                             <h3 class="heading-font" style="font-size: 1.25rem;">Nick Berghane</h3>
                             <span style="font-family: 'JetBrains Mono'; font-size: 9px; font-weight: bold; background: #1e1b4b; border: 1px solid #312e81; color: #a5b4fc; padding: 0.25rem 0.5rem; border-radius: 0.25rem; text-transform: uppercase; margin-top: 0.25rem; display: inline-block;">Sovereign Frontend Architect</span>
@@ -537,27 +560,65 @@
                         <p style="font-size: 12px; color: #71717a; line-height: 1.6; padding: 0 0.5rem;">Systems developer dedicated to client-side data isolation, high-converting tracking channels, and zero-waste local software boundaries.</p>
                     </div>
                 </div>
-
             </div>
         </div>
 
-        <!-- Global Action Toast Layout Notify -->
+        <!-- Global Action Toast Notify -->
         <div id="global-action-toast" class="hidden" style="position: fixed; bottom: 1.5rem; right: 1.5rem; background: #141416; border: 1px solid #818cf8; color: #fff; padding: 0.75rem 1.25rem; border-radius: 0.75rem; font-family: 'JetBrains Mono'; font-size: 11px; z-index: 200; box-shadow: 0 10px 25px rgba(0,0,0,0.5);"></div>
 
     </main>
 
     <!-- Technical Fixed Footer -->
-    <footer style="border-t: 1px solid #1c1c1f; padding: 1.5rem 0; text-align: center; font-family: 'JetBrains Mono'; font-size: 10px; color: #3f3f46; text-transform: uppercase; tracking: 0.1em; background: rgba(5,5,6,0.3);">
+    <footer style="padding: 1.5rem 0; text-align: center; font-family: 'JetBrains Mono'; font-size: 10px; color: #3f3f46; text-transform: uppercase; tracking: 0.1em; background: rgba(5,5,6,0.3);">
         Nick Berghane Portfolio &copy; 2026 — Secure Client Isolation System Mapped.
     </footer>
 
-    <!-- RUNTIME EXECUTION MOTORS LOGIC HOOKS MATRIX -->
+    <!-- RUNTIME LOGIC MOTORS SCRIPT INJECTIONS -->
     <script>
-        const AppState = {
-            isPremium: false,
-            uploadedFiles: [],
-            getTotalSize() { return this.uploadedFiles.reduce((sum, f) => sum + Number(f.size || 0), 0); }
-
+        /* --- SUPABASE GLOBAL ENVIRONMENT VARIABLE CONFIG INJECTION --- */
+        const SupabaseEngine = {
+            client: null,
+            activeChannel: null,
+            // Automatically queries injected repository variables from build system configurations
+            PRODUCTION_URL: window.process?.env?.NEXT_PUBLIC_SUPABASE_URL || window.ENV_SUPABASE_URL || "", 
+            PRODUCTION_KEY: window.process?.env?.NEXT_PUBLIC_SUPABASE_ANON_KEY || window.ENV_SUPABASE_ANON_KEY || "",
+            init() {
+                if (!this.PRODUCTION_URL || this.PRODUCTION_URL.includes("your-project-id")) {
+                    console.warn("Supabase public environment variables on standby."); return;
+                }
+                try {
+                    this.client = supabase.createClient(this.PRODUCTION_URL, this.PRODUCTION_KEY);
+                    this.fetchRemoteLedger(); this.subscribeRealtime();
+                } catch(e) { console.warn("Supabase client connection failure."); }
+            },
+            async fetchRemoteLedger() {
+                if(!this.client) return;
+                const { data, error } = await this.client.from('hashes').select('*').order('created_at', { ascending: false }).limit(12);
+                if (data && data.length > 0) {
+                    data.forEach(row => {
+                        if (!AppState.uploadedFiles.some(f => f.hash === row.hash)) {
+                            AppState.uploadedFiles.push({ name: row.name + " (Cloud Sync)", size: row.size, hash: row.hash });
+                        }
+                    });
+                    FileIngestionManager.renderTable();
+                }
+            },
+            async broadcastRecord(record) {
+                if(!this.client) return;
+                await this.client.from('hashes').insert([{ name: record.name, size: record.size, hash: record.hash }]);
+            },
+            subscribeRealtime() {
+                if(!this.client) return;
+                this.activeChannel = this.client.channel('schema-db-changes')
+                    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'hashes' }, payload => {
+                        const row = payload.new;
+                        if (!AppState.uploadedFiles.some(f => f.hash === row.hash)) {
+                            AppState.uploadedFiles.unshift({ name: row.name + " (Live Link)", size: row.size, hash: row.hash });
+                            FileIngestionManager.renderTable();
+                            BillingManager.showToast("Real-time distributed ledger update captured.");
+                        }
+                    }).subscribe();
+            }
         };
 
         const BillingManager = {
@@ -569,85 +630,10 @@
                 AppState.isPremium = true; UIControls.closeModal('modal-usage-gate'); UIControls.closeModal('modal-premium-export');
                 this.showToast(`Premium portfolio access unlocked cleanly via matrix: ${label}`);
             },
-            paySingleFee() {
-                AppState.isPremium = true; UIControls.closeModal('modal-premium-export');
-                this.showToast("Handshake accepted. Premium manifest parameters exported.");
-            },
             showToast(msg) {
                 const toast = document.getElementById('global-action-toast'); if(!toast) return;
                 toast.textContent = msg; toast.classList.remove('hidden');
                 setTimeout(() => { toast.classList.add('hidden'); }, 3000);
-
-            }
-        };
-
-        const AppRouter = {
-            defaultTab: 'home',
-            init() {
-                const currentHash = window.location.hash.replace('#/', '');
-                this.navigate(currentHash || this.defaultTab);
-                window.addEventListener('hashchange', () => {
-                    const hash = window.location.hash.replace('#/', ''); if (hash) this.renderView(hash);
-                });
-            },
-            navigate(tabId) { window.location.hash = `#/${tabId}`; this.renderView(tabId); },
-            renderView(tabId) {
-                const targetPage = document.getElementById(`page-${tabId}`); if (!targetPage) return;
-                
-                // Clear active processing streams to completely avoid memory heap leaks
-                AudioManager.stopAll();
-                AudioStemMixer.stopPlayback();
-
-                PhysicsNodeGraph.cleanup();
-                AIMChatAgent.cleanup();
-
-                document.querySelectorAll('.view-page').forEach(p => p.classList.add('hidden'));
-                targetPage.classList.remove('hidden');
-                
-                document.querySelectorAll('#global-nav-links button').forEach(btn => {
-                    if (btn.id === `nav-${tabId}`) {
-                        btn.style.color = '#818cf8'; btn.style.background = '#141416'; btn.style.border = '1px solid #27272a';
-                    } else {
-                        btn.style.color = '#71717a'; btn.style.background = 'none'; btn.style.border = 'none';
-                    }
-                });
-
-                if (tabId === 'geometry') setTimeout(() => PhysicsNodeGraph.init(), 40);
-                if (tabId === 'mixer') setTimeout(() => AudioStemMixer.initCanvas(), 40);
-                if (tabId === 'playgrounds') setTimeout(() => { AIMChatAgent.init(); SaperliPopette.initUIState(); }, 40);
-            }
-        };
-
-
-        const UIControls = {
-            updateFrequencyLabel(v) {
-                document.getElementById('lbl-frequency').textContent = `${v}Hz`;
-                if (AudioManager.isPlaying) AudioManager.startPreview();
-            },
-            toggleAudio() { if (AudioManager.isPlaying) AudioManager.stopAll(); else AudioManager.startPreview(); },
-            showModal(id) { document.getElementById(id)?.classList.replace('hidden', 'flex'); },
-            closeModal(id) { document.getElementById(id)?.classList.replace('flex', 'hidden'); },
-            handleSliderChange(key, value) { localStorage.setItem(`nick_pref_${key}`, value); },
-            loadSavedPreferences() {
-                if (localStorage.getItem('nick_pref_audio-frequency')) {
-                    const freq = localStorage.getItem('nick_pref_audio-frequency');
-                    document.getElementById('audio-freq-slider').value = freq;
-                    document.getElementById('lbl-frequency').textContent = `${freq}Hz`;
-                }
-                if (localStorage.getItem('nick_pref_slider-density')) {
-                    const dens = localStorage.getItem('nick_pref_slider-density');
-                    document.getElementById('slider-density').value = dens; PhysicsNodeGraph.density = parseInt(dens, 10);
-                }
-
-                if (localStorage.getItem('nick_pref_slider-tension')) {
-                    const tens = localStorage.getItem('nick_pref_slider-tension');
-                    document.getElementById('slider-tension').value = tens; PhysicsNodeGraph.tension = parseInt(tens, 10);
-                }
-                if (localStorage.getItem('nick_pref_slider-fx-cutoff')) {
-                    const cut = localStorage.getItem('nick_pref_slider-fx-cutoff');
-                    document.getElementById('slider-fx-cutoff').value = cut;
-                    document.getElementById('lbl-fx-cutoff').textContent = `${cut} Hz`;
-                }
             }
         };
 
@@ -658,7 +644,6 @@
                 if(document.getElementById('chk-wasm')?.checked) { cost += 2200; days += 6; }
                 document.getElementById('lbl-calc-budget').textContent = `$` + cost.toLocaleString();
                 document.getElementById('lbl-calc-days').textContent = `${days} Days`;
-
             },
             handleExport(e) {
                 e.preventDefault();
@@ -678,7 +663,6 @@
                 const format = document.getElementById('audio-waveform').value;
                 const hz = parseFloat(document.getElementById('audio-freq-slider').value) || 440;
                 
-
                 this.osc = this.ctx.createOscillator(); this.gain = this.ctx.createGain();
                 this.osc.type = format; this.osc.frequency.setValueAtTime(hz, this.ctx.currentTime);
                 this.gain.gain.setValueAtTime(0.03, this.ctx.currentTime);
@@ -696,9 +680,8 @@
             }
         };
 
-        /* --- WOLLOHY STUDIO: HARDWARE-ACCELERATED STEP SEQUENCER MATRIX LAUNCHPAD --- */
+        /* --- WOLLOHY STUDIO: INTERACTIVE STEP SEQUENCER MATRIX LAUNCHPAD --- */
         const AudioStemMixer = {
-
             ctx: null, masterGain: null, biquadFilter: null, analyser: null,
             timerId: null, active: false, step: 0, canvas: null, canvasCtx: null, rafId: null,
             micStream: null, micNode: null,
@@ -718,7 +701,6 @@
                 this.biquadFilter.type = 'lowpass'; this.biquadFilter.frequency.setValueAtTime(parseFloat(cut), this.ctx.currentTime);
                 
                 this.masterGain = this.ctx.createGain(); this.masterGain.gain.setValueAtTime(0.14, this.ctx.currentTime);
-
                 
                 this.biquadFilter.connect(this.analyser); this.analyser.connect(this.masterGain); this.masterGain.connect(this.ctx.destination);
                 this.initCanvas();
@@ -738,7 +720,6 @@
                             ${this.tracks[key].pattern.map((state, idx) => `
                                 <button onclick="AudioStemMixer.toggleGridPad('${key}', ${idx}, this)" class="step-pad ${state ? 'active-grid' : ''}" data-track="${key}" data-step="${idx}"></button>
                             `).join('')}
-
                         </div>
                     </div>
                 `).join('');
@@ -758,7 +739,6 @@
                     if (this.ctx.state === 'suspended') this.ctx.resume();
                     this.active = true; btn.innerText = "Halt Launchpad Sequencer"; btn.style.background = '#ef4444';
                     this.startSequencer(); this.startVisualizer();
-
                 }
             },
             async toggleMicrophone() {
@@ -777,8 +757,8 @@
                 } catch(err) { alert("Microphone acquisition blocked by device context parameters."); }
             },
             updateFilterFrequency(v) {
-                document.getElementById('lbl-fx-cutoff').textContent = `${v} Hz`; UIControls.handleSliderChange('slider-fx-cutoff', v);
-
+                const lbl = document.getElementById('lbl-fx-cutoff'); if (lbl) lbl.textContent = `${v} Hz`; 
+                UIControls.handleSliderChange('slider-fx-cutoff', v);
                 if(this.biquadFilter && this.ctx) this.biquadFilter.frequency.setValueAtTime(parseFloat(v), this.ctx.currentTime);
             },
             startSequencer() {
@@ -798,7 +778,6 @@
                     if (this.tracks.synths.pattern[beat]) this.playTone(this.tracks.synths.freq * [1, 1.2, 1.5, 1.7][beat % 4], 'sine', 0.14, this.tracks.synths.vol * 0.3);
                     if (this.tracks.vocals.pattern[beat]) this.playTone(this.tracks.vocals.freq, 'sine', 0.4, this.tracks.vocals.vol * 0.2);
                     
-
                     this.step++;
                 }, 180);
             },
@@ -818,7 +797,6 @@
                 const data = buffer.getChannelData(0); for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
                 const source = this.ctx.createBufferSource(); source.buffer = buffer;
                 const gain = this.ctx.createGain(); gain.gain.setValueAtTime(volume, this.ctx.currentTime);
-
                 gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
                 source.connect(gain); gain.connect(this.biquadFilter); source.start();
             },
@@ -835,29 +813,13 @@
                         this.canvasCtx.fillRect(x, this.canvas.height - (h * 0.6), width - 1, h * 0.6); x += width;
                     }
                     const db = Math.round((max / 255) * 100);
-                    document.getElementById('lbl-live-db').textContent = db > 0 ? `-${100 - db} dB` : '-Infinity dB';
+                    const dbLbl = document.getElementById('lbl-live-db'); if (dbLbl) dbLbl.textContent = db > 0 ? `-${100 - db} dB` : '-Infinity dB';
                 };
                 this.rafId = requestAnimationFrame(stepRender);
-
             },
             stopPlayback() { this.active = false; if (this.timerId) clearInterval(this.timerId); this.timerId = null; this.stopVisualizer(); },
-            stopVisualizer() { if (this.rafId) cancelAnimationFrame(this.rafId); this.rafId = null; this.drawEmptyCanvas(); },
-            setVolume(k, v) { const t = this.tracks[k]; if (t) t.vol = parseFloat(v) || 0; },
-            toggleMute(k, el) { const t = this.tracks[k]; if(!t) return; t.mute = !t.mute; el.style.background = t.mute ? '#7f1d1d' : ''; },
-            toggleSolo(k, el) { el.style.background = el.style.background ? '' : '#064e3b'; }
+            stopVisualizer() { if (this.rafId) cancelAnimationFrame(this.rafId); this.rafId = null; this.drawEmptyCanvas(); }
         };
-
-        const AudioControls = {
-            playSoundboard(type) {
-                if (!AudioStemMixer.ctx) AudioStemMixer.init(); const ctx = AudioStemMixer.ctx; if (ctx.state === 'suspended') ctx.resume();
-                let osc = ctx.createOscillator(); let gain = ctx.createGain(); osc.connect(gain); gain.connect(ctx.destination);
-                if (type === 'ledger') { osc.frequency.setValueAtTime(800, ctx.currentTime); gain.gain.setValueAtTime(0.03, ctx.currentTime); osc.start(); osc.stop(ctx.currentTime + 0.08); }
-                else if (type === 'drill') { osc.type = 'sawtooth'; osc.frequency.setValueAtTime(60, ctx.currentTime); gain.gain.setValueAtTime(0.1, ctx.currentTime); osc.start(); osc.stop(ctx.currentTime + 0.25); }
-                else if (type === 'chopper') { osc.type = 'square'; osc.frequency.value = 40; gain.gain.setValueAtTime(0.06, ctx.currentTime); osc.start(); osc.stop(ctx.currentTime + 0.4); }
-                else { osc.frequency.setValueAtTime(1200, ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + 0.2); gain.gain.setValueAtTime(0.03, ctx.currentTime); osc.start(); osc.stop(ctx.currentTime + 0.18); }
-            }
-        };
-
 
         /* --- INTERACTIVE VECTOR SPRING CANVAS PHYSICS SIMULATOR GRAPH --- */
         const PhysicsNodeGraph = {
@@ -878,7 +840,6 @@
             loop() {
                 if (this.rafId) cancelAnimationFrame(this.rafId);
                 const drawFrame = () => {
-
                     this.rafId = requestAnimationFrame(drawFrame); this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
                     const k = this.tension * 0.0015;
                     this.links.forEach(l => {
@@ -898,7 +859,6 @@
         };
 
         /* --- INDEXEDDB STORAGE ENGINE TRANSPORTS MANAGER --- */
-
         const FileIngestionManager = {
             db: null,
             init() {
@@ -914,11 +874,10 @@
                 req.onupgradeneeded = (e) => {
                     const db = e.target.result; if (!db.objectStoreNames.contains('hashes')) db.createObjectStore('hashes', { keyPath: 'id', autoIncrement: true });
                 };
-                req.onsuccess = (e) => { this.db = e.target.result; this.loadSavedRecords(); };
+                req.onsuccess = (e) => { this.db = e.target.result; this.loadSavedRecords(); SupabaseEngine.init(); };
             },
             loadSavedRecords() {
                 if (!this.db) return; const trans = this.db.transaction(['hashes'], 'readonly'); const store = trans.objectStore('hashes');
-
                 AppState.uploadedFiles = [];
                 store.openCursor().onsuccess = (e) => {
                     const cursor = e.target.result; if (cursor) { AppState.uploadedFiles.push(cursor.value); cursor.continue(); } else { this.renderTable(); }
@@ -929,16 +888,12 @@
                 for (let i = 0; i < files.length; i++) {
                     const f = files[i]; const hashStr = await this.calculateHash(f); const record = { name: f.name, size: f.size, hash: hashStr };
                     AppState.uploadedFiles.push(record); this.saveToDB(record);
+                    SupabaseEngine.broadcastRecord(record);
                 }
                 this.renderTable();
             },
             saveToDB(rec) {
                 if (!this.db) return; const trans = this.db.transaction(['hashes'], 'readwrite'); const store = trans.objectStore('hashes'); store.add(rec);
-            },
-            clearAllRecords() {
-                if (!this.db) return; const trans = this.db.transaction(['hashes'], 'readwrite'); const store = trans.objectStore('hashes');
-                store.clear().onsuccess = () => { AppState.uploadedFiles = []; this.renderTable(); BillingManager.showToast("Local IndexedDB storage cleared cleanly."); };
-
             },
             async calculateHash(file) {
                 try {
@@ -949,16 +904,15 @@
             renderTable() {
                 const tbody = document.getElementById('crypto-table-body'); if(!tbody) return;
                 if (AppState.uploadedFiles.length === 0) {
-                    tbody.innerHTML = `<tr id="crypto-empty-row"><td colspan="3" style="padding: 1.5rem 0; text-align: center; color: #52525b; font-style: italic;">No active data blocks committed to IndexedDB cache buffers. Drop files above to footprint layout keys.</td></tr>`; return;
+                    tbody.innerHTML = `<tr id="crypto-empty-row"><td colspan="3" style="padding: 1.5rem 0; text-align: center; color: #52525b; font-style: italic;">No active data blocks committed to database buffers. Drop files above to footprint layout keys.</td></tr>`; return;
                 }
                 tbody.innerHTML = AppState.uploadedFiles.map(f => `
                     <tr style="border-bottom: 1px solid #1c1c1f;">
                         <td style="padding: 0.5rem 0; color: #fff; font-weight: bold;">${f.name}</td>
-                        <td style="padding: 0.5rem 0; color: #52525b;">{(f.size/1024).toFixed(1)} KB</td>
+                        <td style="padding: 0.5rem 0; color: #52525b;">${(f.size/1024).toFixed(1)} KB</td>
                         <td style="padding: 0.5rem 0; color: #818cf8; font-weight: bold;">${f.hash}</td>
                     </tr>
                 `).join('');
-
             }
         };
 
@@ -978,7 +932,6 @@
             compilePrompt() {
                 const preview = document.getElementById('aim-compiled-preview'); if (preview) preview.textContent = this.systemPrompt();
             },
-
             togglePause() { this.isPaused = !this.isPaused; document.getElementById('btn-aim-pause').textContent = this.isPaused ? "▶ Resume Feeds" : "⏸ Pause Feeds"; },
             clearFeed() {
                 const box = document.getElementById('aim-message-box'); if(!box) return; this.history = [];
@@ -998,13 +951,12 @@
                     if(txt.toLowerCase().includes('sell') || txt.toLowerCase().includes('trampoline')) reply = `As a trampoline specialist, rebound velocities must stay high! Safety rules are crucial.`;
                     box.innerHTML += `<div><span class="aim-timestamp" style="color:#ff0000;">[${botName}]:</span> ${reply}</div>`;
                     box.scrollTop = box.scrollHeight;
-
                 }, 400);
             },
             triggerAmbientMusing() {
                 const box = document.getElementById('aim-message-box'); if(!box) return;
                 const name = document.getElementById('aim-var-name').value;
-                box.innerHTML += `<div style="color: #4b5563;"><span class="aim-timestamp">[${name}]:</span> <span class="italic">Evaluating downstream token arrays for performance.</span></div>`;
+                box.innerHTML += `<div><span class="aim-timestamp">[${name}]:</span> <span class="italic">Evaluating downstream token arrays for performance.</span></div>`;
                 box.scrollTop = box.scrollHeight;
             },
             cleanup() { if (this.intervalId) clearInterval(this.intervalId); this.intervalId = null; }
@@ -1014,12 +966,9 @@
         const SaperliPopette = {
             history: [],
             initUIState() {
-                const out = document.getElementById('saperli-chat-output');
+                const out = document.getElementById('saperli-chat-output'); if(!out) return;
                 out.innerHTML = `<div style="color: #f59e0b; font-weight: bold;">🍄 Saperli-Core ! Bonjour mon ami ! Text me in French or English. Qu'est-ce que tu veux explorer ce soir ?</div>`;
             },
-            toggleKeyUI() { document.getElementById('saperli-key-panel').classList.toggle('hidden'); },
-
-            saveKey() { document.getElementById('saperli-key-panel').classList.add('hidden'); BillingManager.showToast("Handshake mapped."); },
             sendLiveMessage() {
                 const el = document.getElementById('saperli-chat-input'); const val = el?.value.trim(); if(!val) return;
                 const out = document.getElementById('saperli-chat-output');
@@ -1032,11 +981,10 @@
             }
         };
 
+        // Window On-Load Compilation Trigger Hooks Entry Point
         window.addEventListener('DOMContentLoaded', () => { 
             AppRouter.init(); UIControls.loadSavedPreferences(); FileIngestionManager.init(); ConsultationCalculator.calculate(); 
         });
     </script>
 </body>
 </html>
-
-
