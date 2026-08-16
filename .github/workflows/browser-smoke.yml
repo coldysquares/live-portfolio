@@ -1,3 +1,4 @@
+# Temporary branch-only QA; removed after a passing run.
 name: Browser smoke test
 
 on:
@@ -47,6 +48,11 @@ jobs:
           assert.match(await page.title(), /Nick Berghane/);
           await page.waitForSelector('#page-home:not(.hidden)');
           assert.equal(await page.locator('#global-nav-links').count(), 1);
+          const duplicateIds = await page.evaluate(() => {
+            const ids = [...document.querySelectorAll('[id]')].map(el => el.id);
+            return [...new Set(ids.filter((id, index) => ids.indexOf(id) !== index))];
+          });
+          assert.deepEqual(duplicateIds, []);
 
           fs.writeFileSync('/tmp/evidence.txt', 'ChronosAudit smoke test evidence\n');
           await page.locator('#file-input').setInputFiles('/tmp/evidence.txt');
