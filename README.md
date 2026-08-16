@@ -6,6 +6,7 @@ A lightweight static portfolio with a clear professional front door, working bro
 
 - `index.html` — professional homepage with a real one-file SHA-256 proof, interactive selected-project showcase, services, About section, optional systems map, and a locally saved project-brief flow
 - `chronosaudit.html` — ChronosAudit v2: create local SHA-256 evidence manifests, preserve records in IndexedDB when available, detect duplicate bytes, load prior manifests, verify current files, classify matches/changes/moves/new/missing records, and export verification reports
+- `PROFILE_COPY_DRAFTS.md` — copy-ready LinkedIn positioning, Fiverr profile copy, scoped gig drafts, FAQs, client requirements, and commercial guardrails
 - `archive/workspace-v1.html` — preserved copy of the previous all-in-one interactive workspace
 
 ## Working rule
