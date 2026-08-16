@@ -1,3 +1,5 @@
+# Nick Berghane — Premium Public Portfolio Suite
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,6 +19,7 @@
             --color-accent-indigo: #818cf8;
             --color-accent-emerald: #10b981;
             --radius-component: 0.75rem;
+
         }
 
         * {
@@ -36,6 +39,7 @@
         }
         
         .heading-font { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; letter-spacing: -0.03em; color: #f4f4f5; }
+
         .mono-font { font-family: 'JetBrains Mono', monospace; }
 
         /* Custom Pure CSS Layout Flex/Grid Classes to Eliminate Tailwind Production Warnings */
@@ -55,6 +59,7 @@
             align-items: center;
             background: rgba(9, 9, 11, 0.75); 
             backdrop-filter: blur(16px); 
+
             -webkit-backdrop-filter: blur(16px); 
             border-bottom: 1px solid var(--color-border-line); 
         }
@@ -74,6 +79,7 @@
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .premium-card:hover { 
+
             transform: translateY(-2px); 
             border-color: rgba(129, 140, 248, 0.25); 
         }
@@ -93,6 +99,7 @@
         .eq-bar { display: inline-block; inline-size: 4px; block-size: 12px; background-color: var(--color-accent-indigo); margin-inline-end: 3px; transition: block-size 0.12s ease; }
         .playing .eq-bar:nth-child(1) { animation: bounceEq 0.5s ease-in-out infinite alternate; }
         .playing .eq-bar:nth-child(2) { animation: bounceEq 0.8s ease-in-out infinite alternate 0.1s; }
+
         .playing .eq-bar:nth-child(3) { animation: bounceEq 0.6s ease-in-out infinite alternate 0.2s; }
         .playing .eq-bar:nth-child(4) { animation: bounceEq 0.7s ease-in-out infinite alternate 0.3s; }
         .playing .eq-bar:nth-child(5) { animation: bounceEq 0.4s ease-in-out infinite alternate 0.15s; }
@@ -112,6 +119,7 @@
 
         /* AIM Style Specific UI Overrides for Chatbox Functionality */
         .aim-feed {
+
             background-color: #ffffff;
             color: #000000;
             font-family: "MS Sans Serif", "Courier New", monospace;
@@ -131,6 +139,7 @@
             cursor: pointer;
             transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
         }
+
         .step-pad.active-grid {
             background-color: #4338ca;
             box-shadow: 0 0 10px rgba(99, 102, 241, 0.4);
@@ -150,6 +159,7 @@
             .grid-3-col { grid-template-columns: repeat(3, minmax(0, 1fr)); }
             .grid-12-col { grid-template-columns: repeat(12, minmax(0, 1fr)); }
             .span-7 { grid-column: span 7 / span 7; }
+
             .span-5 { grid-column: span 5 / span 5; }
             .span-8 { grid-column: span 8 / span 8; }
             .span-4 { grid-column: span 4 / span 4; }
@@ -169,6 +179,7 @@
     <!-- Global Header -->
     <header class="glass-nav">
         <div class="wrapper-layout" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+
             <div style="display: flex; align-items: center; gap: 0.75rem; cursor: pointer;" onclick="AppRouter.navigate('home')">
                 <div style="width: 2rem; height: 2rem; border-radius: 0.5rem; background: #18181b; border: 1px solid #27272a; display: flex; align-items: center; justify-content: center; color: #818cf8; font-family: monospace; font-size: 12px; font-weight: bold;">&lt;/&gt;</div>
                 <div>
@@ -189,6 +200,7 @@
         </div>
     </header>
 
+
     <!-- Scoping Builder Modal -->
     <div id="modal-consultation" class="hidden" style="position: fixed; inset: 0; z-index: 100; align-items: center; justify-content: center; padding: 1rem; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);" role="dialog" aria-modal="true">
         <div style="background: #09090b; border: 1px solid #27272a; max-width: 32rem; width: 100%; border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;">
@@ -208,6 +220,7 @@
                     </label>
                     <label style="display: flex; justify-content: space-between; align-items: center; background: #141416; border: 1px solid #27272a; padding: 0.75rem; border-radius: 0.5rem; cursor: pointer;">
                         <span style="display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" id="chk-wasm" onchange="ConsultationCalculator.calculate()"> Edge AI Inference Sandbox</span>
+
                         <span style="color: #71717a;">+$2,200</span>
                     </label>
                 </div>
@@ -227,6 +240,7 @@
         <div style="background: #09090b; border: 1px solid #27272a; max-width: 24rem; width: 100%; border-radius: 1rem; padding: 1.5rem; text-center; display: flex; flex-direction: column; gap: 1rem; text-align: center;">
             <div style="font-size: 1.5rem;">⚠️</div>
             <h3 class="heading-font" style="font-size: 1.125rem;">Local Storage Limit Tripped</h3>
+
             <p style="font-size: 12px; color: #a1a1aa; line-height: 1.5;">Sandbox caps processing boundaries at a maximum of 3 files to save browser heap space allocations.</p>
             <button onclick="UIControls.closeModal('modal-usage-gate')" class="btn-sub">Dismiss Ingestion Warning</button>
         </div>
@@ -246,6 +260,7 @@
                 <!-- Left Ingestion Vault Panel -->
                 <div class="span-7 premium-card" style="display: flex; flex-direction: column; gap: 1.5rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border-line); padding-bottom: 0.75rem;">
+
                         <div>
                             <h2 class="heading-font" style="font-size: 1.125rem;">Live Ingestion Sandbox</h2>
                             <p style="font-size: 11px; color: #52525b; margin-top: 1px;">Compute isolated binary token signatures via native hardware Crypto headers.</p>
@@ -258,13 +273,14 @@
                         <input type="file" id="file-input" multiple class="hidden">
                     </div>
 
-                    <!-- Clean Global Real-Time Live Sync Status Badge supporting sb_publishable format handles -->
+                    <!-- Clean Global Real-Time Live Sync Status Badge -->
                     <div class="lab-console-panel" style="display: flex; justify-content: space-between; align-items: center; border-color: rgba(16,185,129,0.15); padding: 0.85rem 1.25rem;">
                         <span style="font-size: 10px; font-weight: bold; color: var(--color-accent-emerald); font-family: 'JetBrains Mono'; text-transform: uppercase;">🌐 Global Real-Time Audit Ledger Connected</span>
                         <div style="display: flex; align-items: center; gap: 0.5rem;">
                             <span style="width: 6px; height: 6px; border-radius: 50%; background: #10b981; display: inline-block; animation: pulse 2s infinite;"></span>
                             <span id="supabase-status-lbl" style="font-family: 'JetBrains Mono'; font-size: 9px; color: #a1a1aa; font-weight: bold;">SYNC ACTIVE (POSTGRES LIVE LINKED)</span>
                         </div>
+
                     </div>
 
                     <div style="background: #0b0b0c; border: 1px solid #1c1c1f; border-radius: 0.5rem; padding: 1rem; overflow-x: auto;">
@@ -284,6 +300,7 @@
                 </div>
 
                 <!-- Right Parameters Configuration Sidebar -->
+
                 <div class="span-5" style="display: flex; flex-direction: column; gap: 1.5rem;">
                     <div class="premium-card" style="display: flex; flex-direction: column; gap: 1.25rem;">
                         <div>
@@ -303,6 +320,7 @@
                                 <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Filter Index Rate: <span id="lbl-frequency" style="color: #818cf8; font-weight: bold;">440Hz</span></label>
                                 <input type="range" id="audio-freq-slider" min="110" max="880" value="440" oninput="UIControls.updateFrequencyLabel(this.value)">
                             </div>
+
                         </div>
 
                         <button id="btn-audio-toggle" onclick="UIControls.toggleAudio()" class="btn-prime" style="width: 100%; padding: 0.75rem;">Initialize Signal Waveform</button>
@@ -322,6 +340,7 @@
                 <div>
                     <h2 class="heading-font" style="font-size: 1.5rem;">Wollohy Studio: Sovereign Stem Vault &amp; Local DAW</h2>
                     <p style="font-size: 12px; color: #52525b; margin-top: 2px;">An interactive 8-step launcher matrix executing hardware-accelerated FFT spectrum maps and native mic capturing filters.</p>
+
                 </div>
                 <div style="display: flex; gap: 0.75rem; align-self: flex-end;">
                     <button id="btn-mixer-mic-toggle" onclick="AudioStemMixer.toggleMicrophone()" class="btn-sub" style="display: flex; align-items: center; gap: 0.5rem;">
@@ -341,6 +360,7 @@
                 <div style="display: flex; flex-direction: column; gap: 0.75rem; padding-top: 0.5rem;" id="sequencer-matrix-container">
                     <!-- Tracks render programmatically via logic initialization blocks below -->
                 </div>
+
             </div>
 
             <!-- Fast Fourier Transform Processing Analysis Block Layout -->
@@ -360,6 +380,7 @@
                         <h4 class="heading-font" style="font-size: 1rem;">Biquad Resonance FX</h4>
                         <p style="font-size: 11px; color: #52525b;">Modulate active audio filter cutoff bands directly inside browser execution threads.</p>
                         
+
                         <div style="display: flex; flex-direction: column; gap: 0.75rem; font-family: 'JetBrains Mono'; font-size: 11px; margin-top: 0.5rem;">
                             <div style="display: flex; flex-direction: column; gap: 0.25rem;">
                                 <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Cutoff: <span id="lbl-fx-cutoff" style="color: #818cf8;">1200 Hz</span></label>
@@ -378,6 +399,7 @@
                 <h2 class="heading-font" style="font-size: 1.5rem;">Sovereign AI Playgrounds: AWD Workbench &amp; Saperli-Core</h2>
                 <p style="font-size: 12px; color: #52525b; margin-top: 2px;">Explore split-pane zero-waste prompting consoles engineered to completely run conversations without cloud context drift.</p>
             </div>
+
 
             <div class="grid-12-col">
                 <!-- Left Prompt Configuration Assembly Deck -->
@@ -398,6 +420,7 @@
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 0.25rem;">
                             <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Behavior Quirks &amp; Traits</label>
+
                             <textarea id="aim-var-quirks" rows="2" class="input-text" style="font-family: sans-serif; font-size: 12px; resize: none;" onchange="AIMChatAgent.compilePrompt()">usually a little goofy. Only drinks strawberry milk or protein shakes.</textarea>
                         </div>
                     </div>
@@ -418,6 +441,7 @@
                         <button id="btn-aim-pause" onclick="AIMChatAgent.togglePause()" class="btn-sub" style="padding: 0.4rem 0.75rem; font-size: 10px;">⏸ Pause Pings</button>
                     </div>
 
+
                     <div class="aim-feed" id="aim-message-box" style="height: 240px; overflow-y: auto; padding: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 12px; border-radius: 0.25rem;">
                         <!-- Content pipes dynamically via namespaces -->
                     </div>
@@ -437,6 +461,7 @@
 
             <!-- LOWER SUB-SECTION ROW: SAPERLI-CORE MOBILE WORKSPACE CONSOLE -->
             <div class="premium-card" style="max-w: 48rem; margin: 3rem auto 0 auto; display: flex; flex-direction: column; gap: 1rem; border-color: rgba(245,158,11,0.15);">
+
                 <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1c1c1f; padding-bottom: 0.75rem;">
                     <div style="display: flex; align-items: center; gap: 0.5rem;">
                         <span style="font-size: 1.25rem;">🍄</span>
@@ -456,6 +481,7 @@
                     <button onclick="SaperliPopette.sendLiveMessage()" class="btn-prime" style="background: #f59e0b; color: #000;">Transmit</button>
                 </div>
             </div>
+
         </div>
 
         <!-- VIEW 4: COORDINATE PHYSICS SYSTEM CANVAS NODE GRAPH (DATA GEOMETRY) -->
@@ -475,6 +501,7 @@
                 <div style="background: #050506; border: 1px solid #1c1c1f; border-radius: 0.75rem; height: 320px; overflow: hidden;">
                     <canvas id="physics-canvas" style="width: 100%; height: 100%; display: block;"></canvas>
                 </div>
+
             </div>
         </div>
 
@@ -494,6 +521,7 @@
                             <h4 class="heading-font" style="font-size: 1rem; display: flex; justify-content: space-between;"><span>🎚️ App 1: Wollohy Studio Local DAW</span><span style="color: #818cf8; font-family: monospace; font-size: 10px;">PROSUMER AUDIO</span></h4>
                             <p style="font-size: 12px; color: #71717a; line-height: 1.5; margin-top: 0.25rem;">Captures hardware audio signals via pure Float32 layouts. Saves multi-stem arrangements as non-destructive list matrices inside lightweight `project.json` sheets to eliminate corporate cloud subscription locks completely.</p>
                         </div>
+
                         <div class="premium-card" style="display: flex; flex-direction: column; gap: 0.25rem;">
                             <h4 class="heading-font" style="font-size: 1rem; display: flex; justify-content: space-between;"><span>🍄 App 2: Saperli-Core Mobile Companion</span><span style="color: #818cf8; font-family: monospace; font-size: 10px;">SPEECH COMPACT</span></h4>
                             <p style="font-size: 12px; color: #71717a; line-height: 1.5; margin-top: 0.25rem;">An air-gapped conversational coach compressing text timelines using dedicated `maybeCompact` macros. This cuts overall context token footprint limits down natively, writing flashcard logs to local device memory pools.</p>
@@ -513,6 +541,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
 
         <!-- Global Action Toast Layout Notify -->
@@ -533,12 +562,14 @@
             getTotalSize() { return this.uploadedFiles.reduce((sum, f) => sum + Number(f.size || 0), 0); }
         };
 
+
         /* --- SUPABASE SEAMLESS PRODUCTION-READY ENVIRONMENT INJECTION --- */
         const SupabaseEngine = {
             client: null,
             activeChannel: null,
             init() {
-                // Compatible with standard env format chains or direct object lookups
+                // Securely query injected repository environment strings during compilation runtime
+                // To deploy, simply add these keys into your Vercel Project Dashboard settings!
                 const productionUrl = window.process?.env?.NEXT_PUBLIC_SUPABASE_URL || window.ENV_SUPABASE_URL || "";
                 const productionKey = window.process?.env?.NEXT_PUBLIC_SUPABASE_ANON_KEY || window.ENV_SUPABASE_ANON_KEY || "";
                 
@@ -547,10 +578,11 @@
                         this.client = supabase.createClient(productionUrl, productionKey);
                         this.fetchRemoteLedger();
                         this.subscribeRealtime();
-                    } catch(e) { console.warn("Supabase background synchronization handshake on hold."); }
+                    } catch(e) { console.warn("Supabase handshake paused: Check configuration environment vectors."); }
                 }
             },
             async fetchRemoteLedger() {
+
                 if(!this.client) return;
                 const { data, error } = await this.client.from('hashes').select('*').order('created_at', { ascending: false }).limit(12);
                 if (data && data.length > 0) {
@@ -570,6 +602,7 @@
                 if(!this.client) return;
                 this.activeChannel = this.client.channel('schema-db-changes')
                     .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'hashes' }, payload => {
+
                         const row = payload.new;
                         if (!AppState.uploadedFiles.some(f => f.hash === row.hash)) {
                             AppState.uploadedFiles.unshift({ name: row.name + " (Live Link)", size: row.size, hash: row.hash });
@@ -589,6 +622,7 @@
                 AppState.isPremium = true; UIControls.closeModal('modal-usage-gate'); UIControls.closeModal('modal-premium-export');
                 this.showToast(`Premium portfolio access unlocked cleanly via matrix: ${label}`);
             },
+
             paySingleFee() {
                 AppState.isPremium = true; UIControls.closeModal('modal-premium-export');
                 this.showToast("Handshake accepted. Premium manifest parameters exported.");
@@ -608,6 +642,7 @@
                 window.addEventListener('hashchange', () => {
                     const hash = window.location.hash.replace('#/', ''); if (hash) this.renderView(hash);
                 });
+
             },
             navigate(tabId) { window.location.hash = `#/${tabId}`; this.renderView(tabId); },
             renderView(tabId) {
@@ -627,6 +662,7 @@
                         btn.style.color = '#818cf8'; btn.style.background = '#141416'; btn.style.border = '1px solid #27272a';
                     } else {
                         btn.style.color = '#71717a'; btn.style.background = 'none'; btn.style.border = 'none';
+
                     }
                 });
 
@@ -646,6 +682,7 @@
             closeModal(id) { document.getElementById(id)?.classList.replace('flex', 'hidden'); },
             handleSliderChange(key, value) { localStorage.setItem(`nick_pref_${key}`, value); },
             loadSavedPreferences() {
+
                 if (localStorage.getItem('nick_pref_audio-frequency')) {
                     const freq = localStorage.getItem('nick_pref_audio-frequency');
                     document.getElementById('audio-freq-slider').value = freq;
@@ -665,6 +702,7 @@
                     document.getElementById('lbl-fx-cutoff').textContent = `${cut} Hz`;
                 }
             }
+
         };
 
         const ConsultationCalculator = {
@@ -683,6 +721,7 @@
                 document.body.appendChild(a); a.click(); a.remove(); UIControls.closeModal('modal-consultation');
             }
         };
+
 
         /* --- HARDWARE-ISOLATED SINGLE PREVIEW AUDIO FREQUENCY ENGINE --- */
         const AudioManager = {
@@ -703,6 +742,7 @@
                 document.getElementById('btn-audio-toggle').textContent = "Halt Oscillator Signal";
             },
             stopAll() {
+
                 if (this.osc) { try { this.osc.stop(); } catch(e){} this.osc.disconnect(); this.osc = null; }
                 if (this.gain) { this.gain.disconnect(); this.gain = null; } this.isPlaying = false;
                 document.getElementById('eq-container')?.classList.remove('playing');
@@ -722,6 +762,7 @@
                 synths: { name: '04 Chords Arp', freq: 220, type: 'sine', vol: 0.4, pattern: [1, 0, 1, 1, 0, 1, 0, 1] }
             },
             init() {
+
                 if (this.ctx) return;
                 this.ctx = new (window.AudioContext || window.webkitAudioContext)();
                 
@@ -741,6 +782,7 @@
                 this.canvas.width = this.canvas.parentElement.clientWidth || 500; this.canvas.height = 180;
                 this.drawEmptyCanvas(); this.renderLaunchpadMatrix();
             },
+
             renderLaunchpadMatrix() {
                 const matrix = document.getElementById('sequencer-matrix-container'); if(!matrix) return;
                 matrix.innerHTML = Object.keys(this.tracks).map(key => `
@@ -760,6 +802,7 @@
             },
             drawEmptyCanvas() {
                 if(!this.canvasCtx) return; this.canvasCtx.fillStyle = '#070708'; this.canvasCtx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
             },
             togglePlayback() {
                 this.init(); const btn = document.getElementById('btn-mixer-master-toggle');
@@ -779,6 +822,7 @@
                     indicator.style.background = "#52525b"; label.textContent = "Stream Microphone Input";
                     if(!this.active) this.stopVisualizer(); return;
                 }
+
                 try {
                     if (this.ctx.state === 'suspended') this.ctx.resume();
                     this.micStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
@@ -799,6 +843,7 @@
                     document.querySelectorAll('.step-pad').forEach(p => p.classList.remove('current-playing-step'));
                     document.querySelectorAll(`.step-pad[data-step="${beat}"]`).forEach(p => p.classList.add('current-playing-step'));
 
+
                     if (this.tracks.bass.pattern[beat]) this.playTone(this.tracks.bass.freq, 'triangle', 0.15, this.tracks.bass.vol);
                     if (this.tracks.drums.pattern[beat]) {
                         if (beat === 2 || beat === 6) this.playNoise(0.05, this.tracks.drums.vol * 0.2);
@@ -818,6 +863,7 @@
                 gain.gain.linearRampToValueAtTime(volume, this.ctx.currentTime + 0.01);
                 gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
                 osc.connect(gain); gain.connect(this.biquadFilter);
+
                 osc.start(); osc.stop(this.ctx.currentTime + duration);
             },
             playNoise(duration, volume) {
@@ -837,6 +883,7 @@
                     this.canvasCtx.fillStyle = '#070708'; this.canvasCtx.fillRect(0, 0, this.canvas.width, this.canvas.height);
                     const width = (this.canvas.width / length) * 1.6; let h; let x = 0; let max = 0;
                     for (let i = 0; i < length; i++) {
+
                         h = dataArray[i]; if(h > max) max = h;
                         this.canvasCtx.fillStyle = `rgb(${h+25},100,240)`;
                         this.canvasCtx.fillRect(x, this.canvas.height - (h * 0.6), width - 1, h * 0.6); x += width;
@@ -856,6 +903,7 @@
         const AudioControls = {
             playSoundboard(type) {
                 if (!AudioStemMixer.ctx) AudioStemMixer.init(); const ctx = AudioStemMixer.ctx; if (ctx.state === 'suspended') ctx.resume();
+
                 let osc = ctx.createOscillator(); let gain = ctx.createGain(); osc.connect(gain); gain.connect(ctx.destination);
                 if (type === 'ledger') { osc.frequency.setValueAtTime(800, ctx.currentTime); gain.gain.setValueAtTime(0.03, ctx.currentTime); osc.start(); osc.stop(ctx.currentTime + 0.08); }
                 else if (type === 'drill') { osc.type = 'sawtooth'; osc.frequency.setValueAtTime(60, ctx.currentTime); gain.gain.setValueAtTime(0.1, ctx.currentTime); osc.start(); osc.stop(ctx.currentTime + 0.25); }
@@ -875,6 +923,7 @@
             resize() { if(this.canvas) { this.canvas.width = this.canvas.parentElement.clientWidth || 700; this.canvas.height = 320; } },
             updateDensity(v) { this.density = parseInt(v, 10) || 25; UIControls.handleSliderChange('slider-density', v); this.build(); },
             updateTension(v) { this.tension = parseInt(v, 10) || 4; UIControls.handleSliderChange('slider-tension', v); },
+
             build() {
                 this.nodes = []; this.links = []; const w = this.canvas ? this.canvas.width : 700; const h = this.canvas ? this.canvas.height : 320;
                 for (let i = 0; i < this.density; i++) this.nodes.push({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random()-0.5)*1.2, vy: (Math.random()-0.5)*1.2 });
@@ -894,6 +943,7 @@
                         n.x += n.vx; n.y += n.vy; n.vx *= 0.96; n.vy *= 0.96;
                         if (n.x < 0 || n.x > this.canvas.width) n.vx *= -1; if (n.y < 0 || n.y > this.canvas.height) n.vy *= -1;
                         this.ctx.fillStyle = '#818cf8'; this.ctx.beginPath(); this.ctx.arc(n.x, n.y, 4, 0, Math.PI * 2); this.ctx.fill();
+
                     });
                 };
                 this.rafId = requestAnimationFrame(drawFrame);
@@ -913,6 +963,7 @@
                 this.initDB();
             },
             initDB() {
+
                 const req = indexedDB.open('NickPortfolioForensicDB', 1);
                 req.onupgradeneeded = (e) => {
                     const db = e.target.result; if (!db.objectStoreNames.contains('hashes')) db.createObjectStore('hashes', { keyPath: 'id', autoIncrement: true });
@@ -932,6 +983,7 @@
                     const f = files[i]; const hashStr = await this.calculateHash(f); const record = { name: f.name, size: f.size, hash: hashStr };
                     AppState.uploadedFiles.push(record); this.saveToDB(record);
                     
+
                     // Automatically broadcast records to public database clusters behind the scenes
                     SupabaseEngine.broadcastRecord(record);
                 }
@@ -951,6 +1003,7 @@
                 } catch(e) { return "e3b0c44298fc1c149afbf4c8996fb924..."; }
             },
             renderTable() {
+
                 const tbody = document.getElementById('crypto-table-body'); if(!tbody) return;
                 if (AppState.uploadedFiles.length === 0) {
                     tbody.innerHTML = `<tr id="crypto-empty-row"><td colspan="3" style="padding: 1.5rem 0; text-align: center; color: #52525b; font-style: italic;">No active data blocks committed to database buffers. Drop files above to footprint layout keys.</td></tr>`; return;
@@ -970,6 +1023,7 @@
             history: [], isPaused: false, intervalId: null, profanityList: ['fuck', 'shit', 'bitch'],
             init() {
                 this.compilePrompt(); this.clearFeed();
+
                 if (this.intervalId) clearInterval(this.intervalId);
                 this.intervalId = setInterval(() => { if (!this.isPaused && window.location.hash.includes('playgrounds')) this.triggerAmbientMusing(); }, 14000);
             },
@@ -989,6 +1043,7 @@
             updateCharCount(v) { document.getElementById('aim-char-counter').textContent = `${v.length} / 100 Max`; },
             sendUserMessage() {
                 const el = document.getElementById('aim-user-input'); let txt = el?.value.trim(); if (!txt) return;
+
                 if (txt.length > 100) { alert("Message exceeds 100 character limits."); return; }
                 this.profanityList.forEach(w => { txt = txt.replace(new RegExp(w, 'gi'), '****'); });
                 const box = document.getElementById('aim-message-box');
@@ -1008,6 +1063,7 @@
                 box.innerHTML += `<div style="color: #4b5563;"><span class="aim-timestamp">[${name}]:</span> <span class="italic">Evaluating downstream token arrays for performance.</span></div>`;
                 box.scrollTop = box.scrollHeight;
             },
+
             cleanup() { if (this.intervalId) clearInterval(this.intervalId); this.intervalId = null; }
         };
 
@@ -1027,6 +1083,7 @@
                 setTimeout(() => {
                     out.innerHTML += `<div style="color: #d4d4d8;"><span style="color: #f59e0b; font-weight: bold;">🍄 Saperli :</span> Tiens ! C'est magnifique ! Let's analyze local processing metrics together. Qu'en penses-tu ?</div>`;
                     out.scrollTop = out.scrollHeight;
+
                 }, 500);
                 out.scrollTop = out.scrollHeight;
             }
@@ -1038,3 +1095,5 @@
     </script>
 </body>
 </html>
+
+
