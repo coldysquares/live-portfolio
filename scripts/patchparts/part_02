@@ -1,0 +1,120 @@
+    'Arrangement Metadata Structure': 'Arrangement settings',
+    '🔊 Synthesize Backup Arrangement': '▶ Play Demo Mix',
+    '2. Isolated Multi-Stem Reference Mixer': '2. Real 4-Track Mixer',
+    'Manipulate Float32 tracking faders, standalone muting variables, and isolated solo parameters natively inside client layers.':
+        'Load real audio files into four channels. Playback starts in sync, and each fader, mute, solo, filter, analyzer, project save, and WAV export is functional.',
+    'Wollohy Local DAW engine idle. Assembly project manifests secure.': 'Mixer ready. Load stems or generate a demo arrangement.',
+    '3. Local RoFormer / Demucs Pipeline Controls': '3. Project &amp; Export Tools',
+    'Mount project.json': 'Save project.json',
+    'Binds non-destructive reference vectors into device cash layers.': 'Downloads the current mixer settings and loaded file names as a portable project file.',
+    'Demucs Separation': 'Generate demo stems',
+    'Isolates multi-channel acoustic matrix nodes entirely offline.': 'Creates a short four-part arrangement so the mixer can be tested without uploading audio.',
+    'Blind Isolation Filter': 'Reset mixer',
+    'Removes secondary phase cancellation transients via biquad matrices.': 'Stops playback, clears loaded audio, and restores the default mixer state.',
+    'Float32 Capture Flush': 'Render mixed WAV',
+    'Flushes zero-loss linear PCM buffers cleanly down onto physical storage disk.': 'Renders the loaded tracks through the current faders and filter, then downloads a WAV.',
+    '🔊 Initialize': 'Save Project',
+    '🔊 Run Split': 'Generate Demo',
+    '🔊 Filter Pass': 'Reset',
+    '🔊 Flush Buffer': 'Export WAV',
+}
+for old, new in copy_map.items():
+    replace_once(old, new, f'Wollohy copy: {old[:34]}')
+
+for key in ('vocals', 'bass', 'drums', 'synths'):
+    old = f'''                        <button onclick="AudioStemMixer.triggerTrackPreview('{key}')" class="btn-sub" style="padding: 0.5rem; text-transform: uppercase; font-size: 10px;">Trigger Impulse</button>'''
+    new = f'''                        <label class="stem-file-label">Load Audio Stem<input type="file" accept="audio/*" hidden onchange="AudioStemMixer.loadStem('{key}', this.files[0])"></label>
+                        <div id="stem-name-{key}" class="stem-file-name">No audio loaded</div>'''
+    replace_once(old, new, f'add real {key} file loader')
+
+replace_once(
+    '                    <button onclick="AudioStemMixer.downloadMasterStems()" class="btn-sub" style="border-color: #818cf8; color: #818cf8; font-size: 10px; padding: 6px 12px;">Download Master WAV Stems</button>',
+    '''                    <div class="tool-actions">
+                        <button id="btn-mixer-master-toggle" type="button" onclick="AudioStemMixer.togglePlayback()" class="btn-prime">Play Mix</button>
+                        <button type="button" onclick="AudioStemMixer.stopPlayback()" class="btn-sub">Stop</button>
+                        <button type="button" onclick="AudioStemMixer.exportWav()" class="btn-sub" style="border-color:#818cf8; color:#818cf8;">Export WAV</button>
+                    </div>''',
+    'add mixer transport and export controls',
+)
+
+# ---------------------------------------------------------------------------
+# 5. Plain-language, revenue-oriented About / portfolio view
+# ---------------------------------------------------------------------------
+about_html = r'''        <!-- VIEW 5: WORK WITH NICK / PROJECT INDEX -->
+        <div id="page-about" class="view-page hidden">
+            <div style="max-width: 50rem; margin-bottom: 2rem;">
+                <span class="mono-font" style="font-size:9px; color:#818cf8; font-weight:700; text-transform:uppercase; letter-spacing:.1em;">Available for scoped projects, audits, and advisory work</span>
+                <h2 class="heading-font" style="font-size:2rem; margin-top:.5rem;">I build interactive browser tools that make complicated work easier to inspect and use.</h2>
+                <p style="font-size:14px; line-height:1.7; margin-top:.75rem; color:#a1a1aa;">My work sits between product strategy, frontend engineering, research systems, and technical communication. I am especially useful when a project needs a working prototype, a clearer product story, or a local-first workflow that does not quietly send sensitive material to a third party.</p>
+                <div class="tool-actions" style="margin-top:1.25rem;">
+                    <button type="button" class="btn-prime" onclick="UIControls.showModal('modal-consultation')">Scope a Project</button>
+                    <a class="btn-sub" style="text-decoration:none; display:inline-flex; align-items:center;" href="mailto:nickberghane@gmail.com?subject=Project%20inquiry%20from%20chronosaudit.vercel.app">Email Nick</a>
+                </div>
+            </div>
+
+            <div class="grid-12-col">
+                <div class="span-7" style="display:flex; flex-direction:column; gap:1rem;">
+                    <h3 class="heading-font" style="font-size:1.15rem;">Selected systems</h3>
+                    <div class="premium-card"><h4 class="heading-font" style="font-size:1rem;">ChronosAudit</h4><p style="font-size:12px; line-height:1.6; margin:.35rem 0 .8rem;">A provenance-focused concept for turning a messy local document corpus into an inspectable timeline. This site includes a working file-hash and manifest demo.</p><a class="project-card-link" href="#/home" onclick="AppRouter.navigate('home')">Open the demo →</a></div>
+                    <div class="premium-card"><h4 class="heading-font" style="font-size:1rem;">Wollohy Studio</h4><p style="font-size:12px; line-height:1.6; margin:.35rem 0 .8rem;">A browser audio workspace exploring local multitrack playback, filtering, visualization, project files, and WAV rendering.</p><div class="tool-actions"><a class="project-card-link" href="#/mixer" onclick="AppRouter.navigate('mixer')">Open this mixer →</a><a class="project-card-link" href="https://wollohy.vercel.app" target="_blank" rel="noreferrer">Open standalone project ↗</a></div></div>
+                    <div class="premium-card"><h4 class="heading-font" style="font-size:1rem;">Aster Graf</h4><p style="font-size:12px; line-height:1.6; margin:.35rem 0 .8rem;">A private, source-aware archive concept designed to keep claims connected to evidence and uncertainty visible.</p><a class="project-card-link" href="https://aster-graf.vercel.app" target="_blank" rel="noreferrer">Open project ↗</a></div>
+                    <div class="premium-card"><h4 class="heading-font" style="font-size:1rem;">Saperli Popette</h4><p style="font-size:12px; line-height:1.6; margin:.35rem 0 .8rem;">A mobile-first conversational interface experiment with a distinct voice and compact interaction model.</p><a class="project-card-link" href="https://saperli-popette.vercel.app" target="_blank" rel="noreferrer">Open project ↗</a></div>
+                    <div class="premium-card"><h4 class="heading-font" style="font-size:1rem;">Interface Systems Archive</h4><p style="font-size:12px; line-height:1.6; margin:.35rem 0 .8rem;">A broader collection of small systems, experiments, and deployed interface concepts.</p><a class="project-card-link" href="https://guvs.vercel.app" target="_blank" rel="noreferrer">Browse the archive ↗</a></div>
+                </div>
+
+                <div class="span-5" style="display:flex; flex-direction:column; gap:1rem;">
+                    <h3 class="heading-font" style="font-size:1.15rem;">Ways I can help</h3>
+                    <div class="premium-card"><strong style="color:#f4f4f5; font-size:13px;">Product and UX audit</strong><p style="font-size:12px; line-height:1.6; margin-top:.35rem;">A direct review of positioning, conversion flow, interaction quality, credibility, and technical risk—with a prioritized fix list.</p></div>
+                    <div class="premium-card"><strong style="color:#f4f4f5; font-size:13px;">Working prototype</strong><p style="font-size:12px; line-height:1.6; margin-top:.35rem;">A real browser-based proof of concept that can be tested, demonstrated, and deployed—not just a static design.</p></div>
+                    <div class="premium-card"><strong style="color:#f4f4f5; font-size:13px;">Local-first workflow</strong><p style="font-size:12px; line-height:1.6; margin-top:.35rem;">Private file handling, IndexedDB, WebCrypto, exports, and inspectable processing for sensitive or research-heavy work.</p></div>
+                    <div class="premium-card"><strong style="color:#f4f4f5; font-size:13px;">Technical story and launch support</strong><p style="font-size:12px; line-height:1.6; margin-top:.35rem;">Turn a complicated system into a clear product narrative, demo flow, case study, and client-facing launch surface.</p></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Global Action Toast Layout Notify -->'''
+sub_once(
+    r'        <!-- VIEW 5: ABOUT NICK BERGHANE CASE STUDY MATRIX PORTFOLIO DESK -->.*?        <!-- Global Action Toast Layout Notify -->',
+    about_html,
+    'replace AI-heavy about page with services and real project links',
+)
+replace_once(
+    'Nick Berghane Portfolio &copy; 2026 — Secure Client Isolation System Mapped.',
+    'Nick Berghane &copy; 2026 — Interactive systems, research tools, and technical consulting.',
+    'plain-language footer',
+)
+
+# ---------------------------------------------------------------------------
+# 6. Honest labels for deterministic interaction prototypes
+# ---------------------------------------------------------------------------
+plain_copy = {
+    'Sovereign AI Playgrounds: AWD Workbench &amp; Saperli-Core': 'Prompt &amp; Interaction Prototypes',
+    'Explore split-pane zero-waste prompting consoles engineered to completely run conversations without cloud context drift.':
+        'Explore two local interface prototypes. These demos use deterministic response rules; they do not load or impersonate a language model.',
+    'USS ZWEFF Variables': 'Agent Specification Builder',
+    'Define explicit string properties to feed the IM generation buffer loop.': 'Edit identity and behavior fields, then inspect the compiled instruction spec.',
+    'AWD Command Deck IM Client': 'Behavior Preview',
+    'Enforces 100-character input caps and human-in-the-loop verification loops.': 'A deterministic preview of how interface rules can shape responses. No AI model is running here.',
+    '🛡️ Profanity censor filter &amp; AWD sliding-history compaction loop active.': '🔒 Local UI demo. Messages are not transmitted or stored.',
+    'Saperli-Core Mobile Portal': 'Saperli Mobile Conversation Prototype',
+    'Air-gapped mycelial conversation companion looping porous conversational French summaries.': 'A French-first conversation-interface prototype. Replies are scripted in this embedded demo.',
+    'Dynamic 2D Physics Evidence Graph': 'Interactive Canvas Graph Lab',
+    'Real-time coordinate calculations modeling link tensions on a standard requestAnimationFrame layout.': 'Adjust density and spring strength to explore a lightweight requestAnimationFrame canvas simulation.',
+}
+for old, new in plain_copy.items():
+    replace_once(old, new, f'plain-language prototype copy: {old[:30]}')
+
+# ---------------------------------------------------------------------------
+# 7. Runtime objects
+# ---------------------------------------------------------------------------
+
+# Remove the unused/fake cloud layer.
+sub_once(
+    r'        /\* --- SUPABASE GLOBAL ENVIRONMENT VARIABLE CONFIG INJECTION --- \*/\s*        const SupabaseEngine = \{.*?\n        \};\n\n        const BillingManager =',
+    '''        /* Local-only demo: no cloud client is loaded and no file metadata is transmitted. */
+        const SupabaseEngine = { init() {}, broadcastRecord() {} };
+
+        const BillingManager =''',
+    'remove fake Supabase runtime',
+)
+
