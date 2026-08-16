@@ -29,7 +29,7 @@ jobs:
 
       - name: Run real browser smoke test
         run: |
-          cat > /tmp/smoke.mjs <<'JS'
+          cat > smoke.mjs <<'JS'
           import { chromium } from 'playwright';
           import fs from 'node:fs';
           import assert from 'node:assert/strict';
@@ -48,7 +48,6 @@ jobs:
           await page.waitForSelector('#page-home:not(.hidden)');
           assert.equal(await page.locator('#global-nav-links').count(), 1);
 
-          // ChronosAudit: real local hashing and manifest download.
           fs.writeFileSync('/tmp/evidence.txt', 'ChronosAudit smoke test evidence\n');
           await page.locator('#file-input').setInputFiles('/tmp/evidence.txt');
           const hashCell = page.locator('#crypto-table-body tr td').nth(2);
@@ -60,7 +59,6 @@ jobs:
           const manifestDownload = await downloadPromise;
           assert.match(manifestDownload.suggestedFilename(), /^chronosaudit-manifest-.*\.json$/);
 
-          // Wollohy: generated stems, real playback state, filter, and WAV render.
           await page.locator('#nav-mixer').click();
           await page.waitForSelector('#page-mixer:not(.hidden)');
           assert.equal(await page.locator('input[type=file][accept="audio/*"]').count(), 4);
@@ -76,7 +74,6 @@ jobs:
           const wavDownload = await wavPromise;
           assert.match(wavDownload.suggestedFilename(), /^wollohy-mix-.*\.wav$/);
 
-          // Interaction prototype: user strings must render as text, not HTML.
           await page.locator('#nav-playgrounds').click();
           await page.waitForSelector('#page-playgrounds:not(.hidden)');
           await page.locator('#aim-user-input').fill('<img src=x onerror=alert(1)> hello');
@@ -84,7 +81,6 @@ jobs:
           assert.equal(await page.locator('#aim-message-box img').count(), 0);
           assert.match(await page.locator('#aim-message-box').textContent(), /<img src=x/);
 
-          // Lead generation: modal, live estimate, local draft, and copy path.
           await page.getByRole('button', { name: 'Start a Project' }).click();
           await page.waitForSelector('#modal-consultation.flex');
           await page.locator('#lead-name').fill('Smoke Tester');
@@ -95,7 +91,6 @@ jobs:
           await page.getByRole('button', { name: 'Copy Brief' }).click();
           await page.getByRole('button', { name: 'Close project inquiry' }).click();
 
-          // Canvas lab and responsive navigation.
           await page.locator('#nav-geometry').click();
           await page.waitForSelector('#page-geometry:not(.hidden)');
           assert.ok(await page.locator('#physics-canvas').evaluate(canvas => canvas.width > 0 && canvas.height > 0));
@@ -118,7 +113,7 @@ jobs:
           SERVER_PID=$!
           trap 'kill $SERVER_PID || true' EXIT
           sleep 1
-          node /tmp/smoke.mjs
+          node smoke.mjs
 
       - name: Upload smoke screenshots
         if: always()
