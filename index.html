@@ -243,8 +243,9 @@
                 if (typeof AIMChatAgent !== 'undefined') AIMChatAgent.cleanup();
 
 
-                document.querySelectorAll('.view-page').forEach(p => p.classList.add('hidden'));
+                document.querySelectorAll('.view-page').forEach(p => { p.classList.add('hidden'); p.setAttribute('aria-hidden', 'true'); });
                 targetPage.classList.remove('hidden');
+                targetPage.setAttribute('aria-hidden', 'false');
                 window.scrollTo({ top: 0, behavior: 'auto' });
                 const mobileSelect = document.getElementById('mobile-nav-select');
                 if (mobileSelect) mobileSelect.value = tabId;
@@ -314,9 +315,9 @@
             <nav style="display: flex; gap: 0.5rem; font-family: 'JetBrains Mono'; font-size: 11px; font-weight: bold; text-transform: uppercase;" id="global-nav-links">
                 <button onclick="AppRouter.navigate('home')" id="nav-home" style="background: none; border: none; padding: 0.5rem 0.75rem; cursor: pointer; border-radius: 0.375rem;">ChronosAudit</button>
                 <button onclick="AppRouter.navigate('mixer')" id="nav-mixer" style="background: none; border: none; padding: 0.5rem 0.75rem; cursor: pointer; border-radius: 0.375rem;">Wollohy Studio</button>
-                <button onclick="AppRouter.navigate('playgrounds')" id="nav-playgrounds" style="background: none; border: none; padding: 0.5rem 0.75rem; cursor: pointer; border-radius: 0.375rem;">AI Playgrounds</button>
-                <button onclick="AppRouter.navigate('geometry')" id="nav-geometry" style="background: none; border: none; padding: 0.5rem 0.75rem; cursor: pointer; border-radius: 0.375rem;">Data Geometry</button>
-                <button onclick="AppRouter.navigate('about')" id="nav-about" style="background: none; border: none; padding: 0.5rem 0.75rem; cursor: pointer; border-radius: 0.375rem; color: #71717a;">About Me</button>
+                <button onclick="AppRouter.navigate('playgrounds')" id="nav-playgrounds" style="background: none; border: none; padding: 0.5rem 0.75rem; cursor: pointer; border-radius: 0.375rem;">Interaction Labs</button>
+                <button onclick="AppRouter.navigate('geometry')" id="nav-geometry" style="background: none; border: none; padding: 0.5rem 0.75rem; cursor: pointer; border-radius: 0.375rem;">Canvas Lab</button>
+                <button onclick="AppRouter.navigate('about')" id="nav-about" style="background: none; border: none; padding: 0.5rem 0.75rem; cursor: pointer; border-radius: 0.375rem; color: #71717a;">Work With Nick</button>
             </nav>
 
             <select id="mobile-nav-select" class="mobile-nav-select" aria-label="Choose a section" onchange="AppRouter.navigate(this.value)">
@@ -394,7 +395,7 @@
                 <div class="span-7 premium-card" style="display: flex; flex-direction: column; gap: 1.5rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border-line); padding-bottom: 0.75rem;">
                         <div>
-                            <h2 class="heading-font" style="font-size: 1.125rem;">Live Ingestion Sandbox</h2>
+                            <h2 class="heading-font" style="font-size: 1.125rem;">Local Hash &amp; Manifest Demo</h2>
 
                             <p style="font-size: 11px; color: #52525b; margin-top: 1px;">Select local files to calculate real SHA-256 hashes and build a portable evidence manifest. Files are stored only in this browser.</p>
                         </div>
@@ -402,7 +403,7 @@
                     </div>
 
                     <div id="drop-zone" style="border: 1px dashed #27272a; padding: 2.5rem; text-align: center; border-radius: 0.75rem; cursor: pointer; background: rgba(255,255,255,0.01);" onmouseover="this.style.background='rgba(255,255,255,0.03)'" onmouseout="this.style.background='rgba(255,255,255,0.01)'">
-                        <div style="font-size: 13px; color: #d4d4d8;">Drag &amp; drop file packages here or <span style="color: #818cf8; text-decoration: underline; font-weight: bold;">browse directories</span></div>
+                        <div style="font-size: 13px; color: #d4d4d8;">Drag &amp; drop files here or <span style="color: #818cf8; text-decoration: underline; font-weight: bold;">browse files</span></div>
                         <input type="file" id="file-input" multiple class="hidden">
                     </div>
 
@@ -420,31 +421,35 @@
                         <table style="width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono'; font-size: 11px; text-align: left;">
                             <thead>
                                 <tr style="border-bottom: 1px solid #27272a; color: #52525b; text-transform: uppercase; font-size: 9px;">
-                                    <th style="padding-bottom: 0.5rem;">File Descriptor</th>
-                                    <th style="padding-bottom: 0.5rem;">Allocation</th>
-                                    <th style="padding-bottom: 0.5rem;">WebCrypto SHA-256 Manifest String</th>
+                                    <th style="padding-bottom: 0.5rem;">File</th>
+                                    <th style="padding-bottom: 0.5rem;">Size</th>
+                                    <th style="padding-bottom: 0.5rem;">SHA-256</th>
                                 </tr>
                             </thead>
                             <tbody id="crypto-table-body" style="color: #d4d4d8;">
                                 <tr id="crypto-empty-row"><td colspan="3" style="padding: 1.5rem 0; text-align: center; color: #52525b; font-style: italic;">No files in this local vault yet. Drop files above to calculate their hashes.</td></tr>
-                            </tbody>\1
+                            </tbody>
+                        </table>
+                    </div>
                     <div class="tool-actions">
                         <button type="button" class="btn-prime" onclick="FileIngestionManager.downloadManifest()">Download Evidence Manifest</button>
                         <button type="button" class="btn-sub" onclick="FileIngestionManager.copyManifest()">Copy Manifest</button>
                         <button type="button" class="btn-sub" onclick="FileIngestionManager.clearAll()">Clear Local Vault</button>
                     </div>
-\2
+                </div>
+
+                <!-- Right Parameters Configuration Sidebar -->
                 <div class="span-5" style="display: flex; flex-direction: column; gap: 1.5rem;">
                     <div class="premium-card" style="display: flex; flex-direction: column; gap: 1.25rem;">
 
                         <div>
-                            <h3 class="heading-font" style="font-size: 1rem;">Forensic Pitch Oscillator</h3>
+                            <h3 class="heading-font" style="font-size: 1rem;">Reference Tone Generator</h3>
                             <p style="font-size: 11px; color: #52525b; margin-top: 1px;">Generate a reference tone with the browser Web Audio API. Keep your volume low before starting.</p>
                         </div>
                         
                         <div style="display: flex; flex-direction: column; gap: 1rem; font-family: 'JetBrains Mono'; font-size: 11px;">
                             <div style="display: flex; flex-direction: column; gap: 0.35rem;">
-                                <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Target Signal Format</label>
+                                <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Waveform</label>
                                 <select id="audio-waveform" style="background: #0b0b0c; border: 1px solid #27272a; padding: 0.65rem; border-radius: 0.375rem; color: #fff; outline: none;">
                                     <option value="sine">Sine wave</option>
                                     <option value="triangle">Triangle wave</option>
@@ -505,7 +510,7 @@
                     </div>
                     <div class="span-5 lab-console-panel" style="display: flex; flex-direction: column; gap: 0.35rem; font-family: 'JetBrains Mono'; font-size: 11px;">
                         <div style="font-size: 9px; font-weight: bold; color: #10b981; text-transform: uppercase; margin-bottom: 0.15rem;">Arrangement settings</div>
-                        <div>Target BPM Space: <span id="lbl-track-bpm" style="color: #fff; font-weight: bold;">120</span></div>
+                        <div>Tempo: <span id="lbl-track-bpm" style="color: #fff; font-weight: bold;">120</span></div>
                         <div>Chord Progression: <span id="lbl-track-chords" style="color: #fff; font-weight: bold;">C - G - Am - F</span></div>
                         <button onclick="AudioStemMixer.togglePlayback()" id="btn-play-generated-mix" class="btn-sub" style="margin-top: auto; padding: 4px; font-size: 10px; border-color: #10b981; color: #10b981; width: 100%;">▶ Play Demo Mix</button>
                     </div>
@@ -527,7 +532,7 @@
                     <div class="mixer-strip">
                         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                             <span style="font-family: 'JetBrains Mono'; font-size: 11px; font-weight: bold; color: #f4f4f5;">01 // VOCALS STEM</span>
-                            <span style="font-size: 9px; color: #6366f1; background: #1e1b4b; padding: 2px 6px; border-radius: 4px; font-weight: bold;">PCM Pad</span>
+                            <span style="font-size: 9px; color: #6366f1; background: #1e1b4b; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Audio / synth</span>
                         </div>
                         <label class="stem-file-label">Load Audio Stem<input type="file" accept="audio/*" hidden onchange="AudioStemMixer.loadStem('vocals', this.files[0])"></label>
                         <div id="stem-name-vocals" class="stem-file-name">No audio loaded</div>
@@ -546,7 +551,7 @@
                     <div class="mixer-strip">
                         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                             <span style="font-family: 'JetBrains Mono'; font-size: 11px; font-weight: bold; color: #f4f4f5;">02 // BASS STEM</span>
-                            <span style="font-size: 9px; color: #10b981; background: #064e3b; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Sub Pulsar</span>
+                            <span style="font-size: 9px; color: #10b981; background: #064e3b; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Audio / synth</span>
                         </div>
                         <label class="stem-file-label">Load Audio Stem<input type="file" accept="audio/*" hidden onchange="AudioStemMixer.loadStem('bass', this.files[0])"></label>
                         <div id="stem-name-bass" class="stem-file-name">No audio loaded</div>
@@ -565,7 +570,7 @@
                     <div class="mixer-strip">
                         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                             <span style="font-family: 'JetBrains Mono'; font-size: 11px; font-weight: bold; color: #f4f4f5;">03 // DRUMS STEM</span>
-                            <span style="font-size: 9px; color: #f59e0b; background: #78350f; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Sequencer</span>
+                            <span style="font-size: 9px; color: #f59e0b; background: #78350f; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Audio / synth</span>
                         </div>
                         <label class="stem-file-label">Load Audio Stem<input type="file" accept="audio/*" hidden onchange="AudioStemMixer.loadStem('drums', this.files[0])"></label>
                         <div id="stem-name-drums" class="stem-file-name">No audio loaded</div>
@@ -584,7 +589,7 @@
                     <div class="mixer-strip">
                         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                             <span style="font-family: 'JetBrains Mono'; font-size: 11px; font-weight: bold; color: #f4f4f5;">04 // SYNTHS STEM</span>
-                            <span style="font-size: 9px; color: #ec4899; background: #4c0519; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Arpeggiator</span>
+                            <span style="font-size: 9px; color: #ec4899; background: #4c0519; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Audio / synth</span>
                         </div>
                         <label class="stem-file-label">Load Audio Stem<input type="file" accept="audio/*" hidden onchange="AudioStemMixer.loadStem('synths', this.files[0])"></label>
                         <div id="stem-name-synths" class="stem-file-name">No audio loaded</div>
@@ -649,7 +654,7 @@
                         <div style="background: #0b0b0c; border: 1px solid var(--color-border-line); padding: 1rem; border-radius: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
                             <div style="font-weight: bold; color: #f4f4f5;">Render mixed WAV</div>
                             <div style="font-size: 11px; color: #52525b; line-height: 1.4;">Renders the loaded tracks through the current faders and filter, then downloads a WAV.</div>
-                            <button onclick="AudioStemMixer.runPipelineStep('flush')" class="btn-sub" style="font-size: 10px; padding: 4px 8px; margin-top: auto; align-self: flex-start;">Export WAV</button>
+                            <button onclick="AudioStemMixer.runPipelineStep('flush')" class="btn-sub" style="font-size: 10px; padding: 4px 8px; margin-top: auto; align-self: flex-start;">Render WAV</button>
                         </div>
 
                     </div>
@@ -658,7 +663,7 @@
                 <!-- Active Visual Spectrogram Readout Monitor -->
                 <div class="span-4 premium-card" style="display: flex; flex-direction: column; gap: 1rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border-line); padding-bottom: 0.25rem;">
-                        <span style="font-size: 11px; font-family: 'JetBrains Mono'; font-weight: bold; color: #f4f4f5;">FFT Frequency Graph</span>
+                        <span style="font-size: 11px; font-family: 'JetBrains Mono'; font-weight: bold; color: #f4f4f5;">Spectrum</span>
                         <span id="lbl-live-db" style="font-family: 'JetBrains Mono'; font-size: 10px; color: #818cf8;">-Infinity dB</span>
                     </div>
                     <div style="background: #070708; border: 1px solid #1c1c1f; border-radius: 0.5rem; flex-grow: 1; min-height: 140px; overflow: hidden;">
@@ -666,7 +671,7 @@
                     </div>
 
                     <div style="display: flex; flex-direction: column; gap: 0.25rem; font-family: 'JetBrains Mono'; font-size: 11px;">
-                        <label style="color: #71717a; font-weight: bold; font-size: 9px; text-transform: uppercase;">Biquad Cutoff: <span id="lbl-fx-cutoff" style="color: #818cf8;">1200 Hz</span></label>
+                        <label style="color: #71717a; font-weight: bold; font-size: 9px; text-transform: uppercase;">Low-pass cutoff: <span id="lbl-fx-cutoff" style="color: #818cf8;">1200 Hz</span></label>
                         <input type="range" id="slider-fx-cutoff" min="150" max="5000" value="1200" oninput="AudioStemMixer.updateFilterFrequency(this.value)">
                     </div>
                 </div>
@@ -691,22 +696,22 @@
 
                     <div style="display: flex; flex-direction: column; gap: 0.75rem; font-family: 'JetBrains Mono'; font-size: 11px;">
                         <div style="display: flex; flex-direction: column; gap: 0.25rem;">
-                            <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Agent Identity Name</label>
+                            <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Agent name</label>
                             <input type="text" id="aim-var-name" value="Tommy Smithereens" class="input-text" style="font-family: sans-serif; font-size: 12px;" onchange="AIMChatAgent.compilePrompt()">
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 0.25rem;">
-                            <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Core Profession Profile</label>
+                            <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Role or profession</label>
                             <input type="text" id="aim-var-profession" value="trampoline salesperson" class="input-text" style="font-family: sans-serif; font-size: 12px;" onchange="AIMChatAgent.compilePrompt()">
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 0.25rem;">
-                            <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Behavior Quirks &amp; Traits</label>
+                            <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Behavior notes</label>
                             <textarea id="aim-var-quirks" rows="2" class="input-text" style="font-family: sans-serif; font-size: 12px; resize: none;" onchange="AIMChatAgent.compilePrompt()">usually a little goofy. Only drinks strawberry milk or protein shakes.</textarea>
                         </div>
                     </div>
                     
 
                     <div style="background: #0b0b0c; border: 1px solid #1c1c1f; padding: 0.75rem; border-radius: 0.5rem;">
-                        <span style="font-size: 9px; font-weight: bold; color: #818cf8; text-transform: uppercase; font-family: 'JetBrains Mono'; display: block; margin-bottom: 0.25rem;">Compiled Instruction State Directive</span>
+                        <span style="font-size: 9px; font-weight: bold; color: #818cf8; text-transform: uppercase; font-family: 'JetBrains Mono'; display: block; margin-bottom: 0.25rem;">Compiled instruction preview</span>
                         <div id="aim-compiled-preview" style="font-family: 'JetBrains Mono'; font-size: 10px; color: #52525b; white-space: pre-wrap; line-height: 1.4; max-height: 100px; overflow-y: auto;"></div>
                     </div>
                 </div>
@@ -718,7 +723,7 @@
                             <h3 class="heading-font" style="font-size: 1rem;">Behavior Preview</h3>
                             <p style="font-size: 11px; color: #52525b; margin-top: 1px;">A deterministic preview of how interface rules can shape responses. No AI model is running here.</p>
                         </div>
-                        <button id="btn-aim-pause" onclick="AIMChatAgent.togglePause()" class="btn-sub" style="padding: 0.4rem 0.75rem; font-size: 10px;">⏸ Pause Pings</button>
+                        <button id="btn-aim-pause" onclick="AIMChatAgent.togglePause()" class="btn-sub" style="padding: 0.4rem 0.75rem; font-size: 10px;">Reset Preview</button>
                     </div>
 
                     <div class="aim-feed" id="aim-message-box" style="height: 240px; overflow-y: auto; padding: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 12px; border-radius: 0.25rem;">
@@ -728,7 +733,7 @@
 
                     <div style="display: flex; flex-direction: column; gap: 0.5rem;">
                         <div style="display: flex; gap: 0.5rem;">
-                            <input type="text" id="aim-user-input" placeholder="Transmit direct messages into the AIM loop client..." class="input-text" style="font-size: 12px;" oninput="AIMChatAgent.updateCharCount(this.value)" onkeydown="if(event.key==='Enter') AIMChatAgent.sendUserMessage()">
+                            <input type="text" id="aim-user-input" placeholder="Type a short test message..." class="input-text" style="font-size: 12px;" oninput="AIMChatAgent.updateCharCount(this.value)" onkeydown="if(event.key==='Enter') AIMChatAgent.sendUserMessage()">
                             <button onclick="AIMChatAgent.sendUserMessage()" class="btn-prime">Send IM</button>
                         </div>
                         <div style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono'; font-size: 9px; color: #52525b;">
@@ -740,7 +745,7 @@
             </div>
 
             <!-- LOWER SUB-SECTION ROW: SAPERLI-CORE MOBILE WORKSPACE CONSOLE -->
-            <div class="premium-card" style="max-w: 48rem; margin: 3rem auto 0 auto; display: flex; flex-direction: column; gap: 1rem; border-color: rgba(245,158,11,0.15);">
+            <div class="premium-card" style="max-width: 48rem; margin: 3rem auto 0 auto; display: flex; flex-direction: column; gap: 1rem; border-color: rgba(245,158,11,0.15);">
                 <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1c1c1f; padding-bottom: 0.75rem;">
                     <div style="display: flex; align-items: center; gap: 0.5rem;">
                         <span style="font-size: 1.25rem;">🍄</span>
@@ -1009,7 +1014,7 @@
             stopPlayback() { this.stopSources(); this.active = false; this.stopVisualizer(); this.updateTransportUI(); },
             updateTransportUI() {
                 const btn = document.getElementById('btn-mixer-master-toggle');
-                if (btn) btn.textContent = this.active ? 'Pause Mix' : 'Play Mix';
+                if (btn) btn.textContent = this.active ? 'Stop Mix' : 'Play Mix';
                 const statusLed = document.getElementById('daw-engine-status-led'); if (statusLed) statusLed.style.background = this.active ? '#10b981' : '#a1a1aa';
                 const status = document.getElementById('daw-engine-status-lbl'); if (status) status.textContent = this.active ? 'Playing loaded stems in sync. All processing remains local.' : 'Mixer ready. Load stems or generate a demo arrangement.';
                 const demoButton = document.getElementById('btn-play-generated-mix'); if (demoButton) demoButton.textContent = this.active ? '■ Stop Demo Mix' : '▶ Play Demo Mix';
@@ -1149,7 +1154,7 @@
 
         /* --- LOCAL INDEXEDDB EVIDENCE MANIFEST MANAGER --- */
         const FileIngestionManager = {
-            db: null,
+            db: null, dbReady: null,
             MAX_FILES: 20,
             MAX_FILE_BYTES: 50 * 1024 * 1024,
             init() {
@@ -1165,13 +1170,16 @@
                 this.initDB();
             },
             initDB() {
-                const req = indexedDB.open('NickPortfolioForensicDB', 1);
-                req.onupgradeneeded = e => {
-                    const db = e.target.result;
-                    if (!db.objectStoreNames.contains('hashes')) db.createObjectStore('hashes', { keyPath: 'id', autoIncrement: true });
-                };
-                req.onsuccess = e => { this.db = e.target.result; this.loadSavedRecords(); };
-                req.onerror = () => BillingManager.showToast('Local vault could not be opened in this browser.');
+                this.dbReady = new Promise((resolve, reject) => {
+                    const req = indexedDB.open('NickPortfolioForensicDB', 1);
+                    req.onupgradeneeded = e => {
+                        const db = e.target.result;
+                        if (!db.objectStoreNames.contains('hashes')) db.createObjectStore('hashes', { keyPath: 'id', autoIncrement: true });
+                    };
+                    req.onsuccess = e => { this.db = e.target.result; this.loadSavedRecords(); resolve(this.db); };
+                    req.onerror = () => { BillingManager.showToast('Local vault could not be opened in this browser.'); reject(req.error); };
+                });
+                return this.dbReady;
             },
             loadSavedRecords() {
                 if (!this.db) return;
@@ -1186,6 +1194,10 @@
             async process(fileList) {
                 const files = [...fileList];
                 if (!files.length) return;
+                if (!this.db) {
+                    try { await this.dbReady; }
+                    catch (_) { return; }
+                }
                 const available = Math.max(0, this.MAX_FILES - AppState.uploadedFiles.length);
                 if (!available) { BillingManager.showToast(`This demo keeps up to ${this.MAX_FILES} local records. Clear the vault to continue.`); return; }
                 const accepted = files.slice(0, available);
@@ -1260,7 +1272,7 @@
                 return `- Identity: ${name}\n- Role: ${profession}\n- Behavioral notes: ${quirks}`;
             },
             compilePrompt() { const preview = document.getElementById('aim-compiled-preview'); if (preview) preview.textContent = this.systemPrompt(); },
-            togglePause() { BillingManager.showToast('Ambient pings are disabled in this honest demo.'); },
+            togglePause() { this.clearFeed(); BillingManager.showToast('Preview reset.'); },
             clearFeed() { const box = document.getElementById('aim-message-box'); if (!box) return; box.replaceChildren(); this.append(box, 'System', 'Deterministic behavior preview ready. No model is loaded and nothing is transmitted.', '#71717a'); },
             append(box, label, text, color) { const row = document.createElement('div'); const tag = document.createElement('strong'); tag.textContent = `[${label}]: `; tag.style.color = color; row.append(tag, document.createTextNode(text)); box.appendChild(row); box.scrollTop = box.scrollHeight; },
             updateCharCount(value) { const counter = document.getElementById('aim-char-counter'); if (counter) counter.textContent = `${value.length} / 100 Max`; },
