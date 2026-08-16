@@ -1,0 +1,116 @@
+        const AudioControls ='''
+sub_once(
+    r'        /\* --- WOLLOHY STUDIO: MULTI-STEM STUDIO EDGE ENGINE --- \*/\s*        const AudioStemMixer = \{.*?\n        \};\n\n        const AudioControls =',
+    audio_mixer_js,
+    'replace beep mixer with real audio file mixer and WAV renderer',
+)
+
+# Physics graph: avoid adding another resize listener on every visit.
+replace_once(
+    '            canvas: null, ctx: null, nodes: [], links: [], rafId: null, density: 25, tension: 4,',
+    '            canvas: null, ctx: null, nodes: [], links: [], rafId: null, density: 25, tension: 4, boundResize: null,',
+    'add stable graph resize handler',
+)
+replace_once(
+    "                window.addEventListener('resize', () => this.resize());",
+    "                if (!this.boundResize) { this.boundResize = () => this.resize(); window.addEventListener('resize', this.boundResize); }",
+    'prevent graph resize listener leak',
+)
+
+# Safe deterministic interaction demos with no fake AI claims or innerHTML injection.
+aim_js = r'''        /* --- DETERMINISTIC PROMPT SPECIFICATION PREVIEW --- */
+        const AIMChatAgent = {
+            init() { this.compilePrompt(); this.clearFeed(); },
+            systemPrompt() {
+                const name = document.getElementById('aim-var-name')?.value || 'Agent'; const profession = document.getElementById('aim-var-profession')?.value || 'unspecified'; const quirks = document.getElementById('aim-var-quirks')?.value || 'none';
+                return `- Identity: ${name}\n- Role: ${profession}\n- Behavioral notes: ${quirks}`;
+            },
+            compilePrompt() { const preview = document.getElementById('aim-compiled-preview'); if (preview) preview.textContent = this.systemPrompt(); },
+            togglePause() { BillingManager.showToast('Ambient pings are disabled in this honest demo.'); },
+            clearFeed() { const box = document.getElementById('aim-message-box'); if (!box) return; box.replaceChildren(); this.append(box, 'System', 'Deterministic behavior preview ready. No model is loaded and nothing is transmitted.', '#71717a'); },
+            append(box, label, text, color) { const row = document.createElement('div'); const tag = document.createElement('strong'); tag.textContent = `[${label}]: `; tag.style.color = color; row.append(tag, document.createTextNode(text)); box.appendChild(row); box.scrollTop = box.scrollHeight; },
+            updateCharCount(value) { const counter = document.getElementById('aim-char-counter'); if (counter) counter.textContent = `${value.length} / 100 Max`; },
+            sendUserMessage() {
+                const input = document.getElementById('aim-user-input'); const box = document.getElementById('aim-message-box'); const text = input?.value.trim(); if (!text || !box) return;
+                if (text.length > 100) { BillingManager.showToast('Keep the preview message under 100 characters.'); return; }
+                this.append(box, 'User', text, '#0000ff'); input.value = ''; this.updateCharCount('');
+                const name = document.getElementById('aim-var-name')?.value || 'Agent'; const profession = document.getElementById('aim-var-profession')?.value || 'specialist'; const lower = text.toLowerCase();
+                const reply = lower.includes('how') ? `As a ${profession}, I would break that into a first test, a clear constraint, and one measurable outcome.` : `Preview rule matched. ${name} responds through the role and traits defined on the left.`;
+                setTimeout(() => this.append(box, name, reply, '#ff0000'), 220);
+            },
+            cleanup() {}
+        };
+
+        /* --- SAPERLI CONVERSATION UI PROTOTYPE --- */
+        const SaperliPopette ='''
+sub_once(
+    r'        /\* --- VARIABLE AIM CHAT SANDBOX CONTROLLER DECK --- \*/\s*        const AIMChatAgent = \{.*?\n        \};\n\n        /\* --- SAPERLI POPETTE REAL TIME LOCAL HANDSHAKE DESK --- \*/\s*        const SaperliPopette =',
+    aim_js,
+    'rewrite AWD as honest deterministic preview',
+)
+
+saperli_js = r'''        const SaperliPopette = {
+            initUIState() {
+                const output = document.getElementById('saperli-chat-output'); if (!output) return; output.replaceChildren();
+                const row = document.createElement('div'); row.style.cssText = 'color:#f59e0b;font-weight:700;'; row.textContent = '🍄 Saperli prototype ready. Replies in this embedded demo are scripted and stay in the page.'; output.appendChild(row);
+            },
+            append(text, align = 'left', color = '#d4d4d8') { const output = document.getElementById('saperli-chat-output'); if (!output) return; const row = document.createElement('div'); row.style.textAlign = align; row.style.color = color; row.textContent = text; output.appendChild(row); output.scrollTop = output.scrollHeight; },
+            sendLiveMessage() {
+                const input = document.getElementById('saperli-chat-input'); const value = input?.value.trim(); if (!value) return; this.append(value, 'right', '#f59e0b'); input.value = '';
+                const french = /\b(bonjour|merci|oui|non|comment|pourquoi|quoi|je|tu|vous)\b/i.test(value);
+                setTimeout(() => this.append(french ? 'Tiens ! Je suis une maquette locale, mais l’interface a bien reçu ton message.' : 'Nice — this local prototype received the message. The full Saperli project has the richer conversation behavior.'), 240);
+            }
+        };
+
+        window.addEventListener('DOMContentLoaded', () => { 
+            AppRouter.init(); UIControls.loadSavedPreferences(); FileIngestionManager.init(); ConsultationCalculator.init(); 
+        });'''
+sub_once(
+    r'        const SaperliPopette = \{.*?\n        \};\n\n        window\.addEventListener\(\'DOMContentLoaded\', \(\) => \{.*?\n        \}\);',
+    saperli_js,
+    'rewrite Saperli demo and bootstrap lead form',
+)
+
+# Remove dangling premium state and make AppState simply local.
+replace_once(
+    '            isPremium: false,\n            uploadedFiles: [],',
+    '            uploadedFiles: [],',
+    'remove fake premium state',
+)
+
+# Final wording cleanup for the most visible AI-generated phrases.
+cleanup_map = {
+    'Local Forensic Timeline Reconstruction.': 'Local Forensic Timeline Reconstruction',
+    'Sine Wave (Pure Linear Vector)': 'Sine wave',
+    'Triangle Wave (Deep Sub-Bass Pitch Element)': 'Triangle wave',
+    'Filter Index Rate:': 'Frequency:',
+    'Initialize Signal Waveform': 'Start Reference Tone',
+    'Halt Oscillator Signal': 'Stop Reference Tone',
+    'device cash layers': 'device cache',
+    'tracking pack': 'local export',
+}
+for old, new in cleanup_map.items():
+    text = text.replace(old, new)
+
+# Basic validation checks.
+if text == original:
+    raise RuntimeError('Patch produced no changes')
+if 'https://jsdelivr.net' in text:
+    raise RuntimeError('Broken CDN remains')
+if 'SYNC ACTIVE (POSTGRES LIVE LINKED)' in text or 'Global Real-Time Audit Ledger Connected' in text:
+    raise RuntimeError('False cloud status remains')
+if 'MusicGen-Small ONNX' in text or 'Downloading model checkpoints' in text:
+    raise RuntimeError('Fake model-loading language remains')
+if 'modal-usage-gate' in text or 'modal-premium-export' in text:
+    raise RuntimeError('Broken paywall references remain')
+if text.count('id="mobile-nav-select"') != 1:
+    raise RuntimeError('Mobile navigation not installed exactly once')
+
+path.write_text(text, encoding='utf-8')
+print(f'Patched index.html: {len(original):,} -> {len(text):,} characters')
+
+# Remove the one-shot patch infrastructure from the final branch tree.
+for helper in (Path('scripts/revenue_ready_patch.py'), Path('.github/workflows/revenue-ready-patch.yml')):
+    if helper.exists():
+        helper.unlink()
+        print(f'Removed helper: {helper}')
