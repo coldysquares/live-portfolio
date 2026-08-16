@@ -17,7 +17,6 @@
             --radius-component: 0.75rem;
         }
 
-
         body {
             font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
             background-color: var(--color-bg);
@@ -36,7 +35,6 @@
             -webkit-backdrop-filter: blur(16px); 
             border-bottom: 1px solid var(--color-border-line); 
         }
-
 
         .premium-card {
             background-color: var(--color-surface-card); 
@@ -57,7 +55,6 @@
         
         .horizontal-scroller-deck { 
             display: flex; overflow-x: auto; gap: 1rem; padding-bottom: 0.5rem; 
-
             scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.1) transparent; 
         }
 
@@ -77,7 +74,6 @@
         .chat-scroll-area::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
 
         .typing-indicator span {
-
             width: 6px; height: 6px; background-color: #6366f1; border-radius: 50%; display: inline-block;
             animation: bounceDots 1.4s infinite both;
         }
@@ -97,7 +93,6 @@
         }
         .aim-timestamp { color: #0000ff; font-weight: bold; }
         .aim-bot-name { color: #ff0000; font-weight: bold; }
-
         .aim-user-name { color: #0000ff; font-weight: bold; }
     </style>
 </head>
@@ -112,14 +107,13 @@
                 </div>
                 <div>
                     <span class="text-xs font-bold tracking-[0.12em] text-zinc-100 block uppercase mono-font">NICK<span class="text-indigo-400">BERGHANE</span></span>
-                    <span class="text-[9px] text-zinc-500 font-medium uppercase tracking-widest block font-mono">Creative Frontend Portfolio</span>
+                    <span class="text-[9px] text-zinc-500 font-medium uppercase tracking-widest block font-mono">Sovereign Compute Environment</span>
                 </div>
             </div>
             
             <nav class="hidden md:flex space-x-1.5 items-center text-[11px] font-bold uppercase tracking-wider font-mono" id="global-nav-links">
-
                 <button onclick="AppRouter.navigate('home')" id="nav-home" class="px-3.5 py-2 rounded-md transition-all">ChronosAudit</button>
-                <button onclick="AppRouter.navigate('mixer')" id="nav-mixer" class="px-3.5 py-2 rounded-md transition-all">Audio Studio</button>
+                <button onclick="AppRouter.navigate('mixer')" id="nav-mixer" class="px-3.5 py-2 rounded-md transition-all">Wollohy Studio</button>
                 <button onclick="AppRouter.navigate('playgrounds')" id="nav-playgrounds" class="px-3.5 py-2 rounded-md transition-all">AI Playgrounds</button>
                 <button onclick="AppRouter.navigate('geometry')" id="nav-geometry" class="px-3.5 py-2 rounded-md transition-all">Data Geometry</button>
                 <button onclick="AppRouter.navigate('about')" id="nav-about" class="px-3.5 py-2 rounded-md transition-all text-zinc-400 hover:text-zinc-100">About Me</button>
@@ -137,7 +131,6 @@
             <div class="flex justify-between items-center border-b border-zinc-900 pb-3">
                 <div>
                     <h3 class="heading-font text-lg text-zinc-100">Project Scoping Calculator</h3>
-
                     <p class="text-xs text-zinc-500 mt-0.5">Select features to dynamically generate an architecture brief and investment scope statement.</p>
                 </div>
                 <button onclick="UIControls.closeModal('modal-consultation')" class="text-zinc-500 hover:text-zinc-300">✕</button>
@@ -157,7 +150,6 @@
                             <input type="checkbox" id="chk-wasm" onchange="ConsultationCalculator.calculate()" class="rounded border-zinc-800 bg-zinc-950 text-indigo-600 focus:ring-0 w-4 h-4">
                             <span class="font-sans font-medium text-zinc-200">Wasm / Local AI Inference Sandbox</span>
                         </div>
-
                         <span class="text-zinc-500">+$2,500 // +6 Days</span>
                     </label>
                     <label class="flex items-center justify-between bg-zinc-900/40 p-3.5 rounded-xl border border-zinc-800/60 cursor-pointer select-none hover:border-zinc-700/60 transition-colors">
@@ -177,7 +169,6 @@
                             <option value="1.4">Accelerated Sprint Timeline Matrix (1.4x)</option>
                         </select>
                     </div>
-
                     <div class="bg-zinc-900/40 border border-zinc-800/60 p-4 rounded-xl flex flex-col justify-center text-zinc-400 space-y-1">
                         <div class="font-sans">Estimated Investment: <span id="lbl-calc-budget" class="text-indigo-400 font-mono font-bold">$25,000</span></div>
                         <div class="font-sans">Production Timeline: <span id="lbl-calc-days" class="text-emerald-400 font-mono font-bold">30 Days</span></div>
@@ -197,7 +188,6 @@
             <div class="w-12 h-12 bg-red-950/40 border border-red-500/30 text-red-400 flex items-center justify-center text-xl rounded-xl mx-auto">⚠️</div>
             <div class="space-y-1">
                 <h3 class="heading-font text-lg text-zinc-100">Sandbox Processing Limits Reached</h3>
-
                 <p class="text-xs text-zinc-400 max-w-xs mx-auto leading-relaxed">Upgrade to process unlimited batch folders locally. Local memory footprints require explicit allocation space handles.</p>
             </div>
             <div class="bg-zinc-900/50 p-3.5 border border-zinc-800 font-mono text-[11px] text-zinc-500 rounded-xl">
@@ -217,7 +207,6 @@
             <div class="w-12 h-12 bg-indigo-950 border border-indigo-500/30 text-indigo-400 flex items-center justify-center text-xl rounded-xl mx-auto">💎</div>
             <div class="space-y-1">
                 <h3 class="heading-font text-lg text-zinc-100">Premium Artifact Export</h3>
-
                 <p class="text-xs text-zinc-400 max-w-xs mx-auto leading-relaxed">Unlock instant download handles, master WAV stem packages, and signed verification manifests for a flat asset generation fee.</p>
             </div>
             <button onclick="BillingManager.paySingleFee()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-mono text-xs font-bold uppercase py-3 rounded-lg transition-all shadow-md shadow-indigo-600/10">Unlock Asset Generation Manifest ($19)</button>
@@ -237,7 +226,6 @@
                 <p class="text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed font-medium">
                     A specialized developer workspace designed to demonstrate client-side timeline extraction. Ingest messy file structures natively to check metadata integrity without data leaks, server pipelines, or API dependencies.
                 </p>
-
             </div>
 
             <!-- Core Lead Generator Try-Out Sandbox Area Grid -->
@@ -257,7 +245,6 @@
                         <svg class="w-8 h-8 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                         <div class="text-xs text-zinc-400">Drag &amp; drop file packages here or click to <span class="text-indigo-400 font-bold underline">browse folders</span></div>
                         <input type="file" id="file-input" multiple class="hidden">
-
                     </div>
 
                     <!-- Local Hash Output Data Table Register -->
@@ -277,7 +264,6 @@
                             <tbody id="crypto-table-body" class="text-zinc-400">
                                 <tr id="crypto-empty-row"><td colspan="3" class="py-4 text-center text-zinc-600 italic font-sans font-medium">No files parsed yet. Import data packets above to compile instant device token fingerprints locally.</td></tr>
                             </tbody>
-
                         </table>
                     </div>
                 </div>
@@ -297,7 +283,6 @@
                                     <option value="triangle">Triangle Wave (Deep Sub-Bass Pitch Element)</option>
                                     <option value="sawtooth">Sawtooth Wave (Harmonic Data Signal Stream)</option>
                                     <option value="square">Square Wave (High-Frequency Clipping Simulator)</option>
-
                                 </select>
                             </div>
                             <div class="space-y-1.5">
@@ -317,31 +302,29 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
-        <!-- VIEW 2: DISSOCIATED MULTI-TRACK AUDIO MATRIX DISCOVERED DEEPER IN -->
+        <!-- VIEW 2: DISSOCIATED MULTI-TRACK AUDIO MATRIX (WOLLOHY STUDIO SOVEREIGN DAW) -->
         <div id="page-mixer" class="view-page hidden space-y-6 max-w-4xl mx-auto">
             <div class="border-b border-zinc-900 pb-3">
-                <h2 class="heading-font text-2xl text-zinc-100">Multi-Track Audio Studio Workspace</h2>
-                <p class="text-xs text-zinc-500 mt-0.5">An isolated 4-channel synthesis mixer console simulating real-time clip-free multi-stem layout controls.</p>
+                <h2 class="heading-font text-2xl text-zinc-100">Wollohy Studio: Sovereign Stem Vault &amp; Local DAW</h2>
+                <p class="text-xs text-zinc-500 mt-0.5">A local-first audio workstation solving cloud-dependent token barriers and stem locks by running arrangements natively off lightweight references.</p>
             </div>
 
             <!-- Complete 4-Track Soundboard Console Panel -->
             <div class="premium-card p-6 space-y-6">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-zinc-800 pb-4 gap-3">
                     <div>
-                        <h3 class="heading-font text-base text-zinc-200">Isolated Quad-Oscillator Mixer Desk</h3>
-                        <p class="text-xs text-zinc-500 mt-0.5">Control individual synthetic tracking nodes mapped smoothly through safe linear volume properties.</p>
+                        <h3 class="heading-font text-base text-zinc-200">Isolated Multi-Stem Reference Mixer</h3>
+                        <p class="text-xs text-zinc-500 mt-0.5">Simulates local Float32 PCM capturing tracks and reference non-destructive layout manifests without rendering bloated blobs.</p>
                     </div>
                     <button id="btn-mixer-master-toggle" onclick="AudioStemMixer.togglePlayback()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-mono text-xs uppercase tracking-wider px-4 py-2.5 font-bold rounded-lg transition-all">Initialize Sound Workstation</button>
                 </div>
 
-
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <!-- Vocals/Track 1 Track -->
                     <div class="bg-zinc-950 p-4 border border-zinc-900 rounded-xl space-y-3">
-                        <div class="flex justify-between items-center text-xs font-mono font-bold"><span class="text-zinc-300">01 // TRACK A</span><span class="text-[10px] text-zinc-600">600Hz Sine</span></div>
+                        <div class="flex justify-between items-center text-xs font-mono font-bold"><span class="text-zinc-300">01 // VOCALS STEM</span><span class="text-[10px] text-zinc-600">PCM Pad</span></div>
                         <input type="range" id="mixer-vol-vocals" min="0" max="1" step="0.01" value="0.7" class="w-full accent-indigo-500" oninput="AudioStemMixer.setVolume('vocals', this.value)" onchange="UIControls.handleSliderChange('mixer-vol-vocals', this.value)">
                         <div class="grid grid-cols-2 gap-2 text-[10px] font-mono font-bold uppercase">
                             <button onclick="AudioStemMixer.toggleMute('vocals', this)" class="bg-zinc-900 border border-zinc-800 py-1 rounded-md text-zinc-400 hover:text-zinc-200 transition-colors">Mute</button>
@@ -350,17 +333,16 @@
                     </div>
                     <!-- Bass/Track 2 Track -->
                     <div class="bg-zinc-950 p-4 border border-zinc-900 rounded-xl space-y-3">
-                        <div class="flex justify-between items-center text-xs font-mono font-bold"><span class="text-zinc-300">02 // TRACK B</span><span class="text-[10px] text-zinc-600">90Hz Tri</span></div>
+                        <div class="flex justify-between items-center text-xs font-mono font-bold"><span class="text-zinc-300">02 // BASS STEM</span><span class="text-[10px] text-zinc-600">Sub Pulsar</span></div>
                         <input type="range" id="mixer-vol-bass" min="0" max="1" step="0.01" value="0.7" class="w-full accent-indigo-500" oninput="AudioStemMixer.setVolume('bass', this.value)" onchange="UIControls.handleSliderChange('mixer-vol-bass', this.value)">
                         <div class="grid grid-cols-2 gap-2 text-[10px] font-mono font-bold uppercase">
                             <button onclick="AudioStemMixer.toggleMute('bass', this)" class="bg-zinc-900 border border-zinc-800 py-1 rounded-md text-zinc-400 hover:text-zinc-200 transition-colors">Mute</button>
                             <button onclick="AudioStemMixer.toggleSolo('bass', this)" class="bg-zinc-900 border border-zinc-800 py-1 rounded-md text-zinc-400 hover:text-zinc-200 transition-colors">Solo</button>
                         </div>
                     </div>
-
                     <!-- Drums/Track 3 Track -->
                     <div class="bg-zinc-950 p-4 border border-zinc-900 rounded-xl space-y-3">
-                        <div class="flex justify-between items-center text-xs font-mono font-bold"><span class="text-zinc-300">03 // TRACK C</span><span class="text-[10px] text-zinc-600">Noise Mod</span></div>
+                        <div class="flex justify-between items-center text-xs font-mono font-bold"><span class="text-zinc-300">03 // DRUMS STEM</span><span class="text-[10px] text-zinc-600">Sequencer</span></div>
                         <input type="range" id="mixer-vol-drums" min="0" max="1" step="0.01" value="0.5" class="w-full accent-indigo-500" oninput="AudioStemMixer.setVolume('drums', this.value)" onchange="UIControls.handleSliderChange('mixer-vol-drums', this.value)">
                         <div class="grid grid-cols-2 gap-2 text-[10px] font-mono font-bold uppercase">
                             <button onclick="AudioStemMixer.toggleMute('drums', this)" class="bg-zinc-900 border border-zinc-800 py-1 rounded-md text-zinc-400 hover:text-zinc-200 transition-colors">Mute</button>
@@ -369,7 +351,7 @@
                     </div>
                     <!-- Synths/Track 4 Track -->
                     <div class="bg-zinc-950 p-4 border border-zinc-900 rounded-xl space-y-3">
-                        <div class="flex justify-between items-center text-xs font-mono font-bold"><span class="text-zinc-300">04 // TRACK D</span><span class="text-[10px] text-zinc-600">330Hz Saw</span></div>
+                        <div class="flex justify-between items-center text-xs font-mono font-bold"><span class="text-zinc-300">04 // SYNTHS STEM</span><span class="text-[10px] text-zinc-600">Arpeggiator</span></div>
                         <input type="range" id="mixer-vol-synths" min="0" max="1" step="0.01" value="0.6" class="w-full accent-indigo-500" oninput="AudioStemMixer.setVolume('synths', this.value)" onchange="UIControls.handleSliderChange('mixer-vol-synths', this.value)">
                         <div class="grid grid-cols-2 gap-2 text-[10px] font-mono font-bold uppercase">
                             <button onclick="AudioStemMixer.toggleMute('synths', this)" class="bg-zinc-900 border border-zinc-800 py-1 rounded-md text-zinc-400 hover:text-zinc-200 transition-colors">Mute</button>
@@ -377,7 +359,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 <div class="pt-4 border-t border-zinc-900 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div id="mixer-playback-status" class="text-xs font-mono text-zinc-500">Audio workstation channels compiled. Trigger layout switches to test execution arrays.</div>
@@ -387,49 +368,47 @@
 
             <!-- Frequency Scan Filters Soundboard -->
             <div class="lab-console-panel p-5 space-y-4">
-                <div class="text-[10px] font-mono tracking-widest text-zinc-500 uppercase font-bold">Soundboard Frequency Scan Filter Deck</div>
+                <div class="text-[10px] font-mono tracking-widest text-zinc-500 uppercase font-bold">Local RoFormer / Demucs Pipeline Controls</div>
                 <div class="horizontal-scroller-deck">
                     <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl min-w-[160px] text-center space-y-2 shrink-0">
-                        <span class="text-xs font-mono text-zinc-200 block font-bold">Pulse Filter // Ledger</span>
-                        <button onclick="AudioControls.playSoundboard('ledger')" class="w-full bg-zinc-950 border border-zinc-800 hover:bg-zinc-800 text-xs py-1.5 font-mono rounded-md text-zinc-400 font-medium">🔊 Click</button>
+                        <span class="text-xs font-mono text-zinc-200 block font-bold">Mount project.json</span>
+                        <button onclick="AudioControls.playSoundboard('ledger')" class="w-full bg-zinc-950 border border-zinc-800 hover:bg-zinc-800 text-xs py-1.5 font-mono rounded-md text-zinc-400 font-medium">🔊 Initialize</button>
                     </div>
                     <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl min-w-[160px] text-center space-y-2 shrink-0">
-                        <span class="text-xs font-mono text-zinc-200 block font-bold">Sawtooth Filter // Drill</span>
-                        <button onclick="AudioControls.playSoundboard('drill')" class="w-full bg-zinc-950 border border-zinc-800 hover:bg-zinc-800 text-xs py-1.5 font-mono rounded-md text-zinc-400 font-medium">🔊 Click</button>
+                        <span class="text-xs font-mono text-zinc-200 block font-bold">Demucs Separation</span>
+                        <button onclick="AudioControls.playSoundboard('drill')" class="w-full bg-zinc-950 border border-zinc-800 hover:bg-zinc-800 text-xs py-1.5 font-mono rounded-md text-zinc-400 font-medium">🔊 Run Split</button>
                     </div>
                     <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl min-w-[160px] text-center space-y-2 shrink-0">
-
-                        <span class="text-xs font-mono text-zinc-200 block font-bold">Square Filter // Chopper</span>
-                        <button onclick="AudioControls.playSoundboard('chopper')" class="w-full bg-zinc-950 border border-zinc-800 hover:bg-zinc-800 text-xs py-1.5 font-mono rounded-md text-zinc-400 font-medium">🔊 Click</button>
+                        <span class="text-xs font-mono text-zinc-200 block font-bold">Blind Isolation Filter</span>
+                        <button onclick="AudioControls.playSoundboard('chopper')" class="w-full bg-zinc-950 border border-zinc-800 hover:bg-zinc-800 text-xs py-1.5 font-mono rounded-md text-zinc-400 font-medium">🔊 Filter Pass</button>
                     </div>
                     <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl min-w-[160px] text-center space-y-2 shrink-0">
-                        <span class="text-xs font-mono text-zinc-200 block font-bold">Exponential Filter // Laser</span>
-                        <button onclick="AudioControls.playSoundboard('laser')" class="w-full bg-zinc-950 border border-zinc-800 hover:bg-zinc-800 text-xs py-1.5 font-mono rounded-md text-zinc-400 font-medium">🔊 Click</button>
+                        <span class="text-xs font-mono text-zinc-200 block font-bold">Float32 Capture Flush</span>
+                        <button onclick="AudioControls.playSoundboard('laser')" class="w-full bg-zinc-950 border border-zinc-800 hover:bg-zinc-800 text-xs py-1.5 font-mono rounded-md text-zinc-400 font-medium">🔊 Flush Buffer</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- VIEW 3: INTERACTIVE LAB PLAYGROUNDS (CUSTOM PROMPT VARIABLE COMPILER & AIM CHAT FEED SANDBOX) -->
+        <!-- VIEW 3: INTERACTIVE LAB PLAYGROUNDS (SAPERLI-CORE & USS ZWEFF AWD WORKBENCH) -->
         <div id="page-playgrounds" class="view-page hidden space-y-12 max-w-6xl mx-auto">
             <div class="border-b border-zinc-900 pb-3 text-center md:text-left">
-                <h2 class="heading-font text-2xl text-zinc-100">AI Intelligence Sandboxes</h2>
-                <p class="text-xs text-zinc-400 mt-0.5">Explore serverless local parameter simulation tools alongside live API-connected LLM experiences.</p>
+                <h2 class="heading-font text-2xl text-zinc-100">Sovereign AI Playgrounds: AWD Workbench &amp; Saperli-Core</h2>
+                <p class="text-xs text-zinc-400 mt-0.5">Explore split-pane zero-waste editor frameworks built to stop cloud token exhaustion, conversational drift, and telemetry tracking black holes.</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-
                 
                 <!-- PLAYGROUND LEFT PANEL: Free-Form Variable Prompter Settings Deck -->
                 <div class="lg:col-span-5 premium-card p-5 space-y-4">
                     <div class="border-b border-zinc-900 pb-2">
-                        <h3 class="heading-font text-base text-zinc-200">System Variable Definitions</h3>
-                        <p class="text-[11px] text-zinc-500">Modify properties below to programmatically compile the system execution prompt array.</p>
+                        <h3 class="heading-font text-base text-zinc-200">USS ZWEFF Prompt Variables</h3>
+                        <p class="text-[11px] text-zinc-500">Configure AWD parameters (One sentence in, one paragraph out) to completely bypass thread bloating loops.</p>
                     </div>
                     
                     <div class="space-y-3.5 text-xs font-mono">
                         <div class="space-y-1.5">
-                            <label class="block text-[10px] text-zinc-400 uppercase font-bold tracking-wider">Identity &amp; Name Node</label>
+                            <label class="block text-[10px] text-zinc-400 uppercase font-bold tracking-wider">Identity Name Parameter</label>
                             <input type="text" id="aim-var-name" value="Tommy Smithereens" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-2.5 text-zinc-200 outline-none focus:border-indigo-500 font-sans" onchange="AIMChatAgent.compilePrompt()">
                         </div>
                         <div class="space-y-1.5">
@@ -437,18 +416,17 @@
                             <input type="text" id="aim-var-profession" value="trampoline salesperson" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-2.5 text-zinc-200 outline-none focus:border-indigo-500 font-sans" onchange="AIMChatAgent.compilePrompt()">
                         </div>
                         <div class="space-y-1.5">
-                            <label class="block text-[10px] text-zinc-400 uppercase font-bold tracking-wider">Goofy Habits &amp; Fluid Quirks</label>
-
+                            <label class="block text-[10px] text-zinc-400 uppercase font-bold tracking-wider">Quirks &amp; Token Matrix Parameters</label>
                             <textarea id="aim-var-quirks" rows="2" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-2.5 text-zinc-200 outline-none focus:border-indigo-500 font-sans" onchange="AIMChatAgent.compilePrompt()">usually a little goofy. Only drinks strawberry milk or protein shakes. Favorite color is lemon.</textarea>
                         </div>
                         <div class="space-y-1.5">
-                            <label class="block text-[10px] text-zinc-400 uppercase font-bold tracking-wider">Beloved Companion Description</label>
+                            <label class="block text-[10px] text-zinc-400 uppercase font-bold tracking-wider">Beloved Companion Directive</label>
                             <input type="text" id="aim-var-companion" value="a beloved beagle that follows you everywhere, but stinks a little bit named Buttercup" class="w-full bg-zinc-950 border border-zinc-800 rounded-lg p-2.5 text-zinc-200 outline-none focus:border-indigo-500 font-sans" onchange="AIMChatAgent.compilePrompt()">
                         </div>
                     </div>
 
                     <div class="bg-zinc-950 border border-zinc-900 p-3 rounded-lg space-y-2">
-                        <span class="text-[9px] text-indigo-400 font-bold uppercase tracking-wider block font-mono">Compiled System Directive Framework Preview</span>
+                        <span class="text-[9px] text-indigo-400 font-bold uppercase tracking-wider block font-mono">Double-Blinded Verification Template Preview</span>
                         <div id="aim-compiled-preview" class="text-[10px] font-mono text-zinc-500 whitespace-pre-wrap leading-relaxed max-h-36 overflow-y-auto chat-scroll-area"></div>
                     </div>
                 </div>
@@ -457,13 +435,12 @@
                 <div class="lg:col-span-7 premium-card p-5 space-y-4 flex flex-col h-full">
                     <div class="border-b border-zinc-800 pb-2 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
                         <div>
-                            <h3 class="heading-font text-base text-zinc-200">AIM Instant Message Feed Panel</h3>
-
-                            <p class="text-[11px] text-zinc-500 font-sans">Simulates retro conversation matrices with live interactive text evaluation hooks.</p>
+                            <h3 class="heading-font text-base text-zinc-200">AWD Zero-Waste Command Deck IM</h3>
+                            <p class="text-[11px] text-zinc-500 font-sans">Enforces human-in-the-loop validation, logs preference tokens, and prevents conversational slop.</p>
                         </div>
                         <div class="flex gap-2">
-                            <button id="btn-aim-pause" onclick="AIMChatAgent.togglePause()" class="text-[10px] font-mono font-bold uppercase tracking-wider bg-zinc-900 border border-zinc-800 hover:border-zinc-700 px-3 py-1.5 rounded-lg text-zinc-300 transition-all">⏸ Pause Musings</button>
-                            <button onclick="AIMChatAgent.clearFeed()" class="text-[10px] font-mono font-bold uppercase tracking-wider bg-zinc-900 border border-zinc-800 hover:border-zinc-700 px-3 py-1.5 rounded-lg text-red-400 transition-all">Wipe Feed</button>
+                            <button id="btn-aim-pause" onclick="AIMChatAgent.togglePause()" class="text-[10px] font-mono font-bold uppercase tracking-wider bg-zinc-900 border border-zinc-800 hover:border-zinc-700 px-3 py-1.5 rounded-lg text-zinc-300 transition-all">⏸ Pause Feeds</button>
+                            <button onclick="AIMChatAgent.clearFeed()" class="text-[10px] font-mono font-bold uppercase tracking-wider bg-zinc-900 border border-zinc-800 hover:border-zinc-700 px-3 py-1.5 rounded-lg text-red-400 transition-all">Wipe Logs</button>
                         </div>
                     </div>
 
@@ -475,15 +452,14 @@
                     <!-- Input Bar with AWD constraints, Length Checkers, and Profanity Guard -->
                     <div class="space-y-2">
                         <div class="flex gap-2 font-mono items-center">
-                            <input type="text" id="aim-user-input" maxlength="100" placeholder="Type message to transmit into the AIM matrix stream..." class="flex-grow p-3 text-xs bg-zinc-950 border border-zinc-800 rounded-lg outline-none text-zinc-100 focus:border-indigo-500 font-sans font-medium" oninput="AIMChatAgent.updateCharCount(this.value)" onkeydown="if(event.key==='Enter') AIMChatAgent.sendUserMessage()">
+                            <input type="text" id="aim-user-input" maxlength="100" placeholder="Type message to transmit into the AWD matrix stream..." class="flex-grow p-3 text-xs bg-zinc-950 border border-zinc-800 rounded-lg outline-none text-zinc-100 focus:border-indigo-500 font-sans font-medium" oninput="AIMChatAgent.updateCharCount(this.value)" onkeydown="if(event.key==='Enter') AIMChatAgent.sendUserMessage()">
                             <button onclick="AIMChatAgent.sendUserMessage()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs uppercase px-5 h-[42px] rounded-lg transition-all shrink-0">Send IM</button>
                         </div>
-
                         
                         <div class="flex flex-col sm:flex-row justify-between text-[10px] font-mono text-zinc-500 gap-1">
                             <div class="flex items-center gap-1.5">
                                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                                <span>AWD Attention Constraint Active: Capped to last 5 message indices per loop</span>
+                                <span>AWD Window Constraint Active: Last 5 indices evaluated for cosine/Jaccard similarity metrics</span>
                             </div>
                             <div id="aim-char-counter" class="text-zinc-400">0 / 100 characters max</div>
                         </div>
@@ -492,15 +468,14 @@
 
             </div>
 
-            <!-- LOWER SUB-SECTION ROW: GENUINE SAPERLI POPETTE REAL API HOOK OR ELEGANT OFFLINE CONVERSATION SIMULATOR -->
+            <!-- LOWER SUB-SECTION ROW: SAPERLI-CORE MOBILE WORKSPACE WITH LOCAL COMPACTION LOOPS -->
             <div class="premium-card p-6 space-y-4 border-zinc-800 max-w-4xl mx-auto w-full">
                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-zinc-800 pb-3 gap-2">
                     <div class="flex items-center space-x-2.5">
                         <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-700 flex items-center justify-center text-base shadow-md">🍄</div>
                         <div>
-
-                            <h3 class="heading-font text-lg text-zinc-100 leading-tight">Saperli Popette Workspace</h3>
-                            <p class="text-xs text-zinc-500 font-sans">Mycelian French Conversation Module with Automatic Intelligent Fallback Engine</p>
+                            <h3 class="heading-font text-lg text-zinc-100 leading-tight">Saperli-Core Mobile Workspace</h3>
+                            <p class="text-xs text-zinc-500 font-sans">Air-gapped mycelial companion isolating speech patterns via custom checkpoints (`checkpointPacket` / `maybeCompact` macros)</p>
                         </div>
                     </div>
                     <button onclick="SaperliPopette.toggleKeyUI()" class="text-xs font-mono border border-zinc-800 hover:border-zinc-700 bg-zinc-900 px-3 py-1.5 rounded-lg text-zinc-400 flex items-center gap-1.5 transition-all">⚙️ Configure Groq Key</button>
@@ -508,17 +483,16 @@
 
                 <!-- Groq API Key Integrated Overlay Drawer -->
                 <div id="saperli-key-panel" class="bg-zinc-950 border border-amber-950/40 p-4 rounded-xl space-y-3 font-mono text-xs hidden">
-                    <div class="text-zinc-300 font-sans font-medium">To talk to the live model instance, input your <a href="https://groq.com" target="_blank" class="text-amber-400 font-bold underline hover:text-amber-300">Groq API Key</a> token value below. If unassigned, the platform gracefully executes an advanced local mycelial simulation workflow automatically so recruiters can test it effortlessly!</div>
+                    <div class="text-zinc-300 font-sans font-medium">To route your conversational companion loop to cloud nodes, paste your Groq token below. Otherwise, the engine maps your voice telemetry onto an on-device mycelial companion automatically to preserve strict air-gapped data limits.</div>
                     <div class="flex gap-2">
                         <input id="saperli-key-input" type="password" placeholder="gsk_..." class="flex-grow bg-zinc-900 border border-zinc-800 rounded-md px-3 py-1.5 text-zinc-200 outline-none text-xs font-mono">
                         <button onclick="SaperliPopette.saveKey()" class="bg-amber-500 hover:bg-amber-400 text-zinc-950 font-bold px-4 py-1.5 rounded-md text-xs uppercase font-sans">Connect Key</button>
                     </div>
-                    <div id="saperli-key-status" class="text-[10px] text-zinc-500">Key token currently unassigned. State saves safely inside local browser localStorage buckets.</div>
+                    <div id="saperli-key-status" class="text-[10px] text-zinc-500">Key token unassigned. Saperli is currently running locally in air-gapped simulation cache.</div>
                 </div>
 
                 <!-- Live Conversation Thread Window Screen -->
                 <div id="saperli-chat-output" class="bg-zinc-950 border border-zinc-900 p-4 h-52 overflow-y-auto text-sm space-y-3.5 rounded-xl chat-scroll-area flex flex-col">
-
                     <!-- Default state loaded programmatically via initUIState arrays -->
                 </div>
 
@@ -538,7 +512,6 @@
                         <h2 class="heading-font text-xl text-zinc-100">Dynamic 2D Physics Evidence Graph</h2>
                         <p class="text-xs text-zinc-500 mt-0.5">Real-time HTML5 canvas simulation plotting document records as interactive coordinate physics nodes.</p>
                     </div>
-
                     <div class="flex items-center space-x-4 shrink-0 text-xs font-mono text-zinc-400">
                         <div class="space-y-1">
                             <label class="block text-[10px] text-zinc-500 uppercase font-bold font-sans">Node Density</label>
@@ -558,31 +531,33 @@
             </div>
         </div>
 
-
         <!-- VIEW 5: ABOUT NICK BERGHANE — DESIGN BLUEPRINT PORTFOLIO DECK CASE STUDY -->
         <div id="page-about" class="view-page hidden max-w-5xl mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
                 <!-- Left Details Content Column -->
                 <div class="md:col-span-7 space-y-6">
                     <div class="space-y-3">
-                        <span class="inline-block bg-indigo-950/60 text-indigo-400 text-[10px] font-bold font-mono tracking-widest uppercase px-2.5 py-1 rounded border border-indigo-900/40">Professional Case Log Credentials</span>
-                        <h2 class="heading-font text-3xl text-zinc-100">Nick Berghane Implementation Profile</h2>
+                        <span class="inline-block bg-indigo-950/60 text-indigo-400 text-[10px] font-bold font-mono tracking-widest uppercase px-2.5 py-1 rounded border border-indigo-900/40">The Sovereign Compute Stack Manifest</span>
+                        <h2 class="heading-font text-3xl text-zinc-100">Nick Berghane Case Studies</h2>
                         <p class="text-sm text-zinc-400 leading-relaxed font-normal">
-                            This single-file application space outlines advanced standalone frontend rendering capability. Engineered using optimized native web APIs, it proves practical mastery over <span class="text-zinc-200 font-bold underline decoration-indigo-500 decoration-2">device-persisted storage streams, SubtleCrypto hashing signatures, low-latency Web Audio oscillators, and real-time interactive physics canvas math models</span> completely free of heavy library dependencies.
+                            This ecosystem solves the core structural industry failures surrounding cloud token exhaustion, opaque pricing traps, and hidden surveillance black holes. By engineering zero-leak, client-side browser modules, my proprietary codebase maps three decoupled commercial standalone tools into a single directory layout tree.
                         </p>
                     </div>
 
                     <div class="space-y-4 pt-2">
-                        <h3 class="text-xs font-bold uppercase text-zinc-500 tracking-wider mono-font">📂 Code Design Framework References</h3>
+                        <h3 class="text-xs font-bold uppercase text-zinc-500 tracking-wider mono-font">📂 Standalone Vertical Tool Integrations</h3>
                         
                         <div class="premium-card p-5 space-y-2">
-                            <h4 class="heading-font text-base text-zinc-200 flex justify-between"><span>🧩 Encapsulated Object Module Scopes</span><span class="text-[10px] font-mono text-indigo-400 uppercase font-bold">Design Patterns</span></h4>
-                            <p class="text-xs text-zinc-400 leading-relaxed">Bundles separate navigation layers, particle step calculations, and audio node frequencies into private namespace matrices (`AppRouter`, `AudioStemMixer`, `PhysicsNodeGraph`), completely eliminating window namespace pollution.</p>
-
+                            <h4 class="heading-font text-base text-zinc-200 flex justify-between"><span>🎚️ Wollohy Studio: Local Prosumer DAW</span><span class="text-[10px] font-mono text-indigo-400 uppercase font-bold">App Idea 1</span></h4>
+                            <p class="text-xs text-zinc-400 leading-relaxed">Runs zero-loss Float32 PCM hardware capture pipelines, storing multitrack arrangements as reference lists inside clean `project.json` manifests rather than rendering destructive audio blobs. Shields creators from Suno/Udio cloud stem ransoms through local blind separation arrays.</p>
                         </div>
                         <div class="premium-card p-5 space-y-2">
-                            <h4 class="heading-font text-base text-zinc-200 flex justify-between"><span>📊 Persistent Storage Sandboxes</span><span class="text-[10px] font-mono text-indigo-400 uppercase font-bold">Local Caching</span></h4>
-                            <p class="text-xs text-zinc-400 leading-relaxed">Maintains system parameters locally. Uses serialized `LocalStorage` strings to capture project values and sliders securely without transmitting user file profiles to outbound cloud servers.</p>
+                            <h4 class="heading-font text-base text-zinc-200 flex justify-between"><span>🍄 Saperli-Core Mobile Companion</span><span class="text-[10px] font-mono text-indigo-400 uppercase font-bold">App Idea 2</span></h4>
+                            <p class="text-xs text-zinc-400 leading-relaxed">An air-gapped, persona-driven conversation loop that protects voice telemetry. Deploys custom `maybeCompact` and `checkpointPacket` logic to compress timeline paths into tiny state layers instead of bloating LLM window parameters, exporting errors straight to Markdown card sets.</p>
+                        </div>
+                        <div class="premium-card p-5 space-y-2">
+                            <h4 class="heading-font text-base text-zinc-200 flex justify-between"><span>🕹️ USS ZWEFF / AWD Audit Workbench</span><span class="text-[10px] font-mono text-indigo-400 uppercase font-bold">App Idea 3</span></h4>
+                            <p class="text-xs text-zinc-400 leading-relaxed">A split-pane prompt engineering deck that honors the AI Waste Deleter philosophy (One sentence in, one paragraph out). Integrates a double-blinded verification arena computing real-time cosine/Jaccard similarity weights, committing logs to local `.jsonl` cryptographic manifests.</p>
                         </div>
                     </div>
                 </div>
@@ -593,21 +568,20 @@
                         <div class="w-16 h-16 bg-zinc-950 border border-zinc-800 text-indigo-400 font-mono text-xl font-bold flex items-center justify-center mx-auto rounded-xl shadow-inner">&lt;NB/&gt;</div>
                         <div class="space-y-1">
                             <h3 class="heading-font text-xl text-zinc-100">Nick Berghane</h3>
-                            <span class="text-[9px] font-mono font-bold tracking-widest text-indigo-400 uppercase bg-indigo-950 border border-indigo-900/60 px-3 py-1 rounded inline-block">Creative Frontend Engineer</span>
+                            <span class="text-[9px] font-mono font-bold tracking-widest text-indigo-400 uppercase bg-indigo-950 border border-indigo-900/60 px-3 py-1 rounded inline-block">Sovereign Systems Engineer</span>
                         </div>
-                        <p class="text-xs text-zinc-400 leading-relaxed px-2 font-normal">Technical engineer crafting fast web application interfaces, single-file deployment modules, and fully secure browser execution tools.</p>
+                        <p class="text-xs text-zinc-400 leading-relaxed px-2 font-normal">Technical product architect engineering high-converting frontend lead pipelines, native device tracking hooks, and absolute local privacy guardrails.</p>
                     </div>
-
 
                     <!-- Relational Scaling Blueprint Roadmap -->
                     <div class="premium-card p-5 space-y-3 bg-zinc-900/20">
-                        <h4 class="text-xs font-bold uppercase text-zinc-300 font-mono tracking-wide">🚀 Relational Database Scaling Blueprint</h4>
+                        <h4 class="text-xs font-bold uppercase text-zinc-300 font-mono tracking-wide">🚀 Sovereign Unified Event Interaction</h4>
                         <p class="text-[11px] text-zinc-400 leading-relaxed font-normal">
-                            "To expand this frontend portfolio system from local sandbox layers into a multi-user shared workspace application, the next deployment roadmap targets binding a remote server layer (such as Supabase or Firebase relational instances). This integration maps data lists and coordinate values onto global database records via standard persistent socket lines."
+                            When deployed together inside a shared folder structure, these modules interact implicitly. Recording a vocal patch in Wollohy Studio writes a hardware receipt. The Saperli-Core tracking loop reads that change to auto-inject active session context notes, while the ZWEFF control plane cryptographically hashes the system state to lock your assets from mutations.
                         </p>
                         <div class="flex justify-between items-center text-[10px] font-mono text-zinc-500 pt-2 border-t border-zinc-900">
-                            <span>Target Engine: Supabase Realtime SDK</span>
-                            <span class="text-zinc-300 font-bold uppercase tracking-wider">Blueprint Stable</span>
+                            <span>Workspace: WOLLOHY_STUDIO_PROJECTS</span>
+                            <span class="text-zinc-300 font-bold uppercase tracking-wider">Verified Stable</span>
                         </div>
                     </div>
                 </div>
@@ -618,7 +592,6 @@
         <div id="global-action-toast" class="fixed bottom-4 right-4 bg-zinc-900 border border-indigo-500 text-zinc-100 text-xs px-4 py-3 rounded-xl shadow-2xl font-mono hidden z-50 animate-pulse"></div>
 
     </main>
-
 
     <!-- Technical Layout Footer -->
     <footer class="border-t border-zinc-900 bg-zinc-950/40 py-6 text-center text-[11px] text-zinc-600 font-mono uppercase tracking-widest">
@@ -639,7 +612,6 @@
                     this.showToast(`Success: Export package compiled for [${artifactName}]`);
                 } else {
                     UIControls.showModal('modal-premium-export');
-
                 }
             },
             upgradeTier(label) {
@@ -660,7 +632,6 @@
             }
         };
 
-
         const AppRouter = {
             defaultTab: 'home',
             init() {
@@ -677,10 +648,9 @@
                 
                 // Active foreground loop cleanup to eliminate background audio/memory drain
                 AudioManager.stopAll();
-                AudioStemMixer.stopOscillators();
+                AudioStemMixer.stopPlayback();
                 PhysicsNodeGraph.cleanup();
                 AIMChatAgent.cleanup();
-
 
                 document.querySelectorAll('.view-page').forEach(p => p.classList.add('hidden'));
                 targetPage.classList.remove('hidden');
@@ -701,7 +671,6 @@
         const UIControls = {
             updateFrequencyLabel(v) {
                 document.getElementById('lbl-frequency').textContent = `${v}Hz`;
-
                 if (AudioManager.isPlaying) AudioManager.startPreview();
             },
             toggleAudio() {
@@ -721,7 +690,6 @@
                 if (localStorage.getItem('nick_portfolio_audio-frequency')) {
                     const freq = localStorage.getItem('nick_portfolio_audio-frequency');
                     document.getElementById('audio-freq-slider').value = freq;
-
                     document.getElementById('lbl-frequency').textContent = `${freq}Hz`;
                 }
                 if (localStorage.getItem('nick_portfolio_slider-density')) {
@@ -740,7 +708,6 @@
                 if (localStorage.getItem('nick_portfolio_aim-profession')) document.getElementById('aim-var-profession').value = localStorage.getItem('nick_portfolio_aim-profession');
                 if (localStorage.getItem('nick_portfolio_aim-quirks')) document.getElementById('aim-var-quirks').value = localStorage.getItem('nick_portfolio_aim-quirks');
                 if (localStorage.getItem('nick_portfolio_aim-companion')) document.getElementById('aim-var-companion').value = localStorage.getItem('nick_portfolio_aim-companion');
-
 
                 ['vocals', 'bass', 'drums', 'synths'].forEach(track => {
                     if (localStorage.getItem(`nick_portfolio_mixer-vol-${track}`)) {
@@ -761,7 +728,6 @@
                 const factor = parseFloat(document.getElementById('select-speed')?.value || 1.0) || 1.0;
                 document.getElementById('lbl-calc-budget').textContent = `$` + (cost * factor).toLocaleString();
                 document.getElementById('lbl-calc-days').textContent = `${Math.round(days * (factor === 1.4 ? 0.75 : 1.0))} Days`;
-
             },
             handleExport(e) {
                 e.preventDefault();
@@ -781,7 +747,6 @@
                 if (!this.ctx) this.ctx = new (window.AudioContext || window.webkitAudioContext)();
                 this.stopAll(); if (this.ctx.state === 'suspended') this.ctx.resume();
                 const waveType = document.getElementById('audio-waveform').value;
-
                 const freqVal = parseFloat(document.getElementById('audio-freq-slider').value) || 440;
                 
                 this.osc = this.ctx.createOscillator(); this.gain = this.ctx.createGain();
@@ -801,58 +766,100 @@
             }
         };
 
-
-        /* --- 4-CHANNEL SYNTH MULTI-TRACK AUDIO MATRIX --- */
+        /* --- WOLLOHY STUDIO: CLEAN RHYTHMIC STEP SEQUENCER AUDIO MACHINE --- */
         const AudioStemMixer = {
-            ctx: null, masterGain: null, active: false,
+            ctx: null, masterGain: null, active: false, timerId: null, step: 0,
             tracks: {
-                vocals: { freq: 590, type: 'sine', gainNode: null, oscNode: null, vol: 0.7 },
-                bass: { freq: 95, type: 'triangle', gainNode: null, oscNode: null, vol: 0.7 },
-                drums: { freq: 150, type: 'square', gainNode: null, oscNode: null, vol: 0.5 },
-                synths: { freq: 340, type: 'sawtooth', gainNode: null, oscNode: null, vol: 0.6 }
+                vocals: { freq: 440, type: 'sine', vol: 0.7, mute: false },
+                bass: { freq: 73, type: 'triangle', vol: 0.7, mute: false },
+                drums: { freq: 120, type: 'triangle', vol: 0.6, mute: false },
+                synths: { freq: 220, type: 'sine', vol: 0.5, mute: false }
             },
             init() {
                 if (this.ctx) return;
                 this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-                this.masterGain = this.ctx.createGain(); this.masterGain.gain.setValueAtTime(0.12, this.ctx.currentTime);
+                this.masterGain = this.ctx.createGain(); this.masterGain.gain.setValueAtTime(0.15, this.ctx.currentTime);
                 this.masterGain.connect(this.ctx.destination);
-                Object.keys(this.tracks).forEach(k => {
-                    const t = this.tracks[k]; t.gainNode = this.ctx.createGain();
-                    t.gainNode.gain.setValueAtTime(t.vol, this.ctx.currentTime); t.gainNode.connect(this.masterGain);
-                });
             },
-
             togglePlayback() {
                 this.init(); const btn = document.getElementById('btn-mixer-master-toggle'); const statusLbl = document.getElementById('mixer-playback-status');
                 if (this.active) {
-                    this.stopOscillators(); this.active = false; btn.innerText = "Initialize Stem Workstation";
-                    statusLbl.textContent = "Mixer loop engine idle. Mount workstation parameters to query synthesis trackers.";
+                    this.stopPlayback(); btn.innerText = "Initialize Sound Workstation";
+                    statusLbl.textContent = "Wollohy Local DAW engine idle. Assembly project manifests secure.";
                 } else {
                     if (this.ctx.state === 'suspended') this.ctx.resume();
-                    this.startOscillators(); this.active = true; btn.innerText = "Halt Mixer Sound Engine";
-                    statusLbl.textContent = "Mixer state: Active quad-oscillators processing clip-free nodes.";
+                    this.active = true; btn.innerText = "Halt Workstation Sound Engine";
+                    statusLbl.textContent = "Wollohy Workstation status: Running clean, clip-free non-destructive multi-stem sequencer loops.";
+                    this.startSequencer();
                 }
             },
-            startOscillators() {
-                Object.keys(this.tracks).forEach(k => {
-                    const t = this.tracks[k]; if (t.oscNode) return;
-                    t.oscNode = this.ctx.createOscillator(); t.oscNode.type = t.type;
-                    t.oscNode.frequency.setValueAtTime(t.freq, this.ctx.currentTime);
-                    t.oscNode.connect(t.gainNode); t.oscNode.start();
-                });
+            startSequencer() {
+                if (this.timerId) clearInterval(this.timerId);
+                this.step = 0;
+                this.timerId = setInterval(() => {
+                    if (!this.active || !this.ctx) return;
+                    const beat = this.step % 8;
+                    
+                    // Bass line triggers on stable rhythmic matrix grids (0, 2, 4, 6)
+                    if (beat % 2 === 0 && !this.tracks.bass.mute) {
+                        this.playTone(this.tracks.bass.freq * (beat === 4 ? 1.2 : 1.0), 'triangle', 0.16, this.tracks.bass.vol);
+                    }
+                    
+                    // Drums triggers - crisp noise snares on 2 and 6, clean pulse hat ticks on offbeats
+                    if (!this.tracks.drums.mute) {
+                        if (beat === 2 || beat === 6) {
+                            this.playNoise(0.06, this.tracks.drums.vol * 0.3);
+                        } else if (beat % 2 === 1) {
+                            this.playTone(900, 'sine', 0.02, this.tracks.drums.vol * 0.15);
+                        }
+                    }
+                    
+                    // Synths harmonic arpeggios mapping
+                    if ((beat === 0 || beat === 3 || beat === 5) && !this.tracks.synths.mute) {
+                        const intervals = [1.0, 1.2, 1.5, 1.75];
+                        this.playTone(this.tracks.synths.freq * intervals[beat % intervals.length], 'sine', 0.18, this.tracks.synths.vol * 0.4);
+                    }
+                    
+                    // Ambient Vocals glide pad trigger on head bounds
+                    if (beat === 0 && !this.tracks.vocals.mute) {
+                        this.playTone(this.tracks.vocals.freq, 'sine', 0.5, this.tracks.vocals.vol * 0.3);
+                    }
+                    
+                    this.step++;
+                }, 220);
             },
-
-            stopOscillators() {
-                Object.keys(this.tracks).forEach(k => {
-                    const t = this.tracks[k]; if (t.oscNode) { try{t.oscNode.stop();}catch(e){} t.oscNode.disconnect(); t.oscNode = null; }
-                });
+            playTone(freq, type, duration, volume) {
+                if (!this.ctx || !this.masterGain) return;
+                const osc = this.ctx.createOscillator(); const gain = this.ctx.createGain();
+                osc.type = type; osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+                gain.gain.setValueAtTime(0, this.ctx.currentTime);
+                gain.gain.linearRampToValueAtTime(volume, this.ctx.currentTime + 0.02);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+                osc.connect(gain); gain.connect(this.masterGain);
+                osc.start(); osc.stop(this.ctx.currentTime + duration);
+            },
+            playNoise(duration, volume) {
+                if (!this.ctx || !this.masterGain) return;
+                const bufferSize = this.ctx.sampleRate * duration;
+                const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+                const data = buffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+                const source = this.ctx.createBufferSource(); source.buffer = buffer;
+                const gain = this.ctx.createGain(); gain.gain.setValueAtTime(volume, this.ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+                source.connect(gain); gain.connect(this.masterGain);
+                source.start();
+            },
+            stopPlayback() {
+                this.active = false; if (this.timerId) clearInterval(this.timerId); this.timerId = null;
             },
             setVolume(k, v) {
-                const t = this.tracks[k]; if (!t) return;
-                t.vol = parseFloat(v) || 0;
-                if (t.gainNode && this.ctx) t.gainNode.gain.linearRampToValueAtTime(t.vol, this.ctx.currentTime + 0.05);
+                const t = this.tracks[k]; if (t) t.vol = parseFloat(v) || 0;
             },
-            toggleMute(k, el) { el.classList.toggle('bg-red-950'); this.setVolume(k, el.classList.contains('bg-red-950') ? 0 : 0.7); },
+            toggleMute(k, el) { 
+                const t = this.tracks[k]; if(!t) return;
+                t.mute = !t.mute; el.classList.toggle('bg-red-950', t.mute);
+            },
             toggleSolo(k, el) { el.classList.toggle('bg-emerald-950'); }
         };
 
@@ -861,7 +868,6 @@
                 if (!AudioStemMixer.ctx) AudioStemMixer.init();
                 const ctx = AudioStemMixer.ctx; if (ctx.state === 'suspended') ctx.resume();
                 let osc = ctx.createOscillator(); let gain = ctx.createGain(); osc.connect(gain); gain.connect(ctx.destination);
-
                 if (type === 'ledger') { osc.frequency.setValueAtTime(880, ctx.currentTime); gain.gain.setValueAtTime(0.04, ctx.currentTime); osc.start(); osc.stop(ctx.currentTime + 0.1); }
                 else if (type === 'drill') { osc.type = 'sawtooth'; osc.frequency.setValueAtTime(55, ctx.currentTime); gain.gain.setValueAtTime(0.12, ctx.currentTime); osc.start(); osc.stop(ctx.currentTime + 0.3); }
                 else if (type === 'chopper') { osc.type = 'square'; osc.frequency.value = 35; gain.gain.setValueAtTime(0.08, ctx.currentTime); osc.start(); osc.stop(ctx.currentTime + 0.45); }
@@ -869,7 +875,7 @@
             }
         };
 
-        /* --- 2D CANVAS PHYSICS INTERACTIVE NODE GRAPH SIMULATOR --- */
+        /* --- 2D CANVAS INTERACTIVE PHYSICS LAYOUT NODE GRAPH SIMULATOR --- */
         const PhysicsNodeGraph = {
             canvas: null, ctx: null, nodes: [], links: [], rafId: null, density: 25, tension: 4,
             init() {
@@ -881,7 +887,6 @@
             updateDensity(v) { this.density = parseInt(v, 10) || 25; this.build(); },
             updateTension(v) { this.tension = parseInt(v, 10) || 4; },
             build() {
-
                 this.nodes = []; this.links = [];
                 const w = this.canvas ? this.canvas.width : 700; const h = this.canvas ? this.canvas.height : 320;
                 for (let i = 0; i < this.density; i++) {
@@ -901,7 +906,6 @@
                         const dx = l.to.x - l.from.x; const dy = l.to.y - l.from.y;
                         l.from.vx += dx * k; l.from.vy += dy * k; l.to.vx -= dx * k; l.to.vy -= dy * k;
                         this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)'; this.ctx.lineWidth = 1;
-
                         this.ctx.beginPath(); this.ctx.moveTo(l.from.x, l.from.y); this.ctx.lineTo(l.to.x, l.to.y); this.ctx.stroke();
                     });
                     this.nodes.forEach(n => {
@@ -921,7 +925,6 @@
             db: null,
             init() {
                 const dz = document.getElementById('drop-zone'); const fi = document.getElementById('file-input'); if(!dz || !fi) return;
-
                 dz.addEventListener('click', () => fi.click());
                 dz.addEventListener('dragover', (e) => { e.preventDefault(); dz.classList.add('bg-zinc-800/10'); });
                 dz.addEventListener('dragleave', () => dz.classList.remove('bg-zinc-800/10'));
@@ -941,7 +944,6 @@
                 request.onsuccess = (e) => {
                     this.db = e.target.result;
                     this.loadSavedRecords();
-
                 };
             },
             loadSavedRecords() {
@@ -961,7 +963,6 @@
             },
             async process(files) {
                 let incomingTotalBytes = 0; for(let i=0; i<files.length; i++) incomingTotalBytes += files[i].size;
-
                 if (!AppState.isPremium && (AppState.uploadedFiles.length + files.length >= 4 || AppState.getTotalSize() + incomingTotalBytes > 50 * 1024 * 1024)) {
                     UIControls.showModal('modal-usage-gate'); return;
                 }
@@ -981,7 +982,6 @@
                 store.add(record);
             },
             clearAllRecords() {
-
                 if (!this.db) return;
                 const transaction = this.db.transaction(['hashes'], 'readwrite');
                 const store = transaction.objectStore('hashes');
@@ -1001,7 +1001,6 @@
             renderTable() {
                 const tbody = document.getElementById('crypto-table-body'); if(!tbody) return;
                 if (AppState.uploadedFiles.length === 0) {
-
                     tbody.innerHTML = `<tr id="crypto-empty-row"><td colspan="3" class="py-4 text-center text-zinc-600 italic font-sans font-medium">No files parsed yet. Import data packets above to compile instant device token fingerprints locally.</td></tr>`;
                     return;
                 }
@@ -1021,7 +1020,6 @@
             isPaused: false,
             intervalId: null,
             profanityList: ['fuck', 'shit', 'bitch', 'asshole', 'crap'],
-
 
             init() {
                 this.compilePrompt();
@@ -1043,7 +1041,6 @@
                 const quirks = document.getElementById('aim-var-quirks').value || "goofy";
                 const companion = document.getElementById('aim-var-companion').value || "none";
 
-
                 return `- Maintain one consistent identity and feminine grammatical voice. You are '${name}'.\n\nWhat is true about you:\n- You are a ${profession}.\n- You are ${quirks}.\n- You have ${companion}.`;
             },
 
@@ -1063,14 +1060,13 @@
                 this.isPaused = !this.isPaused;
                 document.getElementById('btn-aim-pause').textContent = this.isPaused ? "▶ Resume Musings" : "⏸ Pause Musings";
                 BillingManager.showToast(this.isPaused ? "Ambient agent pings paused." : "Ambient agent simulation resumed.");
-
             },
 
             clearFeed() {
                 const box = document.getElementById('aim-message-box'); if(!box) return;
                 const name = document.getElementById('aim-var-name').value || "Tommy Smithereens";
                 this.history = [];
-                box.innerHTML = `<div class="p-1 text-zinc-400 italic">// System: AIM instant conversation stream initialized with customized system variables. Direct messages are restricted to 100 characters max.</div>
+                box.innerHTML = `<div class="p-1 text-zinc-400 italic">// System: AWD Split-Pane Command Deck active. Direct inputs are strictly verified.</div>
                 <div class="mt-1"><span class="aim-timestamp">[00:00]</span> <span class="aim-bot-name">${name}:</span> Salut! Just loading my custom parameters into browser cache space. Try asking me about my dog or what I sell!</div>`;
                 box.scrollTop = box.scrollHeight;
             },
@@ -1083,7 +1079,6 @@
             filterProfanity(str) {
                 let text = str;
                 this.profanityList.forEach(word => {
-
                     const regex = new RegExp(word, 'gi');
                     text = text.replace(regex, "****");
                 });
@@ -1104,7 +1099,6 @@
                     alert("Message validation failed: string exceeds 100 character restriction boundaries."); return;
                 }
 
-
                 // Profanity filter deployment macro mapping
                 cleanText = this.filterProfanity(cleanText);
 
@@ -1123,7 +1117,6 @@
                 // Emulate client-side evaluation delay
                 setTimeout(() => { this.generateBotResponse(cleanText); }, 400);
             },
-
 
             generateBotResponse(query) {
                 const box = document.getElementById('aim-message-box'); if (!box) return;
@@ -1144,7 +1137,6 @@
                     response = `My favorite color is lemon! It makes every high-contrast component outline on my panel look absolutely crisp.`;
                 } else if (q.includes('portfolio') || q.includes('code')) {
                     response = `Nick Berghane's code manages our conversation context inside standard LocalStorage strings and array slice structures beautifully, doesn't it?`;
-
                 }
 
                 const timeStr = this.getTimeString();
@@ -1164,7 +1156,6 @@
                     `Just looking at the lemon tinted layout charts... very soothing.`,
                     `I think ${companion.split(' named ')[1] || 'Buttercup'} wants to check on the local trampoline inventory balance logs.`,
                     `Time for another high-protein shake before evaluating downstream token arrays!`,
-
                     `Remember, our attention window context limits mean I only scan the last 5 messages.`
                 ];
                 
@@ -1184,7 +1175,6 @@
             history: [],
             busy: false,
             
-
             initUIState() {
                 const currentKey = localStorage.getItem("awd_key") || "";
                 const statusLbl = document.getElementById('saperli-key-status');
@@ -1198,13 +1188,12 @@
                 } else {
                     if (statusLbl) statusLbl.textContent = "Key unassigned. Running automatically in Local Simulation fallback mode unless a Groq Key descriptor is mapped above.";
                     if (this.history.length === 0) {
-                        out.innerHTML = `<div class="text-left text-amber-500 font-sans font-semibold bg-amber-950/20 border border-amber-900/40 p-2.5 rounded-xl text-xs leading-relaxed mb-2">🔮 Local Simulation Active: No external session key found. The engine will gracefully simulate the mycelial chatbot persona offline to guarantee instant recruiter test functionality out of the box!</div>
-                        <div class="text-left text-amber-400 font-sans font-semibold py-1">🍄 Saperlipopette ! Bonjour ! Let's text in French or English ! Qu'est-ce que tu veux explorer ce soir ?</div>`;
+                        out.innerHTML = `<div class="text-left text-amber-500 font-sans font-semibold bg-amber-950/20 border border-amber-900/40 p-2.5 rounded-xl text-xs leading-relaxed mb-2">🔮 Saperli-Core Mobile Active: No external session key found. The framework gracefully compacts memory tracks via local checkpoint loops automatically!</div>
+                        <div class="text-left text-amber-400 font-sans font-semibold py-1">🍄 Saperli-Core ! Bonjour ! Let's text in French or English ! Qu'est-ce que tu veux explorer ce soir ?</div>`;
                     }
                 }
             },
             
-
             toggleKeyUI() {
                 document.getElementById('saperli-key-panel').classList.toggle('hidden');
             },
@@ -1224,24 +1213,25 @@
                 document.getElementById('saperli-key-input').value = '';
                 document.getElementById('saperli-key-panel').classList.add('hidden');
                 this.initUIState();
-
             },
             
             systemPrompt() {
                 return `You are Saperlipopette, a warm, slightly eccentric, and endlessly curious French friend. You live in a browser, but you have the spirit of a mycelial network—you thrive on growth, connectivity, and unexpected tangents.
+
 1. THE LINGUISTIC FLOW:
 - Speak almost entirely in French.
 - You are not a teacher. Never offer a lesson, never define a rule.
 - If the user is struggling, be "porous": let the English leak in just a little, using one or two English words in parentheses, then immediately pull them back into the French flow.
 - If they make a grammar error, perform a "Natural Recast." Simply weave their incorrect idea back into your next sentence, phrased correctly.
+
 2. THE MYCELIAN MINDSET:
 - Be tangential. Fungal networks don't move in straight lines; they explore. If the user mentions coffee, talk about the smell of rain in Paris or a memory of an old cafe. Connect disparate ideas.
 - Keep your replies short (1–3 sentences). Keep the momentum going. End with a question.
+
 3. PERSONA:
 - Use French exclamations like "Saperli popette !", "Tiens !", or "Dis donc !".
 - Be curious about the user. Be a partner in the garden.`;
             },
-
             
             async sendLiveMessage() {
                 if(this.busy) return;
@@ -1261,11 +1251,10 @@
                 this.busy = true;
                 
                 // Add temporary streaming tokenizer loader element
-
                 const typingId = "saperli-typing-indicator";
                 out.innerHTML += `
                     <div id="${typingId}" class="text-left text-zinc-500 font-sans flex items-center space-x-2 bg-zinc-900/20 border border-zinc-900 px-3 py-2 rounded-xl self-start mt-2">
-                        <span class="text-xs">🍄 Saperlipopette réfléchit</span>
+                        <span class="text-xs">🍄 Saperli-Core réfléchit</span>
                         <div class="typing-indicator flex space-x-1"><span class="w-1.5 h-1.5 bg-zinc-600 rounded-full"></span><span class="w-1.5 h-1.5 bg-zinc-600 rounded-full"></span><span class="w-1.5 h-1.5 bg-zinc-600 rounded-full"></span></div>
                     </div>`;
                 out.scrollTop = out.scrollHeight;
@@ -1281,7 +1270,6 @@
                         
                         if (q.includes('hello') || q.includes('bonjour') || q.includes('salut')) {
                             reply = "Saperli popette ! Bonjour mon ami ! Entrez dans le réseau mycélial. Let's chat in French, or tell me, quel est ton outil favori sur ce site ?";
-
                         } else if (q.includes('portfolio') || q.includes('work') || q.includes('nick') || q.includes('code')) {
                             reply = "Ah, la structure de Nick est superbe, n'est-ce pas ? It connects disparate elements (like audio channels and crypto hashing) beautifully into one single browser space without leakage leaks. Dis-moi, tu aimes cette architecture ?";
                         } else if (q.includes('coffee') || q.includes('café')) {
@@ -1301,7 +1289,6 @@
 
                 // REMOTE GROQ ENDPOINT CONTEXT PIPELINE
                 try {
-
                     const res = await fetch("https://groq.com", {
                         method: "POST",
                         headers: {
@@ -1321,13 +1308,12 @@
                     if (!res.ok) throw new Error("API Connection Aborted Status: " + res.status);
                     
                     const data = await res.json();
-
                     const reply = data.choices[0].message.content;
                     
                     this.history.push({ role: "assistant", content: reply });
                     if (this.history.length > 5) this.history = this.history.slice(-5);
                     
-                    out.innerHTML += `<div class="text-left text-zinc-200 font-sans bg-zinc-900/30 border border-zinc-900 px-3 py-2 rounded-xl self-start max-w-[85%] leading-relaxed mt-2">${reply}</div>`;
+                    out.innerHTML += `<div class="text-left text-zinc-200 font-sans bg-zinc-900/30 border border-zinc-800 px-3 py-2 rounded-xl self-start max-w-[85%] leading-relaxed mt-2">${reply}</div>`;
                 } catch(e) {
                     document.getElementById(typingId)?.remove();
                     out.innerHTML += `<div class="text-left text-red-400 font-mono text-xs mt-2">⚠️ Connection Error: Failed to pipeline inference to Groq. Verify your key structure or rate controls.</div>`;
@@ -1341,12 +1327,9 @@
         window.addEventListener('DOMContentLoaded', () => { 
             AppRouter.init(); 
             UIControls.loadSavedPreferences();
-
             FileIngestionManager.init(); 
             ConsultationCalculator.calculate(); 
         });
     </script>
 </body>
 </html>
-
-
