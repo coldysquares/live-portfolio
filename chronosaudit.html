@@ -1,5 +1,1027 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#071012"><meta name="description" content="Create a portable local evidence manifest with real SHA-256 hashes. Files are processed in your browser and are never uploaded."><title>ChronosAudit — Local evidence manifest</title><style>
-:root{color-scheme:dark;--bg:#071012;--panel:#0f191c;--panel2:#091114;--ink:#f2f5ef;--muted:#9aa9a5;--faint:#667874;--line:rgba(188,242,225,.15);--mint:#78dfcf;--acid:#caff58;--red:#ff8e84;--max:1180px}*{box-sizing:border-box}body{margin:0;min-width:320px;background:radial-gradient(circle at 80% 0,rgba(120,223,207,.12),transparent 34rem),var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}.shell{width:min(calc(100% - 32px),var(--max));margin:auto}.top{border-bottom:1px solid var(--line);background:rgba(7,16,18,.9);backdrop-filter:blur(18px)}nav{display:flex;min-height:68px;align-items:center;gap:14px}.back{display:inline-flex;min-height:40px;align-items:center;padding:0 13px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font:800 9px/1 ui-monospace,monospace;text-decoration:none;text-transform:uppercase}.title strong{display:block;font-size:14px}.title small{display:block;margin-top:2px;color:var(--faint);font:700 8px/1 ui-monospace,monospace;text-transform:uppercase}.local{margin-left:auto;color:var(--mint);font:800 9px/1 ui-monospace,monospace;text-transform:uppercase}.local:before{display:inline-block;width:7px;height:7px;margin-right:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 10px var(--mint);content:""}.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.55fr);gap:clamp(32px,7vw,90px);align-items:end;padding:clamp(60px,9vw,105px) 0 48px}.eyebrow{color:var(--mint);font:800 9px/1 ui-monospace,monospace;letter-spacing:.13em;text-transform:uppercase}.hero h1{margin:15px 0 18px;font-size:clamp(3.2rem,8vw,6.7rem);line-height:.88;letter-spacing:-.075em}.hero p{max-width:690px;margin:0;color:#b8c4c0;font-size:clamp(1rem,1.8vw,1.2rem);line-height:1.65}.limit{padding:20px;border:1px solid var(--line);border-radius:19px;background:rgba(15,25,28,.72)}.limit strong{display:block;color:var(--acid);font:800 9px/1 ui-monospace,monospace;text-transform:uppercase}.limit p{margin:10px 0 0;color:var(--muted);font-size:12px;line-height:1.6}.work{padding-bottom:90px}.drop{display:grid;min-height:260px;place-items:center;padding:30px;border:1px dashed rgba(120,223,207,.42);border-radius:25px;background:linear-gradient(145deg,rgba(120,223,207,.07),transparent 55%),var(--panel);text-align:center;cursor:pointer}.drop.drag{border-color:var(--acid);background:rgba(202,255,88,.06)}.drop.busy{pointer-events:none;opacity:.72}.drop h2{margin:0;font-size:clamp(1.65rem,3.5vw,2.7rem);letter-spacing:-.04em}.drop p{max-width:560px;margin:10px auto 0;color:var(--muted);line-height:1.6}.button{display:inline-flex;min-height:45px;align-items:center;justify-content:center;padding:0 16px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.04);color:var(--ink);font:800 10px/1 ui-monospace,monospace;cursor:pointer;text-decoration:none;text-transform:uppercase}.button.primary{border-color:var(--acid);background:var(--acid);color:#11170f}.drop .button{margin-top:22px}.button:disabled{cursor:not-allowed;opacity:.38}.processing{display:none;margin-top:12px;padding:15px 17px;border:1px solid var(--line);border-radius:15px;background:var(--panel)}.processing.show{display:block}.processing-top{display:flex;justify-content:space-between;gap:14px;color:var(--muted);font:700 9px/1.3 ui-monospace,monospace}.progress{height:5px;margin-top:12px;overflow:hidden;border-radius:999px;background:#182427}.progress span{display:block;width:0;height:100%;background:var(--mint);transition:width .14s}.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}.metric{padding:16px;border:1px solid var(--line);border-radius:15px;background:var(--panel)}.metric small{display:block;color:var(--faint);font:800 8px/1 ui-monospace,monospace;text-transform:uppercase}.metric strong{display:block;margin-top:8px;font-size:20px}.vault{overflow:hidden;border:1px solid var(--line);border-radius:22px;background:var(--panel)}.vault-head{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:18px;border-bottom:1px solid var(--line)}.vault-head h2{margin:0;font-size:18px}.vault-head p{margin:4px 0 0;color:var(--faint);font-size:11px}.actions{display:flex;flex-wrap:wrap;gap:8px}.table-wrap{overflow:auto}table{width:100%;min-width:780px;border-collapse:collapse}th,td{padding:14px 16px;border-bottom:1px solid rgba(188,242,225,.08);text-align:left;font:700 9px/1.4 ui-monospace,monospace}th{color:var(--faint);text-transform:uppercase}td{color:var(--muted)}td.name{max-width:280px;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}td.hash{max-width:360px;color:var(--mint);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}td button{border:0;background:none;color:var(--faint);cursor:pointer;font-size:17px}.empty{padding:50px 20px;color:var(--faint);text-align:center;font:700 10px/1.6 ui-monospace,monospace}.status{min-height:22px;margin:12px 2px 0;color:var(--mint);font:700 10px/1.5 ui-monospace,monospace}.status.error{color:var(--red)}.explain{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.explain article{padding:20px;border:1px solid var(--line);border-radius:17px;background:rgba(15,25,28,.7)}.explain h3{margin:0;color:var(--acid);font:800 9px/1 ui-monospace,monospace;text-transform:uppercase}.explain p{margin:10px 0 0;color:var(--muted);font-size:12px;line-height:1.65}@media(max-width:800px){.hero{grid-template-columns:1fr}.summary,.explain{grid-template-columns:1fr}.vault-head{align-items:flex-start;flex-direction:column}.actions{width:100%}.actions .button{flex:1}.local{font-size:0}.local:before{margin:0}}@media(max-width:500px){.shell{width:min(calc(100% - 22px),var(--max))}.hero h1{font-size:clamp(3rem,17vw,4.4rem)}.drop{min-height:230px;padding:22px}.actions{display:grid}.actions .button{width:100%}}
-</style></head><body><header class="top"><nav class="shell"><a class="back" href="index.html">← Portfolio</a><div class="title"><strong>ChronosAudit</strong><small>Local evidence manifest</small></div><div class="local">Runs on this device</div></nav></header><main class="shell"><section class="hero"><div><p class="eyebrow">Working browser tool · version 1</p><h1>Fingerprint files. Preserve the record.</h1><p>Create a portable evidence manifest with real SHA-256 hashes and basic source metadata. File contents stay in your browser and are never uploaded.</p></div><aside class="limit"><strong>Current boundary</strong><p>This version records hashes and metadata. It does not inspect document contents, prove authorship, or reconstruct a complete timeline by itself.</p></aside></section><section class="work"><input id="files" type="file" multiple hidden><div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose files to hash"><div><h2>Drop files here</h2><p>Documents, audio, images, archives, and source files are read locally to calculate SHA-256.</p><button class="button primary" id="choose" type="button">Choose files</button></div></div><div class="processing" id="processing"><div class="processing-top"><span id="processingFile">Preparing…</span><span id="processingCount"></span></div><div class="progress"><span id="bar"></span></div></div><div class="summary"><div class="metric"><small>Records</small><strong id="count">0</strong></div><div class="metric"><small>Total source size</small><strong id="size">0 B</strong></div><div class="metric"><small>Storage</small><strong id="dbState">Opening…</strong></div></div><section class="vault"><header class="vault-head"><div><h2>Local evidence vault</h2><p>Only metadata and hashes are retained in IndexedDB.</p></div><div class="actions"><button class="button primary" id="download" disabled>Download manifest</button><button class="button" id="copy" disabled>Copy JSON</button><button class="button" id="clear" disabled>Clear</button></div></header><div class="table-wrap"><table id="table" hidden><thead><tr><th>File</th><th>Size</th><th>Modified</th><th>SHA-256</th><th></th></tr></thead><tbody id="rows"></tbody></table><div class="empty" id="empty">No local records yet. Add files above to calculate their fingerprints.</div></div></section><div class="status" id="status" role="status" aria-live="polite"></div><div class="explain"><article><h3>What it does</h3><p>Reads each selected file locally, calculates a full SHA-256 digest, and stores a compact record on this device.</p></article><article><h3>What leaves</h3><p>Nothing. This static page has no upload endpoint. The exported manifest contains metadata and hashes, not file contents.</p></article><article><h3>Why it matters</h3><p>A cryptographic fingerprint gives you a stable way to identify a source file later and detect whether its bytes changed.</p></article></div></section></main><script>
-(()=>{const DB='chronosaudit',STORE='records',SCHEMA='chronosaudit.manifest.v1',el={files:document.querySelector('#files'),drop:document.querySelector('#drop'),choose:document.querySelector('#choose'),processing:document.querySelector('#processing'),processingFile:document.querySelector('#processingFile'),processingCount:document.querySelector('#processingCount'),bar:document.querySelector('#bar'),count:document.querySelector('#count'),size:document.querySelector('#size'),dbState:document.querySelector('#dbState'),download:document.querySelector('#download'),copy:document.querySelector('#copy'),clear:document.querySelector('#clear'),table:document.querySelector('#table'),rows:document.querySelector('#rows'),empty:document.querySelector('#empty'),status:document.querySelector('#status')};let db,records=[],busy=false;const status=(m,e=false)=>{el.status.textContent=m;el.status.classList.toggle('error',e)};const bytes=n=>{if(!n)return'0 B';let u=['B','KB','MB','GB'],i=Math.min(Math.floor(Math.log(n)/Math.log(1024)),u.length-1);return`${(n/1024**i).toFixed(i?1:0)} ${u[i]}`};const date=v=>{let d=new Date(v);return Number.isNaN(d.valueOf())?'Unknown':d.toLocaleString()};function open(){return new Promise((res,rej)=>{let r=indexedDB.open(DB,1);r.onupgradeneeded=()=>r.result.createObjectStore(STORE,{keyPath:'id'});r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}function tx(mode='readonly'){return db.transaction(STORE,mode).objectStore(STORE)}function all(){return new Promise((res,rej)=>{let r=tx().getAll();r.onsuccess=()=>res(r.result||[]);r.onerror=()=>rej(r.error)})}function put(x){return new Promise((res,rej)=>{let r=tx('readwrite').put(x);r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}function del(id){return new Promise((res,rej)=>{let r=tx('readwrite').delete(id);r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}function wipe(){return new Promise((res,rej)=>{let r=tx('readwrite').clear();r.onsuccess=()=>res();r.onerror=()=>rej(r.error)})}async function hash(file){let data=await file.arrayBuffer(),digest=await crypto.subtle.digest('SHA-256',data);return[...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,'0')).join('')}function manifest(){return{schema:SCHEMA,generatedAt:new Date().toISOString(),processing:{location:'client browser',algorithm:'SHA-256',fileContentsUploaded:false,fileContentsStored:false,note:'Hashes identify bytes; this manifest does not prove authorship by itself.'},summary:{recordCount:records.length,totalBytes:records.reduce((s,r)=>s+Number(r.size||0),0)},entries:records.map(({id,...r})=>r)}}function render(){records.sort((a,b)=>String(b.addedAt).localeCompare(String(a.addedAt)));el.rows.replaceChildren();for(const r of records){let tr=document.createElement('tr'),n=document.createElement('td'),s=document.createElement('td'),m=document.createElement('td'),h=document.createElement('td'),x=document.createElement('td'),b=document.createElement('button');n.className='name';n.textContent=r.name;s.textContent=bytes(r.size);m.textContent=date(r.lastModified);h.className='hash';h.textContent=r.sha256;b.textContent='×';b.setAttribute('aria-label',`Remove ${r.name}`);b.onclick=async()=>{if(busy)return;await del(r.id);records=records.filter(v=>v.id!==r.id);render();status(`Removed ${r.name}.`)};x.append(b);tr.append(n,s,m,h,x);el.rows.append(tr)}let yes=records.length>0;el.table.hidden=!yes;el.empty.hidden=yes;el.count.textContent=records.length;el.size.textContent=bytes(records.reduce((s,r)=>s+Number(r.size||0),0));[el.download,el.copy,el.clear].forEach(b=>b.disabled=!yes||busy);el.dbState.textContent=db?'Ready':'Unavailable'}async function process(list){let files=[...(list||[])].filter(f=>f instanceof File);if(!files.length||busy)return;busy=true;el.drop.classList.add('busy');el.processing.classList.add('show');render();let ok=0,fail=0;for(let i=0;i<files.length;i++){let f=files[i];el.processingFile.textContent=`Hashing ${f.name}`;el.processingCount.textContent=`${i+1} / ${files.length}`;el.bar.style.width=`${Math.round(i/files.length*100)}%`;try{let sha=await hash(f),r={id:`${sha}:${f.name}:${f.size}:${f.lastModified}`,name:f.name,size:f.size,type:f.type||'application/octet-stream',lastModified:new Date(f.lastModified).toISOString(),sha256:sha,addedAt:new Date().toISOString()};await put(r);let j=records.findIndex(v=>v.id===r.id);j>=0?records.splice(j,1,r):records.push(r);ok++}catch(e){console.error(e);fail++}el.bar.style.width=`${Math.round((i+1)/files.length*100)}%`;render()}busy=false;el.drop.classList.remove('busy');el.processing.classList.remove('show');el.bar.style.width='0%';el.files.value='';render();status(fail?`Saved ${ok}; ${fail} could not be hashed.`:`Saved ${ok} local record${ok===1?'':'s'}. Nothing was uploaded.`,!!fail)}el.choose.onclick=e=>{e.stopPropagation();el.files.click()};el.drop.onclick=e=>{if(e.target!==el.choose)el.files.click()};el.drop.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();el.files.click()}};el.files.onchange=e=>process(e.target.files);['dragenter','dragover'].forEach(t=>el.drop.addEventListener(t,e=>{e.preventDefault();el.drop.classList.add('drag')}));el.drop.ondragleave=e=>{if(!el.drop.contains(e.relatedTarget))el.drop.classList.remove('drag')};el.drop.ondrop=e=>{e.preventDefault();el.drop.classList.remove('drag');process(e.dataTransfer.files)};el.download.onclick=()=>{let blob=new Blob([JSON.stringify(manifest(),null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`chronosaudit-manifest-${new Date().toISOString().replace(/[:.]/g,'-')}.json`;a.click();URL.revokeObjectURL(url);status(`Downloaded ${records.length}-record manifest.`)};el.copy.onclick=async()=>{let text=JSON.stringify(manifest(),null,2);try{await navigator.clipboard.writeText(text);status(`Copied ${records.length}-record manifest.`)}catch{status('Clipboard access was blocked. Use Download manifest.',true)}};el.clear.onclick=async()=>{if(!confirm(`Clear ${records.length} local record${records.length===1?'':'s'}? Original files are not affected.`))return;await wipe();records=[];render();status('Local records cleared. Original files were not changed.')} ;(async()=>{try{db=await open();records=await all();render();status(records.length?`Restored ${records.length} local record${records.length===1?'':'s'}.`:'Local evidence vault ready.')}catch(e){console.error(e);render();status('IndexedDB is unavailable in this browser.',true)}})()})();
-</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#071012">
+  <meta name="description" content="Create and verify portable local evidence manifests with real SHA-256 hashes. Files stay in your browser and are never uploaded.">
+  <meta property="og:title" content="ChronosAudit — Local evidence manifest">
+  <meta property="og:description" content="Fingerprint local files, export a portable manifest, and verify a later file set against the record.">
+  <meta property="og:type" content="website">
+  <title>ChronosAudit — Create and verify local evidence manifests</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #071012;
+      --panel: #0f191c;
+      --panel-2: #091114;
+      --panel-3: #071012;
+      --ink: #f2f5ef;
+      --muted: #9aa9a5;
+      --faint: #647672;
+      --line: rgba(188,242,225,.15);
+      --line-strong: rgba(188,242,225,.28);
+      --mint: #78dfcf;
+      --acid: #caff58;
+      --violet: #ad9dff;
+      --amber: #ffc66d;
+      --red: #ff8e84;
+      --blue: #86b7ff;
+      --max: 1220px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --shadow: 0 28px 90px rgba(0,0,0,.34);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background:
+        radial-gradient(circle at 82% 0, rgba(120,223,207,.13), transparent 35rem),
+        radial-gradient(circle at 4% 33%, rgba(173,157,255,.055), transparent 30rem),
+        var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    button, input { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    ::selection { background: var(--acid); color: #11170f; }
+    .shell { width: min(calc(100% - 34px), var(--max)); margin-inline: auto; }
+
+    .top {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid var(--line);
+      background: rgba(7,16,18,.86);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+    nav { display: flex; min-height: 70px; align-items: center; gap: 14px; }
+    .back {
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      padding: 0 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      font: 850 9px/1 var(--mono);
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .back:hover { border-color: var(--line-strong); color: var(--ink); }
+    .title strong { display: block; font-size: 14px; letter-spacing: -.02em; }
+    .title small { display: block; margin-top: 3px; color: var(--faint); font: 760 8px/1 var(--mono); letter-spacing: .07em; text-transform: uppercase; }
+    .local { margin-left: auto; color: var(--mint); font: 850 9px/1 var(--mono); text-transform: uppercase; }
+    .local::before {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      margin-right: 7px;
+      border-radius: 50%;
+      background: var(--mint);
+      box-shadow: 0 0 10px var(--mint);
+      content: "";
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) minmax(290px,.56fr);
+      gap: clamp(34px,7vw,92px);
+      align-items: end;
+      padding: clamp(66px,9vw,110px) 0 48px;
+    }
+    .eyebrow { color: var(--mint); font: 850 9px/1 var(--mono); letter-spacing: .13em; text-transform: uppercase; }
+    .hero h1 {
+      max-width: 850px;
+      margin: 16px 0 20px;
+      font-size: clamp(3.25rem,8vw,7rem);
+      line-height: .87;
+      letter-spacing: -.078em;
+      text-wrap: balance;
+    }
+    .hero p { max-width: 720px; margin: 0; color: #b9c5c1; font-size: clamp(1rem,1.8vw,1.2rem); line-height: 1.68; }
+    .limit {
+      padding: 21px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: rgba(15,25,28,.74);
+      box-shadow: var(--shadow);
+    }
+    .limit strong { display: block; color: var(--acid); font: 850 9px/1 var(--mono); text-transform: uppercase; }
+    .limit p { margin: 11px 0 0; color: var(--muted); font-size: 12px; line-height: 1.65; }
+
+    .modebar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+      padding: 5px;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      background: rgba(4,10,11,.55);
+    }
+    .mode {
+      min-height: 45px;
+      flex: 1;
+      border: 0;
+      border-radius: 12px;
+      background: transparent;
+      color: var(--faint);
+      font: 850 10px/1 var(--mono);
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+    .mode[aria-selected="true"] {
+      background: rgba(120,223,207,.12);
+      color: var(--ink);
+      box-shadow: inset 0 0 0 1px rgba(120,223,207,.28);
+    }
+
+    .workspace { padding-bottom: 96px; }
+    .view[hidden] { display: none !important; }
+
+    .drop {
+      display: grid;
+      min-height: 265px;
+      place-items: center;
+      padding: 30px;
+      border: 1px dashed rgba(120,223,207,.42);
+      border-radius: 26px;
+      background:
+        linear-gradient(145deg,rgba(120,223,207,.075),transparent 55%),
+        var(--panel);
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .16s ease, background .16s ease, transform .16s ease;
+    }
+    .drop:hover, .drop.drag { transform: translateY(-1px); border-color: var(--acid); background: rgba(202,255,88,.045); }
+    .drop.busy { pointer-events: none; opacity: .64; }
+    .drop h2 { margin: 0; font-size: clamp(1.8rem,3.6vw,2.9rem); letter-spacing: -.045em; }
+    .drop p { max-width: 620px; margin: 11px auto 0; color: var(--muted); line-height: 1.65; }
+    .drop-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 22px; }
+
+    .button {
+      display: inline-flex;
+      min-height: 45px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,.04);
+      color: var(--ink);
+      font: 850 9px/1 var(--mono);
+      letter-spacing: .035em;
+      text-decoration: none;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform .15s ease,border-color .15s ease,filter .15s ease;
+    }
+    .button:hover { transform: translateY(-1px); border-color: var(--line-strong); }
+    .button.primary { border-color: var(--acid); background: var(--acid); color: #11170f; }
+    .button.mint { border-color: rgba(120,223,207,.42); background: rgba(120,223,207,.08); color: #c5f4eb; }
+    .button:disabled { transform: none; cursor: not-allowed; opacity: .36; }
+    button:focus-visible, a:focus-visible, .drop:focus-visible {
+      outline: 2px solid var(--acid);
+      outline-offset: 3px;
+    }
+
+    .processing {
+      display: none;
+      margin-top: 12px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--panel);
+    }
+    .processing.show { display: block; }
+    .processing-top { display: flex; justify-content: space-between; gap: 14px; color: var(--muted); font: 750 9px/1.35 var(--mono); }
+    .progress { height: 5px; margin-top: 13px; overflow: hidden; border-radius: 999px; background: #182427; }
+    .progress span { display: block; width: 0; height: 100%; background: var(--mint); transition: width .14s; }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .metric { padding: 17px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); }
+    .metric small { display: block; color: var(--faint); font: 850 8px/1 var(--mono); text-transform: uppercase; }
+    .metric strong { display: block; margin-top: 9px; font-size: 21px; letter-spacing: -.035em; }
+
+    .vault, .verify-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 23px;
+      background: var(--panel);
+    }
+    .vault-head, .card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 19px;
+      border-bottom: 1px solid var(--line);
+    }
+    .vault-head h2, .card-head h2 { margin: 0; font-size: 18px; }
+    .vault-head p, .card-head p { margin: 5px 0 0; color: var(--faint); font-size: 11px; line-height: 1.5; }
+    .actions { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .table-wrap { overflow: auto; }
+    table { width: 100%; min-width: 870px; border-collapse: collapse; }
+    th, td { padding: 14px 16px; border-bottom: 1px solid rgba(188,242,225,.08); text-align: left; font: 730 9px/1.42 var(--mono); }
+    th { color: var(--faint); text-transform: uppercase; }
+    td { color: var(--muted); }
+    td.name { max-width: 300px; overflow: hidden; color: var(--ink); text-overflow: ellipsis; white-space: nowrap; }
+    td.hash { max-width: 350px; overflow: hidden; color: var(--mint); text-overflow: ellipsis; white-space: nowrap; }
+    td button { border: 0; background: none; color: var(--faint); cursor: pointer; font-size: 17px; }
+    .empty { padding: 52px 20px; color: var(--faint); text-align: center; font: 730 10px/1.65 var(--mono); }
+    .badge {
+      display: inline-flex;
+      min-height: 23px;
+      align-items: center;
+      padding: 0 8px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font: 850 8px/1 var(--mono);
+      text-transform: uppercase;
+    }
+    .badge.match { border-color: rgba(120,223,207,.34); background: rgba(120,223,207,.08); color: var(--mint); }
+    .badge.changed { border-color: rgba(255,142,132,.34); background: rgba(255,142,132,.08); color: var(--red); }
+    .badge.renamed { border-color: rgba(173,157,255,.34); background: rgba(173,157,255,.08); color: var(--violet); }
+    .badge.new { border-color: rgba(134,183,255,.34); background: rgba(134,183,255,.08); color: var(--blue); }
+    .badge.missing { border-color: rgba(255,198,109,.34); background: rgba(255,198,109,.08); color: var(--amber); }
+    .badge.duplicate { border-color: rgba(202,255,88,.28); background: rgba(202,255,88,.07); color: var(--acid); }
+
+    .status-line { min-height: 24px; margin: 13px 2px 0; color: var(--mint); font: 740 10px/1.5 var(--mono); }
+    .status-line.error { color: var(--red); }
+
+    .explain {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .explain article { padding: 21px; border: 1px solid var(--line); border-radius: 18px; background: rgba(15,25,28,.72); }
+    .explain h3 { margin: 0; color: var(--acid); font: 850 9px/1 var(--mono); text-transform: uppercase; }
+    .explain p { margin: 11px 0 0; color: var(--muted); font-size: 12px; line-height: 1.68; }
+
+    .verify-grid {
+      display: grid;
+      grid-template-columns: repeat(2,minmax(0,1fr));
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .verify-card { min-height: 240px; }
+    .card-body { padding: 19px; }
+    .card-body .button { width: 100%; }
+    .loaded {
+      display: none;
+      margin-top: 13px;
+      padding: 14px;
+      border: 1px solid rgba(120,223,207,.17);
+      border-radius: 14px;
+      background: var(--panel-2);
+    }
+    .loaded.show { display: block; }
+    .loaded strong { display: block; color: var(--mint); font: 850 8px/1 var(--mono); text-transform: uppercase; }
+    .loaded p { margin: 8px 0 0; color: var(--muted); font: 720 9px/1.5 var(--mono); overflow-wrap: anywhere; }
+    .verify-results { margin-top: 12px; }
+    .verify-results[hidden] { display: none; }
+
+    footer { padding: 30px 0; border-top: 1px solid var(--line); color: var(--faint); font-size: 11px; }
+    .footer { display: flex; justify-content: space-between; gap: 18px; }
+
+    @media (max-width: 850px) {
+      .hero { grid-template-columns: 1fr; }
+      .summary, .explain { grid-template-columns: repeat(2,1fr); }
+      .vault-head, .card-head { align-items: flex-start; flex-direction: column; }
+      .actions { width: 100%; }
+      .actions .button { flex: 1; }
+      .local { font-size: 0; }
+      .local::before { margin: 0; }
+    }
+    @media (max-width: 650px) {
+      .shell { width: min(calc(100% - 22px),var(--max)); }
+      .hero h1 { font-size: clamp(3.1rem,16vw,5rem); }
+      .summary, .explain, .verify-grid { grid-template-columns: 1fr; }
+      .drop { min-height: 235px; padding: 22px; }
+      .drop-actions, .actions { display: grid; width: 100%; }
+      .drop-actions .button, .actions .button { width: 100%; }
+      .footer { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .001ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <nav class="shell">
+      <a class="back" href="index.html">← Portfolio</a>
+      <div class="title"><strong>ChronosAudit</strong><small>Create + verify local evidence manifests</small></div>
+      <div class="local">Runs on this device</div>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Working browser tool · version 2</p>
+        <h1>Fingerprint files. Verify the record.</h1>
+        <p>Create a portable evidence manifest with real SHA-256 hashes, then compare a later set of files against it. File contents stay in your browser and are never uploaded.</p>
+      </div>
+      <aside class="limit">
+        <strong>Current boundary</strong>
+        <p>ChronosAudit identifies file bytes and basic metadata. It does not inspect document meaning, prove authorship, or reconstruct a complete timeline by itself. Very large files are limited by browser memory.</p>
+      </aside>
+    </section>
+
+    <section class="workspace">
+      <div class="modebar" role="tablist" aria-label="ChronosAudit mode">
+        <button class="mode" id="modeCreate" type="button" role="tab" aria-selected="true" aria-controls="createView">Create manifest</button>
+        <button class="mode" id="modeVerify" type="button" role="tab" aria-selected="false" aria-controls="verifyView">Verify files</button>
+      </div>
+
+      <section class="view" id="createView" role="tabpanel" aria-labelledby="modeCreate">
+        <input id="files" type="file" multiple hidden>
+        <input id="folder" type="file" webkitdirectory multiple hidden>
+
+        <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose files to add to the local evidence manifest">
+          <div>
+            <h2>Build a local evidence manifest</h2>
+            <p>Select files or a folder. ChronosAudit reads each file locally, calculates a full SHA-256 digest, and retains only metadata and hashes in IndexedDB.</p>
+            <div class="drop-actions">
+              <button class="button primary" id="chooseFiles" type="button">Choose files</button>
+              <button class="button mint" id="chooseFolder" type="button">Choose folder</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="processing" id="createProcessing">
+          <div class="processing-top"><span id="createProcessingFile">Preparing…</span><span id="createProcessingCount"></span></div>
+          <div class="progress"><span id="createBar"></span></div>
+        </div>
+
+        <div class="summary">
+          <div class="metric"><small>Records</small><strong id="count">0</strong></div>
+          <div class="metric"><small>Total source size</small><strong id="size">0 B</strong></div>
+          <div class="metric"><small>Duplicate groups</small><strong id="duplicates">0</strong></div>
+          <div class="metric"><small>Storage</small><strong id="dbState">Opening…</strong></div>
+        </div>
+
+        <section class="vault">
+          <header class="vault-head">
+            <div><h2>Local evidence vault</h2><p>Metadata and hashes persist on this device. Original files are never stored.</p></div>
+            <div class="actions">
+              <button class="button primary" id="downloadManifest" disabled>Download manifest</button>
+              <button class="button" id="copyManifest" disabled>Copy JSON</button>
+              <button class="button" id="clearVault" disabled>Clear</button>
+            </div>
+          </header>
+          <div class="table-wrap">
+            <table id="createTable" hidden>
+              <thead><tr><th>File</th><th>Size</th><th>Modified</th><th>State</th><th>SHA-256</th><th></th></tr></thead>
+              <tbody id="createRows"></tbody>
+            </table>
+            <div class="empty" id="createEmpty">No local records yet. Add files above to calculate their fingerprints.</div>
+          </div>
+        </section>
+        <div class="status-line" id="createStatus" role="status" aria-live="polite"></div>
+      </section>
+
+      <section class="view" id="verifyView" role="tabpanel" aria-labelledby="modeVerify" hidden>
+        <input id="manifestInput" type="file" accept=".json,application/json" hidden>
+        <input id="verifyFiles" type="file" multiple hidden>
+        <input id="verifyFolder" type="file" webkitdirectory multiple hidden>
+
+        <div class="verify-grid">
+          <section class="verify-card">
+            <header class="card-head"><div><h2>1. Load a manifest</h2><p>Use a ChronosAudit JSON manifest created earlier.</p></div></header>
+            <div class="card-body">
+              <button class="button primary" id="chooseManifest" type="button">Choose manifest JSON</button>
+              <div class="loaded" id="manifestLoaded">
+                <strong>Manifest loaded</strong>
+                <p id="manifestSummary"></p>
+              </div>
+            </div>
+          </section>
+
+          <section class="verify-card">
+            <header class="card-head"><div><h2>2. Select current files</h2><p>ChronosAudit hashes them now and compares them with the loaded record.</p></div></header>
+            <div class="card-body">
+              <div class="actions">
+                <button class="button mint" id="chooseVerifyFiles" type="button" disabled>Choose files</button>
+                <button class="button" id="chooseVerifyFolder" type="button" disabled>Choose folder</button>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="processing" id="verifyProcessing">
+          <div class="processing-top"><span id="verifyProcessingFile">Preparing…</span><span id="verifyProcessingCount"></span></div>
+          <div class="progress"><span id="verifyBar"></span></div>
+        </div>
+
+        <section class="verify-results" id="verifyResults" hidden>
+          <div class="summary">
+            <div class="metric"><small>Matched</small><strong id="matchedCount">0</strong></div>
+            <div class="metric"><small>Changed</small><strong id="changedCount">0</strong></div>
+            <div class="metric"><small>Moved / renamed</small><strong id="renamedCount">0</strong></div>
+            <div class="metric"><small>New + missing</small><strong id="unresolvedCount">0</strong></div>
+          </div>
+
+          <section class="vault">
+            <header class="vault-head">
+              <div><h2>Verification report</h2><p>Comparison is based on SHA-256 and the manifest’s recorded path or filename.</p></div>
+              <div class="actions"><button class="button primary" id="downloadReport" disabled>Download report</button></div>
+            </header>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Status</th><th>Current file</th><th>Manifest record</th><th>Size</th><th>SHA-256</th></tr></thead>
+                <tbody id="verifyRows"></tbody>
+              </table>
+            </div>
+          </section>
+        </section>
+        <div class="status-line" id="verifyStatus" role="status" aria-live="polite"></div>
+      </section>
+
+      <div class="explain">
+        <article><h3>What it proves</h3><p>A SHA-256 fingerprint identifies a precise byte sequence. Matching hashes are strong evidence that two files are byte-for-byte identical.</p></article>
+        <article><h3>What stays local</h3><p>Selected file contents, hashing, persistence, and comparison happen in your browser. Exports contain metadata and hashes, not the files themselves.</p></article>
+        <article><h3>What it cannot prove</h3><p>A manifest alone does not establish authorship, truth, custody, or meaning. It is a durable identification layer for a larger evidence workflow.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer"><span>ChronosAudit · local browser evidence tooling</span><a href="index.html#contact">Discuss a workflow ↗</a></div>
+  </footer>
+
+  <script>
+    (() => {
+      const DB_NAME = "chronosaudit";
+      const STORE_NAME = "records";
+      const DB_VERSION = 2;
+      const MANIFEST_SCHEMA = "chronosaudit.manifest.v2";
+      const REPORT_SCHEMA = "chronosaudit.verification.v1";
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+
+      let db = null;
+      let records = [];
+      let createBusy = false;
+      let verifyBusy = false;
+      let loadedManifest = null;
+      let loadedManifestName = "";
+      let verificationResults = [];
+
+      const bytes = (value) => {
+        const number = Number(value || 0);
+        if (!number) return "0 B";
+        const units = ["B","KB","MB","GB","TB"];
+        const index = Math.min(Math.floor(Math.log(number) / Math.log(1024)), units.length - 1);
+        return `${(number / (1024 ** index)).toFixed(index ? 1 : 0)} ${units[index]}`;
+      };
+      const date = (value) => {
+        const parsed = new Date(value);
+        return Number.isNaN(parsed.valueOf()) ? "Unknown" : parsed.toLocaleString();
+      };
+      const pathOfFile = (file) => file.webkitRelativePath || file.name;
+      const pathOfEntry = (entry) => entry.relativePath || entry.path || entry.name || "";
+      const validHash = (value) => /^[a-f0-9]{64}$/i.test(String(value || ""));
+      const setStatus = (element, message, error = false) => {
+        element.textContent = message;
+        element.classList.toggle("error", error);
+      };
+      const sha256 = async (file) => {
+        const data = await file.arrayBuffer();
+        const digest = await crypto.subtle.digest("SHA-256", data);
+        return [...new Uint8Array(digest)].map((value) => value.toString(16).padStart(2,"0")).join("");
+      };
+      const downloadJson = (value, filename) => {
+        const blob = new Blob([JSON.stringify(value, null, 2)], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        document.body.append(link);
+        link.click();
+        link.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 0);
+      };
+
+      function openDatabase() {
+        return new Promise((resolve, reject) => {
+          const request = indexedDB.open(DB_NAME, DB_VERSION);
+          request.onupgradeneeded = () => {
+            if (!request.result.objectStoreNames.contains(STORE_NAME)) {
+              request.result.createObjectStore(STORE_NAME, { keyPath: "id" });
+            }
+          };
+          request.onsuccess = () => resolve(request.result);
+          request.onerror = () => reject(request.error);
+        });
+      }
+      function store(mode = "readonly") {
+        if (!db) throw new Error("IndexedDB is not ready.");
+        return db.transaction(STORE_NAME, mode).objectStore(STORE_NAME);
+      }
+      function getAllRecords() {
+        return new Promise((resolve, reject) => {
+          const request = store().getAll();
+          request.onsuccess = () => resolve(request.result || []);
+          request.onerror = () => reject(request.error);
+        });
+      }
+      function putRecord(record) {
+        return new Promise((resolve, reject) => {
+          const request = store("readwrite").put(record);
+          request.onsuccess = () => resolve();
+          request.onerror = () => reject(request.error);
+        });
+      }
+      function deleteRecord(id) {
+        return new Promise((resolve, reject) => {
+          const request = store("readwrite").delete(id);
+          request.onsuccess = () => resolve();
+          request.onerror = () => reject(request.error);
+        });
+      }
+      function clearRecords() {
+        return new Promise((resolve, reject) => {
+          const request = store("readwrite").clear();
+          request.onsuccess = () => resolve();
+          request.onerror = () => reject(request.error);
+        });
+      }
+
+      function duplicateGroups() {
+        const groups = new Map();
+        records.forEach((record) => {
+          if (!groups.has(record.sha256)) groups.set(record.sha256, []);
+          groups.get(record.sha256).push(record);
+        });
+        return [...groups.values()].filter((group) => group.length > 1);
+      }
+
+      function buildManifest() {
+        const duplicates = duplicateGroups();
+        return {
+          schema: MANIFEST_SCHEMA,
+          generatedAt: new Date().toISOString(),
+          processing: {
+            location: "client browser",
+            algorithm: "SHA-256",
+            fileContentsUploaded: false,
+            fileContentsStored: false,
+            note: "Hashes identify bytes. This manifest does not prove authorship, custody, or truth by itself."
+          },
+          summary: {
+            recordCount: records.length,
+            totalBytes: records.reduce((sum, record) => sum + Number(record.size || 0), 0),
+            duplicateGroups: duplicates.length
+          },
+          entries: records.map(({ id, ...record }) => record)
+        };
+      }
+
+      function renderCreate() {
+        records.sort((a,b) => String(b.addedAt).localeCompare(String(a.addedAt)));
+        const duplicateHashes = new Set(duplicateGroups().flat().map((record) => record.sha256));
+        const rows = $("#createRows");
+        rows.replaceChildren();
+
+        for (const record of records) {
+          const tr = document.createElement("tr");
+          const name = document.createElement("td");
+          const size = document.createElement("td");
+          const modified = document.createElement("td");
+          const state = document.createElement("td");
+          const hash = document.createElement("td");
+          const removeCell = document.createElement("td");
+          const remove = document.createElement("button");
+
+          name.className = "name";
+          name.textContent = record.relativePath || record.name;
+          size.textContent = bytes(record.size);
+          modified.textContent = date(record.lastModified);
+          hash.className = "hash";
+          hash.textContent = record.sha256;
+
+          if (duplicateHashes.has(record.sha256)) {
+            const badge = document.createElement("span");
+            badge.className = "badge duplicate";
+            badge.textContent = "duplicate bytes";
+            state.append(badge);
+          } else {
+            state.textContent = "unique";
+          }
+
+          remove.textContent = "×";
+          remove.setAttribute("aria-label", `Remove ${record.relativePath || record.name}`);
+          remove.addEventListener("click", async () => {
+            if (createBusy) return;
+            await deleteRecord(record.id);
+            records = records.filter((item) => item.id !== record.id);
+            renderCreate();
+            setStatus($("#createStatus"), `Removed ${record.relativePath || record.name}.`);
+          });
+
+          removeCell.append(remove);
+          tr.append(name, size, modified, state, hash, removeCell);
+          rows.append(tr);
+        }
+
+        const hasRecords = records.length > 0;
+        $("#createTable").hidden = !hasRecords;
+        $("#createEmpty").hidden = hasRecords;
+        $("#count").textContent = String(records.length);
+        $("#size").textContent = bytes(records.reduce((sum, record) => sum + Number(record.size || 0), 0));
+        $("#duplicates").textContent = String(duplicateGroups().length);
+        $("#dbState").textContent = db ? "Ready" : "Unavailable";
+        ["#downloadManifest","#copyManifest","#clearVault"].forEach((selector) => {
+          $(selector).disabled = !hasRecords || createBusy;
+        });
+      }
+
+      async function processCreateFiles(fileList) {
+        const files = [...(fileList || [])].filter((file) => file instanceof File);
+        if (!files.length || createBusy) return;
+
+        createBusy = true;
+        $("#drop").classList.add("busy");
+        $("#createProcessing").classList.add("show");
+        renderCreate();
+
+        let saved = 0;
+        let failed = 0;
+        for (let index = 0; index < files.length; index += 1) {
+          const file = files[index];
+          $("#createProcessingFile").textContent = `Hashing ${pathOfFile(file)}`;
+          $("#createProcessingCount").textContent = `${index + 1} / ${files.length}`;
+          $("#createBar").style.width = `${Math.round((index / files.length) * 100)}%`;
+
+          try {
+            const hash = await sha256(file);
+            const record = {
+              id: `${hash}:${pathOfFile(file)}:${file.size}:${file.lastModified}`,
+              name: file.name,
+              relativePath: file.webkitRelativePath || "",
+              size: file.size,
+              type: file.type || "application/octet-stream",
+              lastModified: new Date(file.lastModified).toISOString(),
+              sha256: hash,
+              addedAt: new Date().toISOString()
+            };
+            await putRecord(record);
+            const existing = records.findIndex((item) => item.id === record.id);
+            if (existing >= 0) records.splice(existing, 1, record);
+            else records.push(record);
+            saved += 1;
+          } catch (error) {
+            console.error(error);
+            failed += 1;
+          }
+
+          $("#createBar").style.width = `${Math.round(((index + 1) / files.length) * 100)}%`;
+          renderCreate();
+        }
+
+        createBusy = false;
+        $("#drop").classList.remove("busy");
+        $("#createProcessing").classList.remove("show");
+        $("#createBar").style.width = "0%";
+        $("#files").value = "";
+        $("#folder").value = "";
+        renderCreate();
+        setStatus(
+          $("#createStatus"),
+          failed
+            ? `Saved ${saved} local record${saved === 1 ? "" : "s"}; ${failed} file${failed === 1 ? "" : "s"} could not be hashed.`
+            : `Saved ${saved} local record${saved === 1 ? "" : "s"}. Nothing was uploaded.`,
+          failed > 0
+        );
+      }
+
+      function setMode(mode) {
+        const create = mode === "create";
+        $("#modeCreate").setAttribute("aria-selected", String(create));
+        $("#modeVerify").setAttribute("aria-selected", String(!create));
+        $("#createView").hidden = !create;
+        $("#verifyView").hidden = create;
+        const url = new URL(window.location.href);
+        if (create) url.searchParams.delete("mode");
+        else url.searchParams.set("mode", "verify");
+        history.replaceState({ mode }, "", url);
+      }
+
+      function normalizeManifest(parsed) {
+        const entries = Array.isArray(parsed) ? parsed : parsed?.entries;
+        if (!Array.isArray(entries)) throw new Error("The JSON does not contain an entries array.");
+        const normalized = entries.map((entry, index) => {
+          if (!entry || !validHash(entry.sha256)) throw new Error(`Entry ${index + 1} does not contain a valid SHA-256 hash.`);
+          return {
+            name: String(entry.name || pathOfEntry(entry) || `entry-${index + 1}`),
+            relativePath: String(entry.relativePath || entry.path || ""),
+            size: Number(entry.size || 0),
+            type: String(entry.type || "application/octet-stream"),
+            lastModified: entry.lastModified || null,
+            sha256: String(entry.sha256).toLowerCase()
+          };
+        });
+        return {
+          schema: parsed?.schema || "unknown",
+          generatedAt: parsed?.generatedAt || null,
+          summary: parsed?.summary || { recordCount: normalized.length },
+          entries: normalized
+        };
+      }
+
+      async function loadManifestFile(file) {
+        if (!(file instanceof File) || verifyBusy) return;
+        try {
+          const parsed = JSON.parse(await file.text());
+          loadedManifest = normalizeManifest(parsed);
+          loadedManifestName = file.name;
+          $("#manifestLoaded").classList.add("show");
+          $("#manifestSummary").textContent =
+            `${file.name} · ${loadedManifest.entries.length} record${loadedManifest.entries.length === 1 ? "" : "s"} · schema ${loadedManifest.schema}`;
+          $("#chooseVerifyFiles").disabled = false;
+          $("#chooseVerifyFolder").disabled = false;
+          $("#verifyResults").hidden = true;
+          verificationResults = [];
+          setStatus($("#verifyStatus"), "Manifest loaded. Select the current files or folder to compare.");
+        } catch (error) {
+          console.error(error);
+          loadedManifest = null;
+          loadedManifestName = "";
+          $("#manifestLoaded").classList.remove("show");
+          $("#chooseVerifyFiles").disabled = true;
+          $("#chooseVerifyFolder").disabled = true;
+          $("#verifyResults").hidden = true;
+          setStatus($("#verifyStatus"), error.message || "That file is not a compatible manifest.", true);
+        } finally {
+          $("#manifestInput").value = "";
+        }
+      }
+
+      function chooseExpectedByPath(entries, currentPath, currentName, used) {
+        let index = entries.findIndex((entry, entryIndex) => !used.has(entryIndex) && pathOfEntry(entry) === currentPath);
+        if (index >= 0) return index;
+        index = entries.findIndex((entry, entryIndex) => !used.has(entryIndex) && entry.name === currentName);
+        return index;
+      }
+
+      async function verifyCurrentFiles(fileList) {
+        const files = [...(fileList || [])].filter((file) => file instanceof File);
+        if (!loadedManifest || !files.length || verifyBusy) return;
+
+        verifyBusy = true;
+        $("#verifyProcessing").classList.add("show");
+        $("#chooseVerifyFiles").disabled = true;
+        $("#chooseVerifyFolder").disabled = true;
+        verificationResults = [];
+
+        const expected = loadedManifest.entries;
+        const used = new Set();
+
+        for (let index = 0; index < files.length; index += 1) {
+          const file = files[index];
+          const currentPath = pathOfFile(file);
+          $("#verifyProcessingFile").textContent = `Hashing ${currentPath}`;
+          $("#verifyProcessingCount").textContent = `${index + 1} / ${files.length}`;
+          $("#verifyBar").style.width = `${Math.round((index / files.length) * 100)}%`;
+
+          try {
+            const hash = await sha256(file);
+            const expectedIndex = chooseExpectedByPath(expected, currentPath, file.name, used);
+            let status = "new";
+            let expectedEntry = null;
+            let note = "No manifest record uses this path or filename.";
+
+            if (expectedIndex >= 0) {
+              expectedEntry = expected[expectedIndex];
+              used.add(expectedIndex);
+              if (expectedEntry.sha256 === hash) {
+                status = "match";
+                note = "Same path or filename and identical SHA-256.";
+              } else {
+                status = "changed";
+                note = "Same path or filename, but the bytes differ.";
+              }
+            } else {
+              const hashIndex = expected.findIndex((entry, entryIndex) => !used.has(entryIndex) && entry.sha256 === hash);
+              if (hashIndex >= 0) {
+                expectedEntry = expected[hashIndex];
+                used.add(hashIndex);
+                status = "renamed";
+                note = "The bytes match a manifest record under a different path or filename.";
+              }
+            }
+
+            verificationResults.push({
+              status,
+              currentName: currentPath,
+              expectedName: expectedEntry ? pathOfEntry(expectedEntry) : "",
+              size: file.size,
+              sha256: hash,
+              note
+            });
+          } catch (error) {
+            console.error(error);
+            verificationResults.push({
+              status: "new",
+              currentName: currentPath,
+              expectedName: "",
+              size: file.size,
+              sha256: "",
+              note: "The browser could not hash this file."
+            });
+          }
+
+          $("#verifyBar").style.width = `${Math.round(((index + 1) / files.length) * 100)}%`;
+        }
+
+        expected.forEach((entry, index) => {
+          if (!used.has(index)) {
+            verificationResults.push({
+              status: "missing",
+              currentName: "",
+              expectedName: pathOfEntry(entry),
+              size: entry.size,
+              sha256: entry.sha256,
+              note: "This manifest record was not represented in the selected current files."
+            });
+          }
+        });
+
+        verifyBusy = false;
+        $("#verifyProcessing").classList.remove("show");
+        $("#verifyBar").style.width = "0%";
+        $("#verifyFiles").value = "";
+        $("#verifyFolder").value = "";
+        $("#chooseVerifyFiles").disabled = false;
+        $("#chooseVerifyFolder").disabled = false;
+        renderVerification();
+        setStatus($("#verifyStatus"), `Compared ${files.length} current file${files.length === 1 ? "" : "s"} with ${expected.length} manifest record${expected.length === 1 ? "" : "s"}.`);
+      }
+
+      function renderVerification() {
+        const rows = $("#verifyRows");
+        rows.replaceChildren();
+
+        verificationResults.forEach((result) => {
+          const tr = document.createElement("tr");
+          const statusCell = document.createElement("td");
+          const current = document.createElement("td");
+          const expected = document.createElement("td");
+          const size = document.createElement("td");
+          const hash = document.createElement("td");
+          const badge = document.createElement("span");
+
+          badge.className = `badge ${result.status}`;
+          badge.textContent = result.status === "renamed" ? "moved / renamed" : result.status;
+          badge.title = result.note;
+          statusCell.append(badge);
+          current.className = "name";
+          current.textContent = result.currentName || "—";
+          expected.className = "name";
+          expected.textContent = result.expectedName || "—";
+          size.textContent = bytes(result.size);
+          hash.className = "hash";
+          hash.textContent = result.sha256 || "Unavailable";
+          tr.append(statusCell, current, expected, size, hash);
+          rows.append(tr);
+        });
+
+        const count = (status) => verificationResults.filter((result) => result.status === status).length;
+        $("#matchedCount").textContent = String(count("match"));
+        $("#changedCount").textContent = String(count("changed"));
+        $("#renamedCount").textContent = String(count("renamed"));
+        $("#unresolvedCount").textContent = String(count("new") + count("missing"));
+        $("#verifyResults").hidden = verificationResults.length === 0;
+        $("#downloadReport").disabled = verificationResults.length === 0;
+      }
+
+      function buildVerificationReport() {
+        const count = (status) => verificationResults.filter((result) => result.status === status).length;
+        return {
+          schema: REPORT_SCHEMA,
+          generatedAt: new Date().toISOString(),
+          sourceManifest: {
+            filename: loadedManifestName,
+            schema: loadedManifest?.schema || null,
+            generatedAt: loadedManifest?.generatedAt || null,
+            recordCount: loadedManifest?.entries?.length || 0
+          },
+          comparison: {
+            algorithm: "SHA-256",
+            location: "client browser",
+            fileContentsUploaded: false
+          },
+          summary: {
+            matched: count("match"),
+            changed: count("changed"),
+            renamedOrMoved: count("renamed"),
+            new: count("new"),
+            missing: count("missing")
+          },
+          results: verificationResults
+        };
+      }
+
+      $("#modeCreate").addEventListener("click", () => setMode("create"));
+      $("#modeVerify").addEventListener("click", () => setMode("verify"));
+
+      $("#chooseFiles").addEventListener("click", (event) => { event.stopPropagation(); $("#files").click(); });
+      $("#chooseFolder").addEventListener("click", (event) => { event.stopPropagation(); $("#folder").click(); });
+      $("#drop").addEventListener("click", (event) => {
+        if (!event.target.closest("button")) $("#files").click();
+      });
+      $("#drop").addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          $("#files").click();
+        }
+      });
+      $("#files").addEventListener("change", (event) => processCreateFiles(event.target.files));
+      $("#folder").addEventListener("change", (event) => processCreateFiles(event.target.files));
+      ["dragenter","dragover"].forEach((type) => $("#drop").addEventListener(type, (event) => {
+        event.preventDefault();
+        $("#drop").classList.add("drag");
+      }));
+      $("#drop").addEventListener("dragleave", (event) => {
+        if (!$("#drop").contains(event.relatedTarget)) $("#drop").classList.remove("drag");
+      });
+      $("#drop").addEventListener("drop", (event) => {
+        event.preventDefault();
+        $("#drop").classList.remove("drag");
+        processCreateFiles(event.dataTransfer.files);
+      });
+
+      $("#downloadManifest").addEventListener("click", () => {
+        downloadJson(buildManifest(), `chronosaudit-manifest-${new Date().toISOString().replace(/[:.]/g,"-")}.json`);
+        setStatus($("#createStatus"), `Downloaded ${records.length}-record manifest.`);
+      });
+      $("#copyManifest").addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(JSON.stringify(buildManifest(), null, 2));
+          setStatus($("#createStatus"), `Copied ${records.length}-record manifest.`);
+        } catch {
+          setStatus($("#createStatus"), "Clipboard access was blocked. Use Download manifest.", true);
+        }
+      });
+      $("#clearVault").addEventListener("click", async () => {
+        if (!confirm(`Clear ${records.length} local record${records.length === 1 ? "" : "s"}? Original files are not affected.`)) return;
+        await clearRecords();
+        records = [];
+        renderCreate();
+        setStatus($("#createStatus"), "Local records cleared. Original files were not changed.");
+      });
+
+      $("#chooseManifest").addEventListener("click", () => $("#manifestInput").click());
+      $("#manifestInput").addEventListener("change", (event) => loadManifestFile(event.target.files?.[0]));
+      $("#chooseVerifyFiles").addEventListener("click", () => $("#verifyFiles").click());
+      $("#chooseVerifyFolder").addEventListener("click", () => $("#verifyFolder").click());
+      $("#verifyFiles").addEventListener("change", (event) => verifyCurrentFiles(event.target.files));
+      $("#verifyFolder").addEventListener("change", (event) => verifyCurrentFiles(event.target.files));
+      $("#downloadReport").addEventListener("click", () => {
+        downloadJson(buildVerificationReport(), `chronosaudit-verification-${new Date().toISOString().replace(/[:.]/g,"-")}.json`);
+        setStatus($("#verifyStatus"), "Downloaded the verification report.");
+      });
+
+      window.addEventListener("popstate", () => {
+        const verify = new URLSearchParams(location.search).get("mode") === "verify";
+        setMode(verify ? "verify" : "create");
+      });
+
+      (async () => {
+        try {
+          db = await openDatabase();
+          records = await getAllRecords();
+          renderCreate();
+          setStatus(
+            $("#createStatus"),
+            records.length
+              ? `Restored ${records.length} local record${records.length === 1 ? "" : "s"}.`
+              : "Local evidence vault ready."
+          );
+        } catch (error) {
+          console.error(error);
+          renderCreate();
+          setStatus($("#createStatus"), "IndexedDB is unavailable in this browser. Hashing still works, but records cannot persist.", true);
+        }
+        const verify = new URLSearchParams(location.search).get("mode") === "verify";
+        setMode(verify ? "verify" : "create");
+      })();
+    })();
+  </script>
+</body>
+</html>
