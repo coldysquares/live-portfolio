@@ -44,7 +44,7 @@ aim_js = r'''        /* --- DETERMINISTIC PROMPT SPECIFICATION PREVIEW --- */
         /* --- SAPERLI CONVERSATION UI PROTOTYPE --- */
         const SaperliPopette ='''
 sub_once(
-    r'        /\* --- VARIABLE AIM CHAT SANDBOX CONTROLLER DECK --- \*/\s*        const AIMChatAgent = \{.*?\n        \};\n\n        /\* --- SAPERLI POPETTE REAL TIME LOCAL HANDSHAKE DESK --- \*/\s*        const SaperliPopette =',
+    r'        /\* --- DETERMINISTIC PROMPT SPECIFICATION PREVIEW --- \*/\s*        const AIMChatAgent = \{.*?\n        \};\n\n        /\* --- SAPERLI POPETTE REAL TIME LOCAL HANDSHAKE DESK --- \*/\s*        const SaperliPopette =',
     aim_js,
     'rewrite AWD as honest deterministic preview',
 )
