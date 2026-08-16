@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nick Berghane — Portfolio &amp; ChronosAudit Workspace</title>
-    <!-- Supabase JS Client CDN Library for Real-Time Full-Stack Persistence -->
-    <script src="https://jsdelivr.net"></script>
+    <meta name="description" content="ChronosAudit and Nick Berghane’s interactive browser-tool portfolio: local file hashing, multitrack audio mixing, interface prototypes, and technical consulting.">
+    <meta name="theme-color" content="#09090b">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght=700;800&family=JetBrains+Mono:wght=400;500;700&family=Plus+Jakarta+Sans:wght=400;500;600;700&display=swap');
-
-        /* Modern Dark Tech Core Design Tokens */
+/* Modern Dark Tech Core Design Tokens */
         :root {
             --color-bg: #09090b;
             --color-surface-card: #141416;
@@ -155,6 +156,69 @@
             width: 0%;
             transition: width 0.1s ease;
         }
+
+
+        /* Revenue-ready responsive and utility additions */
+        button, input, textarea, select { font: inherit; }
+        button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
+            outline: 2px solid #818cf8;
+            outline-offset: 2px;
+        }
+        .mobile-nav-select {
+            display: none;
+            background: #141416;
+            color: #d4d4d8;
+            border: 1px solid #27272a;
+            border-radius: 0.5rem;
+            padding: 0.55rem 0.7rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+        }
+        .tool-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .stem-file-label {
+            display: block;
+            cursor: pointer;
+            background: #18181b;
+            color: #d4d4d8;
+            border: 1px solid #27272a;
+            border-radius: 0.5rem;
+            padding: 0.6rem;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .stem-file-name {
+            min-height: 2.4em;
+            color: #71717a;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            line-height: 1.35;
+            overflow-wrap: anywhere;
+        }
+        #mixer-strips-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+        .service-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+        .project-card-link { color: #a5b4fc; text-decoration: none; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; }
+        .project-card-link:hover { color: #fff; text-decoration: underline; }
+        .field-label { color: #a1a1aa; font-size: 10px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.04em; }
+        @media (max-width: 64rem) {
+            .glass-nav { height: auto; min-height: 72px; padding: 0.7rem 0; }
+            .glass-nav .wrapper-layout { gap: 0.75rem; }
+            #global-nav-links { display: none !important; }
+            .mobile-nav-select { display: block; }
+            #mixer-strips-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+        }
+        @media (max-width: 42rem) {
+            .wrapper-layout { padding-inline: 1rem; }
+            .glass-nav .wrapper-layout { flex-wrap: wrap; }
+            .glass-nav .btn-prime { flex: 1 1 auto; }
+            .mobile-nav-select { flex: 1 1 10rem; }
+            #mixer-strips-grid, .service-grid { grid-template-columns: 1fr !important; }
+            .premium-card, .lab-console-panel { padding: 1rem; }
+        }
+
     </style>
 
 
@@ -179,8 +243,12 @@
                 if (typeof AIMChatAgent !== 'undefined') AIMChatAgent.cleanup();
 
 
-                document.querySelectorAll('.view-page').forEach(p => p.classList.add('hidden'));
+                document.querySelectorAll('.view-page').forEach(p => { p.classList.add('hidden'); p.setAttribute('aria-hidden', 'true'); });
                 targetPage.classList.remove('hidden');
+                targetPage.setAttribute('aria-hidden', 'false');
+                window.scrollTo({ top: 0, behavior: 'auto' });
+                const mobileSelect = document.getElementById('mobile-nav-select');
+                if (mobileSelect) mobileSelect.value = tabId;
                 
                 document.querySelectorAll('#global-nav-links button').forEach(btn => {
                     if (btn.id === `nav-${tabId}`) {
@@ -240,65 +308,75 @@
                 <div>
 
                     <span style="font-size: 13px; font-weight: 800; tracking: 0.1em; color: #f4f4f5; display: block; text-transform: uppercase; font-family: 'JetBrains Mono';">NICK<span style="color: #818cf8;">BERGHANE</span></span>
-                    <span style="font-size: 9px; color: #52525b; font-weight: bold; text-transform: uppercase; display: block; font-family: monospace;">Sovereign Compute Suite</span>
+                    <span style="font-size: 9px; color: #52525b; font-weight: bold; text-transform: uppercase; display: block; font-family: monospace;">Interactive systems &amp; consulting</span>
                 </div>
             </div>
             
             <nav style="display: flex; gap: 0.5rem; font-family: 'JetBrains Mono'; font-size: 11px; font-weight: bold; text-transform: uppercase;" id="global-nav-links">
                 <button onclick="AppRouter.navigate('home')" id="nav-home" style="background: none; border: none; padding: 0.5rem 0.75rem; cursor: pointer; border-radius: 0.375rem;">ChronosAudit</button>
                 <button onclick="AppRouter.navigate('mixer')" id="nav-mixer" style="background: none; border: none; padding: 0.5rem 0.75rem; cursor: pointer; border-radius: 0.375rem;">Wollohy Studio</button>
-                <button onclick="AppRouter.navigate('playgrounds')" id="nav-playgrounds" style="background: none; border: none; padding: 0.5rem 0.75rem; cursor: pointer; border-radius: 0.375rem;">AI Playgrounds</button>
-                <button onclick="AppRouter.navigate('geometry')" id="nav-geometry" style="background: none; border: none; padding: 0.5rem 0.75rem; cursor: pointer; border-radius: 0.375rem;">Data Geometry</button>
-                <button onclick="AppRouter.navigate('about')" id="nav-about" style="background: none; border: none; padding: 0.5rem 0.75rem; cursor: pointer; border-radius: 0.375rem; color: #71717a;">About Me</button>
+                <button onclick="AppRouter.navigate('playgrounds')" id="nav-playgrounds" style="background: none; border: none; padding: 0.5rem 0.75rem; cursor: pointer; border-radius: 0.375rem;">Interaction Labs</button>
+                <button onclick="AppRouter.navigate('geometry')" id="nav-geometry" style="background: none; border: none; padding: 0.5rem 0.75rem; cursor: pointer; border-radius: 0.375rem;">Canvas Lab</button>
+                <button onclick="AppRouter.navigate('about')" id="nav-about" style="background: none; border: none; padding: 0.5rem 0.75rem; cursor: pointer; border-radius: 0.375rem; color: #71717a;">Work With Nick</button>
             </nav>
 
-            <button onclick="UIControls.showModal('modal-consultation')" class="btn-prime">Project Planner</button>
+            <select id="mobile-nav-select" class="mobile-nav-select" aria-label="Choose a section" onchange="AppRouter.navigate(this.value)">
+                <option value="home">ChronosAudit</option>
+                <option value="mixer">Wollohy Studio</option>
+                <option value="playgrounds">Interaction Labs</option>
+                <option value="geometry">Canvas Graph</option>
+                <option value="about">Work With Nick</option>
+            </select>
+            <button type="button" onclick="UIControls.showModal('modal-consultation')" class="btn-prime">Start a Project</button>
         </div>
     </header>
 
-    <!-- Scoping Builder Modal -->
-    <div id="modal-consultation" class="hidden" style="position: fixed; inset: 0; z-index: 100; align-items: center; justify-content: center; padding: 1rem; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);" role="dialog" aria-modal="true">
-
-        <div style="background: #09090b; border: 1px solid #27272a; max-width: 32rem; width: 100%; border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1c1c1f; padding-bottom: 0.75rem;">
+    <!-- Project inquiry / lead-generation modal -->
+    <div id="modal-consultation" class="hidden" style="position: fixed; inset: 0; z-index: 100; align-items: center; justify-content: center; padding: 1rem; background: rgba(0,0,0,0.88); backdrop-filter: blur(8px);" role="dialog" aria-modal="true" aria-labelledby="consultation-title">
+        <div style="background: #09090b; border: 1px solid #27272a; max-width: 42rem; max-height: calc(100vh - 2rem); overflow-y: auto; width: 100%; border-radius: 1rem; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #1c1c1f; padding-bottom: 0.75rem; gap: 1rem;">
                 <div>
-                    <h3 class="heading-font" style="font-size: 1.125rem;">Project Scoping Calculator</h3>
-                    <p style="font-size: 11px; color: #52525b; margin-top: 2px;">Dynamically configure distributed stack architecture investments.</p>
+                    <h3 id="consultation-title" class="heading-font" style="font-size: 1.25rem;">Tell me what you are trying to build</h3>
+                    <p style="font-size: 12px; color: #71717a; margin-top: 4px; line-height: 1.5;">Choose the work you need, get a realistic starting range, and send or download a clean project brief. Nothing is submitted to a server.</p>
                 </div>
-                <button onclick="UIControls.closeModal('modal-consultation')" style="background: none; border: none; color: #52525b; cursor: pointer; font-size: 1.25rem;">✕</button>
+                <button type="button" aria-label="Close project inquiry" onclick="UIControls.closeModal('modal-consultation')" style="background: none; border: none; color: #71717a; cursor: pointer; font-size: 1.25rem;">✕</button>
             </div>
-            
-            <form onsubmit="ConsultationCalculator.handleExport(event)" style="display: flex; flex-direction: column; gap: 1rem; font-family: 'JetBrains Mono'; font-size: 12px;">
-                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                    <label style="display: flex; justify-content: space-between; align-items: center; background: #141416; border: 1px solid #27272a; padding: 0.75rem; border-radius: 0.5rem; cursor: pointer;">
-                        <span style="display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" id="chk-crypto" onchange="ConsultationCalculator.calculate()"> Forensic Crypto Framework</span>
-                        <span style="color: #71717a;">+$1,500</span>
-                    </label>
-                    <label style="display: flex; justify-content: space-between; align-items: center; background: #141416; border: 1px solid #27272a; padding: 0.75rem; border-radius: 0.5rem; cursor: pointer;">
-                        <span style="display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" id="chk-wasm" onchange="ConsultationCalculator.calculate()"> Edge AI Inference Sandbox</span>
-                        <span style="color: #71717a;">+$2,200</span>
-                    </label>
 
+            <form id="consultation-form" onsubmit="ConsultationCalculator.openEmail(event)" style="display: flex; flex-direction: column; gap: 1rem;">
+                <div class="service-grid">
+                    <label style="display:flex; flex-direction:column; gap:.3rem;"><span class="field-label">Name</span><input id="lead-name" class="input-text" autocomplete="name" required></label>
+                    <label style="display:flex; flex-direction:column; gap:.3rem;"><span class="field-label">Email</span><input id="lead-email" class="input-text" type="email" autocomplete="email" required></label>
+                </div>
+                <label style="display:flex; flex-direction:column; gap:.3rem;"><span class="field-label">Organization / project</span><input id="lead-org" class="input-text" autocomplete="organization" placeholder="Optional"></label>
+                <label style="display:flex; flex-direction:column; gap:.3rem;"><span class="field-label">What needs to happen?</span><textarea id="lead-summary" class="input-text" rows="4" required style="resize:vertical;" placeholder="The problem, current state, deadline, and what a successful outcome looks like."></textarea></label>
+
+                <div>
+                    <div class="field-label" style="margin-bottom:.5rem;">Scope</div>
+                    <div class="service-grid" id="scope-options">
+                        <label class="premium-card" style="padding:.8rem; cursor:pointer;"><span style="display:flex; gap:.5rem; align-items:flex-start;"><input type="checkbox" value="Product / UX audit" data-low="600" data-high="1200" data-days="3"> <span><strong style="color:#f4f4f5; font-size:12px;">Product &amp; UX audit</strong><small style="display:block; color:#71717a; margin-top:2px;">Friction, positioning, conversion, and technical findings.</small></span></span></label>
+                        <label class="premium-card" style="padding:.8rem; cursor:pointer;"><span style="display:flex; gap:.5rem; align-items:flex-start;"><input type="checkbox" value="Interactive browser prototype" data-low="1800" data-high="4500" data-days="10"> <span><strong style="color:#f4f4f5; font-size:12px;">Interactive browser prototype</strong><small style="display:block; color:#71717a; margin-top:2px;">A working, deployable interface—not a static mockup.</small></span></span></label>
+                        <label class="premium-card" style="padding:.8rem; cursor:pointer;"><span style="display:flex; gap:.5rem; align-items:flex-start;"><input type="checkbox" value="Local-first data / WebCrypto" data-low="1400" data-high="3200" data-days="7"> <span><strong style="color:#f4f4f5; font-size:12px;">Local-first data / WebCrypto</strong><small style="display:block; color:#71717a; margin-top:2px;">Private file workflows, IndexedDB, hashing, and exports.</small></span></span></label>
+                        <label class="premium-card" style="padding:.8rem; cursor:pointer;"><span style="display:flex; gap:.5rem; align-items:flex-start;"><input type="checkbox" value="Browser audio / DSP" data-low="1600" data-high="3800" data-days="8"> <span><strong style="color:#f4f4f5; font-size:12px;">Browser audio / DSP</strong><small style="display:block; color:#71717a; margin-top:2px;">Recording, multitrack playback, visualization, and export.</small></span></span></label>
+                    </div>
                 </div>
 
-                <div style="background: #141416; border: 1px solid #27272a; padding: 1rem; border-radius: 0.5rem; display: flex; flex-direction: column; gap: 0.25rem;">
-                    <div>Estimated Cost: <span id="lbl-calc-budget" style="color: #818cf8; font-weight: bold;">$25,000</span></div>
-                    <div>Timeline Space: <span id="lbl-calc-days" style="color: #10b981; font-weight: bold;">30 Days</span></div>
+                <div class="service-grid">
+                    <label style="display:flex; flex-direction:column; gap:.3rem;"><span class="field-label">Timing</span><select id="lead-timing" class="input-text"><option>Flexible</option><option>Within 2 weeks</option><option>Within 1 month</option><option>Ongoing support</option></select></label>
+                    <label style="display:flex; flex-direction:column; gap:.3rem;"><span class="field-label">Budget context</span><select id="lead-budget" class="input-text"><option>Not sure yet</option><option>Under $1,500</option><option>$1,500–$5,000</option><option>$5,000–$12,000</option><option>$12,000+</option></select></label>
                 </div>
 
-                <button type="submit" class="btn-prime" style="padding: 0.75rem; font-size: 12px;">Download Brief Manifest</button>
+                <div style="background:#141416; border:1px solid #27272a; border-radius:.75rem; padding:1rem; display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font-family:'JetBrains Mono'; font-size:11px;">
+                    <div>Indicative range<br><strong id="lbl-calc-budget" style="color:#818cf8; font-size:15px;">Select a scope</strong></div>
+                    <div>Typical delivery<br><strong id="lbl-calc-days" style="color:#10b981; font-size:15px;">To be scoped</strong></div>
+                </div>
+
+                <div class="tool-actions">
+                    <button type="submit" class="btn-prime">Open Email Draft</button>
+                    <button type="button" class="btn-sub" onclick="ConsultationCalculator.copyBrief()">Copy Brief</button>
+                    <button type="button" class="btn-sub" onclick="ConsultationCalculator.downloadBrief()">Download JSON</button>
+                </div>
+                <p style="font-size:10px; color:#52525b; line-height:1.5;">Ranges are planning estimates, not a quote. Final pricing is fixed to an agreed scope, deliverables, and schedule.</p>
             </form>
-        </div>
-    </div>
-
-    <!-- Usage Limit Gate Modal -->
-    <div id="modal-usage-gate" class="hidden" style="position: fixed; inset: 0; z-index: 100; align-items: center; justify-content: center; padding: 1rem; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px);">
-        <div style="background: #09090b; border: 1px solid #27272a; max-width: 24rem; width: 100%; border-radius: 1rem; padding: 1.5rem; text-align: center; display: flex; flex-direction: column; gap: 1rem;">
-            <div style="font-size: 1.5rem;">⚠️</div>
-            <h3 class="heading-font" style="font-size: 1.125rem;">Local Storage Limit Tripped</h3>
-            <p style="font-size: 12px; color: #a1a1aa; line-height: 1.5;">Sandbox caps processing boundaries at a maximum of 3 files to save browser heap space allocations.</p>
-            <button onclick="UIControls.closeModal('modal-usage-gate')" class="btn-sub">Dismiss Ingestion Warning</button>
-
         </div>
     </div>
 
@@ -308,8 +386,8 @@
         <!-- VIEW 1: CHRONOSAUDIT LIVE TRIAL LANDING DECK -->
         <div id="page-home" class="view-page">
             <div style="text-align: center; max-width: 48rem; margin: 0 auto 4rem auto; display: flex; flex-direction: column; gap: 1.25rem;">
-                <h1 class="heading-font" style="font-size: var(--font-display-md); line-height: 1.05;">ChronosAudit: Local Forensic Timeline Reconstruction.</h1>
-                <p style="font-size: 14px; color: #a1a1aa; line-height: 1.6;">A high-performance personal portfolio workspace executing local cryptographic hashes, audio signal synthesis pipelines, and coordinate mesh arrays natively inside client cache lines.</p>
+                <h1 class="heading-font" style="font-size: var(--font-display-md); line-height: 1.05;">ChronosAudit: Local Forensic Timeline Reconstruction</h1>
+                <p style="font-size: 14px; color: #a1a1aa; line-height: 1.6;">A working browser demo for hashing and inventorying local files while keeping the files on your device. The rest of the site shows related interactive systems and prototypes.</p>
             </div>
 
             <div class="grid-12-col">
@@ -317,24 +395,24 @@
                 <div class="span-7 premium-card" style="display: flex; flex-direction: column; gap: 1.5rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border-line); padding-bottom: 0.75rem;">
                         <div>
-                            <h2 class="heading-font" style="font-size: 1.125rem;">Live Ingestion Sandbox</h2>
+                            <h2 class="heading-font" style="font-size: 1.125rem;">Local Hash &amp; Manifest Demo</h2>
 
-                            <p style="font-size: 11px; color: #52525b; margin-top: 1px;">Compute isolated binary token signatures via native hardware Crypto headers.</p>
+                            <p style="font-size: 11px; color: #52525b; margin-top: 1px;">Select local files to calculate real SHA-256 hashes and build a portable evidence manifest. Files are stored only in this browser.</p>
                         </div>
                         <div id="eq-container" style="display: flex; align-items: flex-end; height: 20px;"><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span><span class="eq-bar"></span></div>
                     </div>
 
                     <div id="drop-zone" style="border: 1px dashed #27272a; padding: 2.5rem; text-align: center; border-radius: 0.75rem; cursor: pointer; background: rgba(255,255,255,0.01);" onmouseover="this.style.background='rgba(255,255,255,0.03)'" onmouseout="this.style.background='rgba(255,255,255,0.01)'">
-                        <div style="font-size: 13px; color: #d4d4d8;">Drag &amp; drop file packages here or <span style="color: #818cf8; text-decoration: underline; font-weight: bold;">browse directories</span></div>
+                        <div style="font-size: 13px; color: #d4d4d8;">Drag &amp; drop files here or <span style="color: #818cf8; text-decoration: underline; font-weight: bold;">browse files</span></div>
                         <input type="file" id="file-input" multiple class="hidden">
                     </div>
 
                     <!-- Clean Global Real-Time Live Sync Status Badge -->
                     <div class="lab-console-panel" style="display: flex; justify-content: space-between; align-items: center; border-color: rgba(16,185,129,0.15); padding: 0.85rem 1.25rem;">
-                        <span style="font-size: 10px; font-weight: bold; color: var(--color-accent-emerald); font-family: 'JetBrains Mono'; text-transform: uppercase;">🌐 Global Real-Time Audit Ledger Connected</span>
+                        <span style="font-size: 10px; font-weight: bold; color: var(--color-accent-emerald); font-family: 'JetBrains Mono'; text-transform: uppercase;">🔒 Local evidence vault ready</span>
                         <div style="display: flex; align-items: center; gap: 0.5rem;">
                             <span style="width: 6px; height: 6px; border-radius: 50%; background: #10b981; display: inline-block; animation: pulse 2s infinite;"></span>
-                            <span id="supabase-status-lbl" style="font-family: 'JetBrains Mono'; font-size: 9px; color: #a1a1aa; font-weight: bold;">SYNC ACTIVE (POSTGRES LIVE LINKED)</span>
+                            <span id="local-vault-status" style="font-family: 'JetBrains Mono'; font-size: 9px; color: #a1a1aa; font-weight: bold;">LOCAL ONLY — NOTHING UPLOADED</span>
                         </div>
                     </div>
 
@@ -343,15 +421,20 @@
                         <table style="width: 100%; border-collapse: collapse; font-family: 'JetBrains Mono'; font-size: 11px; text-align: left;">
                             <thead>
                                 <tr style="border-bottom: 1px solid #27272a; color: #52525b; text-transform: uppercase; font-size: 9px;">
-                                    <th style="padding-bottom: 0.5rem;">File Descriptor</th>
-                                    <th style="padding-bottom: 0.5rem;">Allocation</th>
-                                    <th style="padding-bottom: 0.5rem;">WebCrypto SHA-256 Manifest String</th>
+                                    <th style="padding-bottom: 0.5rem;">File</th>
+                                    <th style="padding-bottom: 0.5rem;">Size</th>
+                                    <th style="padding-bottom: 0.5rem;">SHA-256</th>
                                 </tr>
                             </thead>
                             <tbody id="crypto-table-body" style="color: #d4d4d8;">
-                                <tr id="crypto-empty-row"><td colspan="3" style="padding: 1.5rem 0; text-align: center; color: #52525b; font-style: italic;">No active data blocks committed to database buffers. Drop files above to footprint layout keys.</td></tr>
+                                <tr id="crypto-empty-row"><td colspan="3" style="padding: 1.5rem 0; text-align: center; color: #52525b; font-style: italic;">No files in this local vault yet. Drop files above to calculate their hashes.</td></tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="tool-actions">
+                        <button type="button" class="btn-prime" onclick="FileIngestionManager.downloadManifest()">Download Evidence Manifest</button>
+                        <button type="button" class="btn-sub" onclick="FileIngestionManager.copyManifest()">Copy Manifest</button>
+                        <button type="button" class="btn-sub" onclick="FileIngestionManager.clearAll()">Clear Local Vault</button>
                     </div>
                 </div>
 
@@ -360,31 +443,31 @@
                     <div class="premium-card" style="display: flex; flex-direction: column; gap: 1.25rem;">
 
                         <div>
-                            <h3 class="heading-font" style="font-size: 1rem;">Forensic Pitch Oscillator</h3>
-                            <p style="font-size: 11px; color: #52525b; margin-top: 1px;">Verify browser soundcard clocks directly inside client execution hooks.</p>
+                            <h3 class="heading-font" style="font-size: 1rem;">Reference Tone Generator</h3>
+                            <p style="font-size: 11px; color: #52525b; margin-top: 1px;">Generate a reference tone with the browser Web Audio API. Keep your volume low before starting.</p>
                         </div>
                         
                         <div style="display: flex; flex-direction: column; gap: 1rem; font-family: 'JetBrains Mono'; font-size: 11px;">
                             <div style="display: flex; flex-direction: column; gap: 0.35rem;">
-                                <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Target Signal Format</label>
+                                <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Waveform</label>
                                 <select id="audio-waveform" style="background: #0b0b0c; border: 1px solid #27272a; padding: 0.65rem; border-radius: 0.375rem; color: #fff; outline: none;">
-                                    <option value="sine">Sine Wave (Pure Linear Vector)</option>
-                                    <option value="triangle">Triangle Wave (Deep Sub-Bass Pitch Element)</option>
+                                    <option value="sine">Sine wave</option>
+                                    <option value="triangle">Triangle wave</option>
                                 </select>
                             </div>
                             <div style="display: flex; flex-direction: column; gap: 0.35rem;">
-                                <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Filter Index Rate: <span id="lbl-frequency" style="color: #818cf8; font-weight: bold;">440Hz</span></label>
+                                <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Frequency: <span id="lbl-frequency" style="color: #818cf8; font-weight: bold;">440Hz</span></label>
                                 <input type="range" id="audio-freq-slider" min="110" max="880" value="440" oninput="UIControls.updateFrequencyLabel(this.value)">
                             </div>
                         </div>
 
 
-                        <button id="btn-audio-toggle" onclick="UIControls.toggleAudio()" class="btn-prime" style="width: 100%; padding: 0.75rem;">Initialize Signal Waveform</button>
+                        <button id="btn-audio-toggle" onclick="UIControls.toggleAudio()" class="btn-prime" style="width: 100%; padding: 0.75rem;">Start Reference Tone</button>
                     </div>
 
                     <div class="lab-console-panel">
-                        <span style="font-size: 9px; font-weight: bold; color: #818cf8; text-transform: uppercase; font-family: 'JetBrains Mono'; tracking: 0.05em; display: block; margin-bottom: 0.25rem;">Architecture Validation Strategy</span>
-                        <p style="font-size: 12px; color: #71717a; line-height: 1.5;">This frontend portal operates 100% serverless. It showcases immediate technical competence with native WebCrypto API configurations before clients ever explore the deeper code playdecks.</p>
+                        <span style="font-size: 9px; font-weight: bold; color: #818cf8; text-transform: uppercase; font-family: 'JetBrains Mono'; tracking: 0.05em; display: block; margin-bottom: 0.25rem;">What this demo proves</span>
+                        <p style="font-size: 12px; color: #71717a; line-height: 1.5;">The hashing and tone generator run in your browser. The file table persists locally through IndexedDB, and the manifest can be exported as JSON.</p>
                     </div>
                 </div>
             </div>
@@ -393,25 +476,25 @@
         <!-- VIEW 2: CANONICAL WOLLOHY STUDIO STEM OPERATIONAL DESK -->
         <div id="page-mixer" class="view-page hidden" style="display: flex; flex-direction: column; gap: 1.5rem;">
             <div style="border-bottom: 1px solid var(--color-border-line); padding-bottom: 1rem;">
-                <h2 class="heading-font" style="font-size: 1.75rem; color: #f4f4f5;">Wollohy Studio: Sovereign Stem Vault &amp; Local DAW</h2>
-                <p style="font-size: 12px; color: #a1a1aa; margin-top: 2px;">A local-first audio workstation solving cloud-dependent token barriers and stem locks by running arrangements natively off lightweight references.</p>
+                <h2 class="heading-font" style="font-size: 1.75rem; color: #f4f4f5;">Wollohy Studio: 4-Track Browser Mixer</h2>
+                <p style="font-size: 12px; color: #a1a1aa; margin-top: 2px;">Load up to four audio stems, start them in sync, adjust volume/mute/solo, filter the mix, inspect the spectrum, and render a WAV locally.</p>
             </div>
 
             <!-- In-Browser LLM Lyrics & Track Generation Studio -->
 
             <div class="premium-card" style="display: flex; flex-direction: column; gap: 1rem;">
                 <div>
-                    <h3 class="heading-font" style="font-size: 1.125rem;">1. Local Browser AI Lyric &amp; Track Studio</h3>
-                    <p style="font-size: 11px; color: #52525b;">Leverage local WebGPU/WASM computing simulation frameworks to build lightweight project chord arrangements completely offline.</p>
+                    <h3 class="heading-font" style="font-size: 1.125rem;">1. Local Song Sketch Generator</h3>
+                    <p style="font-size: 11px; color: #52525b;">Turn a short prompt into a lyric sketch, tempo, chord progression, and an eight-second demo arrangement generated entirely in the browser.</p>
                 </div>
                 <div style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
                     <input type="text" id="ai-track-prompt" placeholder="Enter creative directive prompt (e.g., 'Write a punk rock song about coding')..." class="input-text" style="font-size: 12px;">
-                    <button onclick="AudioStemMixer.generateAILyricsTrack()" class="btn-prime">Generate Track</button>
+                    <button onclick="AudioStemMixer.generateAILyricsTrack()" class="btn-prime">Build Demo Arrangement</button>
                 </div>
                 <!-- Loading Wrapper -->
                 <div id="ai-loading-container" class="hidden" style="display: flex; flex-direction: column; gap: 0.35rem;">
                     <div style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono'; font-size: 10px; color: #818cf8;">
-                        <span id="ai-loading-lbl">Downloading model checkpoints from cache storage buffers...</span>
+                        <span id="ai-loading-lbl">Building a local arrangement...</span>
                         <span id="ai-loading-pct">0%</span>
                     </div>
                     <div style="height: 6px; background: #1c1c1f; border-radius: 9999px; overflow: hidden; border: 1px solid var(--color-border-line);">
@@ -422,14 +505,14 @@
                 <!-- Response Frame -->
                 <div id="ai-output-container" class="hidden grid-12-col" style="gap: 1rem; margin-top: 0.5rem;">
                     <div class="span-7 lab-console-panel" style="max-height: 150px; overflow-y: auto;">
-                        <div style="font-size: 9px; font-weight: bold; color: #818cf8; text-transform: uppercase; font-family: 'JetBrains Mono'; margin-bottom: 0.25rem;">Generated Local LLM Lyrics Output</div>
+                        <div style="font-size: 9px; font-weight: bold; color: #818cf8; text-transform: uppercase; font-family: 'JetBrains Mono'; margin-bottom: 0.25rem;">Generated lyric sketch</div>
                         <div id="lbl-generated-lyrics" style="font-size: 12px; color: #d4d4d8; font-family: sans-serif; white-space: pre-wrap; line-height: 1.5;"></div>
                     </div>
                     <div class="span-5 lab-console-panel" style="display: flex; flex-direction: column; gap: 0.35rem; font-family: 'JetBrains Mono'; font-size: 11px;">
-                        <div style="font-size: 9px; font-weight: bold; color: #10b981; text-transform: uppercase; margin-bottom: 0.15rem;">Arrangement Metadata Structure</div>
-                        <div>Target BPM Space: <span id="lbl-track-bpm" style="color: #fff; font-weight: bold;">120</span></div>
+                        <div style="font-size: 9px; font-weight: bold; color: #10b981; text-transform: uppercase; margin-bottom: 0.15rem;">Arrangement settings</div>
+                        <div>Tempo: <span id="lbl-track-bpm" style="color: #fff; font-weight: bold;">120</span></div>
                         <div>Chord Progression: <span id="lbl-track-chords" style="color: #fff; font-weight: bold;">C - G - Am - F</span></div>
-                        <button onclick="AudioStemMixer.togglePlayback()" id="btn-play-generated-mix" class="btn-sub" style="margin-top: auto; padding: 4px; font-size: 10px; border-color: #10b981; color: #10b981; width: 100%;">🔊 Synthesize Backup Arrangement</button>
+                        <button onclick="AudioStemMixer.togglePlayback()" id="btn-play-generated-mix" class="btn-sub" style="margin-top: auto; padding: 4px; font-size: 10px; border-color: #10b981; color: #10b981; width: 100%;">▶ Play Demo Mix</button>
                     </div>
                 </div>
             </div>
@@ -437,9 +520,9 @@
             <!-- Isolated Multi-Stem Reference Mixer Module Container -->
             <div class="premium-card" style="display: flex; flex-direction: column; gap: 1.5rem;">
                 <div>
-                    <h3 class="heading-font" style="font-size: 1.125rem;">2. Isolated Multi-Stem Reference Mixer</h3>
+                    <h3 class="heading-font" style="font-size: 1.125rem;">2. Real 4-Track Mixer</h3>
 
-                    <p style="font-size: 11px; color: #52525b;">Manipulate Float32 tracking faders, standalone muting variables, and isolated solo parameters natively inside client layers.</p>
+                    <p style="font-size: 11px; color: #52525b;">Load real audio files into four channels. Playback starts in sync, and each fader, mute, solo, filter, analyzer, project save, and WAV export is functional.</p>
                 </div>
 
                 <!-- The 4 Explicit Operational Track Strips Layout -->
@@ -449,9 +532,10 @@
                     <div class="mixer-strip">
                         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                             <span style="font-family: 'JetBrains Mono'; font-size: 11px; font-weight: bold; color: #f4f4f5;">01 // VOCALS STEM</span>
-                            <span style="font-size: 9px; color: #6366f1; background: #1e1b4b; padding: 2px 6px; border-radius: 4px; font-weight: bold;">PCM Pad</span>
+                            <span style="font-size: 9px; color: #6366f1; background: #1e1b4b; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Audio / synth</span>
                         </div>
-                        <button onclick="AudioStemMixer.triggerTrackPreview('vocals')" class="btn-sub" style="padding: 0.5rem; text-transform: uppercase; font-size: 10px;">Trigger Impulse</button>
+                        <label class="stem-file-label">Load Audio Stem<input type="file" accept="audio/*" hidden onchange="AudioStemMixer.loadStem('vocals', this.files[0])"></label>
+                        <div id="stem-name-vocals" class="stem-file-name">No audio loaded</div>
                         <div style="display: flex; flex-direction: column; gap: 0.25rem;">
                             <label style="font-size: 9px; text-transform: uppercase; color: #52525b; font-weight: bold;">Gain Volume</label>
                             <input type="range" min="0" max="1" step="0.05" value="0.6" oninput="AudioStemMixer.setVolume('vocals', this.value)">
@@ -467,9 +551,10 @@
                     <div class="mixer-strip">
                         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                             <span style="font-family: 'JetBrains Mono'; font-size: 11px; font-weight: bold; color: #f4f4f5;">02 // BASS STEM</span>
-                            <span style="font-size: 9px; color: #10b981; background: #064e3b; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Sub Pulsar</span>
+                            <span style="font-size: 9px; color: #10b981; background: #064e3b; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Audio / synth</span>
                         </div>
-                        <button onclick="AudioStemMixer.triggerTrackPreview('bass')" class="btn-sub" style="padding: 0.5rem; text-transform: uppercase; font-size: 10px;">Trigger Impulse</button>
+                        <label class="stem-file-label">Load Audio Stem<input type="file" accept="audio/*" hidden onchange="AudioStemMixer.loadStem('bass', this.files[0])"></label>
+                        <div id="stem-name-bass" class="stem-file-name">No audio loaded</div>
                         <div style="display: flex; flex-direction: column; gap: 0.25rem;">
                             <label style="font-size: 9px; text-transform: uppercase; color: #52525b; font-weight: bold;">Gain Volume</label>
                             <input type="range" min="0" max="1" step="0.05" value="0.7" oninput="AudioStemMixer.setVolume('bass', this.value)">
@@ -485,9 +570,10 @@
                     <div class="mixer-strip">
                         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                             <span style="font-family: 'JetBrains Mono'; font-size: 11px; font-weight: bold; color: #f4f4f5;">03 // DRUMS STEM</span>
-                            <span style="font-size: 9px; color: #f59e0b; background: #78350f; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Sequencer</span>
+                            <span style="font-size: 9px; color: #f59e0b; background: #78350f; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Audio / synth</span>
                         </div>
-                        <button onclick="AudioStemMixer.triggerTrackPreview('drums')" class="btn-sub" style="padding: 0.5rem; text-transform: uppercase; font-size: 10px;">Trigger Impulse</button>
+                        <label class="stem-file-label">Load Audio Stem<input type="file" accept="audio/*" hidden onchange="AudioStemMixer.loadStem('drums', this.files[0])"></label>
+                        <div id="stem-name-drums" class="stem-file-name">No audio loaded</div>
                         <div style="display: flex; flex-direction: column; gap: 0.25rem;">
                             <label style="font-size: 9px; text-transform: uppercase; color: #52525b; font-weight: bold;">Gain Volume</label>
                             <input type="range" min="0" max="1" step="0.05" value="0.5" oninput="AudioStemMixer.setVolume('drums', this.value)">
@@ -503,9 +589,10 @@
                     <div class="mixer-strip">
                         <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                             <span style="font-family: 'JetBrains Mono'; font-size: 11px; font-weight: bold; color: #f4f4f5;">04 // SYNTHS STEM</span>
-                            <span style="font-size: 9px; color: #ec4899; background: #4c0519; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Arpeggiator</span>
+                            <span style="font-size: 9px; color: #ec4899; background: #4c0519; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Audio / synth</span>
                         </div>
-                        <button onclick="AudioStemMixer.triggerTrackPreview('synths')" class="btn-sub" style="padding: 0.5rem; text-transform: uppercase; font-size: 10px;">Trigger Impulse</button>
+                        <label class="stem-file-label">Load Audio Stem<input type="file" accept="audio/*" hidden onchange="AudioStemMixer.loadStem('synths', this.files[0])"></label>
+                        <div id="stem-name-synths" class="stem-file-name">No audio loaded</div>
                         <div style="display: flex; flex-direction: column; gap: 0.25rem;">
                             <label style="font-size: 9px; text-transform: uppercase; color: #52525b; font-weight: bold;">Gain Volume</label>
                             <input type="range" min="0" max="1" step="0.05" value="0.4" oninput="AudioStemMixer.setVolume('synths', this.value)">
@@ -523,47 +610,51 @@
                 <div class="lab-console-panel" style="display: flex; flex-direction: column; md-flex-direction: row; justify-content: space-between; align-items: flex-start; md-align-items: center; gap: 1rem; border-color: rgba(129,140,248,0.2);">
                     <div style="font-family: 'JetBrains Mono'; font-size: 11px; color: #a1a1aa; display: flex; align-items: center; gap: 0.5rem;">
                         <span style="width: 6px; height: 6px; border-radius: 50%; background: #a1a1aa;" id="daw-engine-status-led"></span>
-                        <span id="daw-engine-status-lbl">Wollohy Local DAW engine idle. Assembly project manifests secure.</span>
+                        <span id="daw-engine-status-lbl">Mixer ready. Load stems or generate a demo arrangement.</span>
                     </div>
-                    <button onclick="AudioStemMixer.downloadMasterStems()" class="btn-sub" style="border-color: #818cf8; color: #818cf8; font-size: 10px; padding: 6px 12px;">Download Master WAV Stems</button>
+                    <div class="tool-actions">
+                        <button id="btn-mixer-master-toggle" type="button" onclick="AudioStemMixer.togglePlayback()" class="btn-prime">Play Mix</button>
+                        <button type="button" onclick="AudioStemMixer.stopPlayback()" class="btn-sub">Stop</button>
+                        <button type="button" onclick="AudioStemMixer.exportWav()" class="btn-sub" style="border-color:#818cf8; color:#818cf8;">Export WAV</button>
+                    </div>
                 </div>
             </div>
 
             <!-- Lower Layout Level: Local Pipeline Control Blocks -->
             <div class="grid-12-col">
                 <div class="span-8 premium-card" style="display: flex; flex-direction: column; gap: 1.25rem;">
-                    <h3 class="heading-font" style="font-size: 1.125rem;">3. Local RoFormer / Demucs Pipeline Controls</h3>
+                    <h3 class="heading-font" style="font-size: 1.125rem;">3. Project &amp; Export Tools</h3>
                     
                     <div style="display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); md-grid-template-columns: repeat(2, 1fr); gap: 1rem; font-family: 'JetBrains Mono'; font-size: 12px;">
                         
                         <!-- Block 1 -->
                         <div style="background: #0b0b0c; border: 1px solid var(--color-border-line); padding: 1rem; border-radius: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
 
-                            <div style="font-weight: bold; color: #f4f4f5;">Mount project.json</div>
-                            <div style="font-size: 11px; color: #52525b; line-height: 1.4;">Binds non-destructive reference vectors into device cash layers.</div>
-                            <button onclick="AudioStemMixer.runPipelineStep('mount')" class="btn-sub" style="font-size: 10px; padding: 4px 8px; margin-top: auto; align-self: flex-start;">🔊 Initialize</button>
+                            <div style="font-weight: bold; color: #f4f4f5;">Save project.json</div>
+                            <div style="font-size: 11px; color: #52525b; line-height: 1.4;">Downloads the current mixer settings and loaded file names as a portable project file.</div>
+                            <button onclick="AudioStemMixer.runPipelineStep('mount')" class="btn-sub" style="font-size: 10px; padding: 4px 8px; margin-top: auto; align-self: flex-start;">Save Project</button>
                         </div>
 
                         <!-- Block 2 -->
                         <div style="background: #0b0b0c; border: 1px solid var(--color-border-line); padding: 1rem; border-radius: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
-                            <div style="font-weight: bold; color: #f4f4f5;">Demucs Separation</div>
-                            <div style="font-size: 11px; color: #52525b; line-height: 1.4;">Isolates multi-channel acoustic matrix nodes entirely offline.</div>
-                            <button onclick="AudioStemMixer.runPipelineStep('separation')" class="btn-sub" style="font-size: 10px; padding: 4px 8px; margin-top: auto; align-self: flex-start;">🔊 Run Split</button>
+                            <div style="font-weight: bold; color: #f4f4f5;">Generate demo stems</div>
+                            <div style="font-size: 11px; color: #52525b; line-height: 1.4;">Creates a short four-part arrangement so the mixer can be tested without uploading audio.</div>
+                            <button onclick="AudioStemMixer.runPipelineStep('separation')" class="btn-sub" style="font-size: 10px; padding: 4px 8px; margin-top: auto; align-self: flex-start;">Generate Demo</button>
                         </div>
 
                         <!-- Block 3 -->
                         <div style="background: #0b0b0c; border: 1px solid var(--color-border-line); padding: 1rem; border-radius: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
-                            <div style="font-weight: bold; color: #f4f4f5;">Blind Isolation Filter</div>
-                            <div style="font-size: 11px; color: #52525b; line-height: 1.4;">Removes secondary phase cancellation transients via biquad matrices.</div>
-                            <button onclick="AudioStemMixer.runPipelineStep('filter')" class="btn-sub" style="font-size: 10px; padding: 4px 8px; margin-top: auto; align-self: flex-start;">🔊 Filter Pass</button>
+                            <div style="font-weight: bold; color: #f4f4f5;">Reset mixer</div>
+                            <div style="font-size: 11px; color: #52525b; line-height: 1.4;">Stops playback, clears loaded audio, and restores the default mixer state.</div>
+                            <button onclick="AudioStemMixer.runPipelineStep('filter')" class="btn-sub" style="font-size: 10px; padding: 4px 8px; margin-top: auto; align-self: flex-start;">Reset</button>
                         </div>
 
 
                         <!-- Block 4 -->
                         <div style="background: #0b0b0c; border: 1px solid var(--color-border-line); padding: 1rem; border-radius: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
-                            <div style="font-weight: bold; color: #f4f4f5;">Float32 Capture Flush</div>
-                            <div style="font-size: 11px; color: #52525b; line-height: 1.4;">Flushes zero-loss linear PCM buffers cleanly down onto physical storage disk.</div>
-                            <button onclick="AudioStemMixer.runPipelineStep('flush')" class="btn-sub" style="font-size: 10px; padding: 4px 8px; margin-top: auto; align-self: flex-start;">🔊 Flush Buffer</button>
+                            <div style="font-weight: bold; color: #f4f4f5;">Render mixed WAV</div>
+                            <div style="font-size: 11px; color: #52525b; line-height: 1.4;">Renders the loaded tracks through the current faders and filter, then downloads a WAV.</div>
+                            <button onclick="AudioStemMixer.runPipelineStep('flush')" class="btn-sub" style="font-size: 10px; padding: 4px 8px; margin-top: auto; align-self: flex-start;">Render WAV</button>
                         </div>
 
                     </div>
@@ -572,7 +663,7 @@
                 <!-- Active Visual Spectrogram Readout Monitor -->
                 <div class="span-4 premium-card" style="display: flex; flex-direction: column; gap: 1rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border-line); padding-bottom: 0.25rem;">
-                        <span style="font-size: 11px; font-family: 'JetBrains Mono'; font-weight: bold; color: #f4f4f5;">FFT Frequency Graph</span>
+                        <span style="font-size: 11px; font-family: 'JetBrains Mono'; font-weight: bold; color: #f4f4f5;">Spectrum</span>
                         <span id="lbl-live-db" style="font-family: 'JetBrains Mono'; font-size: 10px; color: #818cf8;">-Infinity dB</span>
                     </div>
                     <div style="background: #070708; border: 1px solid #1c1c1f; border-radius: 0.5rem; flex-grow: 1; min-height: 140px; overflow: hidden;">
@@ -580,7 +671,7 @@
                     </div>
 
                     <div style="display: flex; flex-direction: column; gap: 0.25rem; font-family: 'JetBrains Mono'; font-size: 11px;">
-                        <label style="color: #71717a; font-weight: bold; font-size: 9px; text-transform: uppercase;">Biquad Cutoff: <span id="lbl-fx-cutoff" style="color: #818cf8;">1200 Hz</span></label>
+                        <label style="color: #71717a; font-weight: bold; font-size: 9px; text-transform: uppercase;">Low-pass cutoff: <span id="lbl-fx-cutoff" style="color: #818cf8;">1200 Hz</span></label>
                         <input type="range" id="slider-fx-cutoff" min="150" max="5000" value="1200" oninput="AudioStemMixer.updateFilterFrequency(this.value)">
                     </div>
                 </div>
@@ -590,8 +681,8 @@
         <!-- VIEW 3: SOVEREIGN AI PLAYGROUND WORKBENCH (AIM STYLE FEED) -->
         <div id="page-playgrounds" class="view-page hidden">
             <div style="border-bottom: 1px solid var(--color-border-line); padding-bottom: 1rem; margin-bottom: 2rem;">
-                <h2 class="heading-font" style="font-size: 1.5rem;">Sovereign AI Playgrounds: AWD Workbench &amp; Saperli-Core</h2>
-                <p style="font-size: 12px; color: #52525b; margin-top: 2px;">Explore split-pane zero-waste prompting consoles engineered to completely run conversations without cloud context drift.</p>
+                <h2 class="heading-font" style="font-size: 1.5rem;">Prompt &amp; Interaction Prototypes</h2>
+                <p style="font-size: 12px; color: #52525b; margin-top: 2px;">Explore two local interface prototypes. These demos use deterministic response rules; they do not load or impersonate a language model.</p>
             </div>
 
             <div class="grid-12-col">
@@ -599,28 +690,28 @@
                 <div class="span-5 premium-card" style="display: flex; flex-direction: column; gap: 1rem;">
                     <div>
 
-                        <h3 class="heading-font" style="font-size: 1rem;">USS ZWEFF Variables</h3>
-                        <p style="font-size: 11px; color: #52525b; margin-top: 1px;">Define explicit string properties to feed the IM generation buffer loop.</p>
+                        <h3 class="heading-font" style="font-size: 1rem;">Agent Specification Builder</h3>
+                        <p style="font-size: 11px; color: #52525b; margin-top: 1px;">Edit identity and behavior fields, then inspect the compiled instruction spec.</p>
                     </div>
 
                     <div style="display: flex; flex-direction: column; gap: 0.75rem; font-family: 'JetBrains Mono'; font-size: 11px;">
                         <div style="display: flex; flex-direction: column; gap: 0.25rem;">
-                            <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Agent Identity Name</label>
+                            <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Agent name</label>
                             <input type="text" id="aim-var-name" value="Tommy Smithereens" class="input-text" style="font-family: sans-serif; font-size: 12px;" onchange="AIMChatAgent.compilePrompt()">
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 0.25rem;">
-                            <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Core Profession Profile</label>
+                            <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Role or profession</label>
                             <input type="text" id="aim-var-profession" value="trampoline salesperson" class="input-text" style="font-family: sans-serif; font-size: 12px;" onchange="AIMChatAgent.compilePrompt()">
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 0.25rem;">
-                            <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Behavior Quirks &amp; Traits</label>
+                            <label style="color: #71717a; text-transform: uppercase; font-weight: bold;">Behavior notes</label>
                             <textarea id="aim-var-quirks" rows="2" class="input-text" style="font-family: sans-serif; font-size: 12px; resize: none;" onchange="AIMChatAgent.compilePrompt()">usually a little goofy. Only drinks strawberry milk or protein shakes.</textarea>
                         </div>
                     </div>
                     
 
                     <div style="background: #0b0b0c; border: 1px solid #1c1c1f; padding: 0.75rem; border-radius: 0.5rem;">
-                        <span style="font-size: 9px; font-weight: bold; color: #818cf8; text-transform: uppercase; font-family: 'JetBrains Mono'; display: block; margin-bottom: 0.25rem;">Compiled Instruction State Directive</span>
+                        <span style="font-size: 9px; font-weight: bold; color: #818cf8; text-transform: uppercase; font-family: 'JetBrains Mono'; display: block; margin-bottom: 0.25rem;">Compiled instruction preview</span>
                         <div id="aim-compiled-preview" style="font-family: 'JetBrains Mono'; font-size: 10px; color: #52525b; white-space: pre-wrap; line-height: 1.4; max-height: 100px; overflow-y: auto;"></div>
                     </div>
                 </div>
@@ -629,10 +720,10 @@
                 <div class="span-7 premium-card" style="display: flex; flex-direction: column; gap: 1rem;">
                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border-line); padding-bottom: 0.5rem;">
                         <div>
-                            <h3 class="heading-font" style="font-size: 1rem;">AWD Command Deck IM Client</h3>
-                            <p style="font-size: 11px; color: #52525b; margin-top: 1px;">Enforces 100-character input caps and human-in-the-loop verification loops.</p>
+                            <h3 class="heading-font" style="font-size: 1rem;">Behavior Preview</h3>
+                            <p style="font-size: 11px; color: #52525b; margin-top: 1px;">A deterministic preview of how interface rules can shape responses. No AI model is running here.</p>
                         </div>
-                        <button id="btn-aim-pause" onclick="AIMChatAgent.togglePause()" class="btn-sub" style="padding: 0.4rem 0.75rem; font-size: 10px;">⏸ Pause Pings</button>
+                        <button id="btn-aim-pause" onclick="AIMChatAgent.togglePause()" class="btn-sub" style="padding: 0.4rem 0.75rem; font-size: 10px;">Reset Preview</button>
                     </div>
 
                     <div class="aim-feed" id="aim-message-box" style="height: 240px; overflow-y: auto; padding: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 12px; border-radius: 0.25rem;">
@@ -642,11 +733,11 @@
 
                     <div style="display: flex; flex-direction: column; gap: 0.5rem;">
                         <div style="display: flex; gap: 0.5rem;">
-                            <input type="text" id="aim-user-input" placeholder="Transmit direct messages into the AIM loop client..." class="input-text" style="font-size: 12px;" oninput="AIMChatAgent.updateCharCount(this.value)" onkeydown="if(event.key==='Enter') AIMChatAgent.sendUserMessage()">
+                            <input type="text" id="aim-user-input" placeholder="Type a short test message..." class="input-text" style="font-size: 12px;" oninput="AIMChatAgent.updateCharCount(this.value)" onkeydown="if(event.key==='Enter') AIMChatAgent.sendUserMessage()">
                             <button onclick="AIMChatAgent.sendUserMessage()" class="btn-prime">Send IM</button>
                         </div>
                         <div style="display: flex; justify-content: space-between; font-family: 'JetBrains Mono'; font-size: 9px; color: #52525b;">
-                            <div>🛡️ Profanity censor filter &amp; AWD sliding-history compaction loop active.</div>
+                            <div>🔒 Local UI demo. Messages are not transmitted or stored.</div>
                             <div id="aim-char-counter">0 / 100 Max</div>
                         </div>
                     </div>
@@ -654,14 +745,14 @@
             </div>
 
             <!-- LOWER SUB-SECTION ROW: SAPERLI-CORE MOBILE WORKSPACE CONSOLE -->
-            <div class="premium-card" style="max-w: 48rem; margin: 3rem auto 0 auto; display: flex; flex-direction: column; gap: 1rem; border-color: rgba(245,158,11,0.15);">
+            <div class="premium-card" style="max-width: 48rem; margin: 3rem auto 0 auto; display: flex; flex-direction: column; gap: 1rem; border-color: rgba(245,158,11,0.15);">
                 <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1c1c1f; padding-bottom: 0.75rem;">
                     <div style="display: flex; align-items: center; gap: 0.5rem;">
                         <span style="font-size: 1.25rem;">🍄</span>
                         <div>
 
-                            <h3 class="heading-font" style="font-size: 1.125rem; color: #f59e0b;">Saperli-Core Mobile Portal</h3>
-                            <p style="font-size: 11px; color: #52525b; margin-top: 1px;">Air-gapped mycelial conversation companion looping porous conversational French summaries.</p>
+                            <h3 class="heading-font" style="font-size: 1.125rem; color: #f59e0b;">Saperli Mobile Conversation Prototype</h3>
+                            <p style="font-size: 11px; color: #52525b; margin-top: 1px;">A French-first conversation-interface prototype. Replies are scripted in this embedded demo.</p>
                         </div>
                     </div>
                 </div>
@@ -683,8 +774,8 @@
             <div class="premium-card" style="display: flex; flex-direction: column; gap: 1.5rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border-line); padding-bottom: 0.75rem;">
                     <div>
-                        <h2 class="heading-font" style="font-size: 1.25rem;">Dynamic 2D Physics Evidence Graph</h2>
-                        <p style="font-size: 12px; color: #52525b; margin-top: 2px;">Real-time coordinate calculations modeling link tensions on a standard requestAnimationFrame layout.</p>
+                        <h2 class="heading-font" style="font-size: 1.25rem;">Interactive Canvas Graph Lab</h2>
+                        <p style="font-size: 12px; color: #52525b; margin-top: 2px;">Adjust density and spring strength to explore a lightweight requestAnimationFrame canvas simulation.</p>
                     </div>
                     <div style="display: flex; gap: 1rem; font-family: 'JetBrains Mono'; font-size: 10px; color: #71717a;">
                         <div>Density: <input type="range" id="slider-density" min="10" max="50" value="25" style="width: 80px; vertical-align: middle;" oninput="PhysicsNodeGraph.updateDensity(this.value)"></div>
@@ -698,41 +789,34 @@
             </div>
         </div>
 
-        <!-- VIEW 5: ABOUT NICK BERGHANE CASE STUDY MATRIX PORTFOLIO DESK -->
-
+        <!-- VIEW 5: WORK WITH NICK / PROJECT INDEX -->
         <div id="page-about" class="view-page hidden">
+            <div style="max-width: 50rem; margin-bottom: 2rem;">
+                <span class="mono-font" style="font-size:9px; color:#818cf8; font-weight:700; text-transform:uppercase; letter-spacing:.1em;">Available for scoped projects, audits, and advisory work</span>
+                <h2 class="heading-font" style="font-size:2rem; margin-top:.5rem;">I build interactive browser tools that make complicated work easier to inspect and use.</h2>
+                <p style="font-size:14px; line-height:1.7; margin-top:.75rem; color:#a1a1aa;">My work sits between product strategy, frontend engineering, research systems, and technical communication. I am especially useful when a project needs a working prototype, a clearer product story, or a local-first workflow that does not quietly send sensitive material to a third party.</p>
+                <div class="tool-actions" style="margin-top:1.25rem;">
+                    <button type="button" class="btn-prime" onclick="UIControls.showModal('modal-consultation')">Scope a Project</button>
+                    <a class="btn-sub" style="text-decoration:none; display:inline-flex; align-items:center;" href="mailto:nickberghane@gmail.com?subject=Project%20inquiry%20from%20chronosaudit.vercel.app">Email Nick</a>
+                </div>
+            </div>
+
             <div class="grid-12-col">
-                <!-- Case Study Details Column -->
-                <div class="span-7 style-span-layout" style="display: flex; flex-direction: column; gap: 2rem;">
-                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                        <span style="font-family: 'JetBrains Mono'; font-size: 9px; font-weight: bold; color: #818cf8; text-transform: uppercase; tracking: 0.1em;">Ecosystem Production Map Blueprint</span>
-                        <h2 class="heading-font" style="font-size: 1.75rem;">Nick Berghane Architecture Briefs</h2>
-                        <p style="font-size: 13px; color: #a1a1aa; line-height: 1.6;">This single-file shell models distributed, client-side computing systems. By isolating memory arrays, writing cryptographic transaction ledgers inside local database contexts, and utilizing hardware-accelerated soundcard filters, my core tools prove structural frontend engineering execution.</p>
-                    </div>
-
-                    <div style="display: flex; flex-direction: column; gap: 1rem;">
-                        <div class="premium-card">
-                            <h4 class="heading-font" style="font-size: 1rem; display: flex; justify-content: space-between;"><span>🎚️ App 1: Wollohy Studio Local DAW</span><span style="color: #818cf8; font-family: monospace; font-size: 10px;">PROSUMER AUDIO</span></h4>
-                            <p style="font-size: 12px; color: #71717a; line-height: 1.5; margin-top: 0.25rem;">Captures hardware audio signals via pure Float32 layouts. Saves multi-stem arrangements as non-destructive list matrices inside lightweight `project.json` sheets to eliminate corporate cloud subscription locks completely.</p>
-                        </div>
-                        <div class="premium-card">
-                            <h4 class="heading-font" style="font-size: 1rem; display: flex; justify-content: space-between;"><span>🍄 App 2: Saperli-Core Mobile Companion</span><span style="color: #818cf8; font-family: monospace; font-size: 10px;">SPEECH COMPACT</span></h4>
-                            <p style="font-size: 12px; color: #71717a; line-height: 1.5; margin-top: 0.25rem;">An air-gapped conversational coach compressing text timelines using dedicated `maybeCompact` macros. This cuts overall context token footprint limits down natively, writing flashcard logs to local device memory pools.</p>
-                        </div>
-
-                    </div>
+                <div class="span-7" style="display:flex; flex-direction:column; gap:1rem;">
+                    <h3 class="heading-font" style="font-size:1.15rem;">Selected systems</h3>
+                    <div class="premium-card"><h4 class="heading-font" style="font-size:1rem;">ChronosAudit</h4><p style="font-size:12px; line-height:1.6; margin:.35rem 0 .8rem;">A provenance-focused concept for turning a messy local document corpus into an inspectable timeline. This site includes a working file-hash and manifest demo.</p><a class="project-card-link" href="#/home" onclick="AppRouter.navigate('home')">Open the demo →</a></div>
+                    <div class="premium-card"><h4 class="heading-font" style="font-size:1rem;">Wollohy Studio</h4><p style="font-size:12px; line-height:1.6; margin:.35rem 0 .8rem;">A browser audio workspace exploring local multitrack playback, filtering, visualization, project files, and WAV rendering.</p><div class="tool-actions"><a class="project-card-link" href="#/mixer" onclick="AppRouter.navigate('mixer')">Open this mixer →</a><a class="project-card-link" href="https://wollohy.vercel.app" target="_blank" rel="noreferrer">Open standalone project ↗</a></div></div>
+                    <div class="premium-card"><h4 class="heading-font" style="font-size:1rem;">Aster Graf</h4><p style="font-size:12px; line-height:1.6; margin:.35rem 0 .8rem;">A private, source-aware archive concept designed to keep claims connected to evidence and uncertainty visible.</p><a class="project-card-link" href="https://aster-graf.vercel.app" target="_blank" rel="noreferrer">Open project ↗</a></div>
+                    <div class="premium-card"><h4 class="heading-font" style="font-size:1rem;">Saperli Popette</h4><p style="font-size:12px; line-height:1.6; margin:.35rem 0 .8rem;">A mobile-first conversational interface experiment with a distinct voice and compact interaction model.</p><a class="project-card-link" href="https://saperli-popette.vercel.app" target="_blank" rel="noreferrer">Open project ↗</a></div>
+                    <div class="premium-card"><h4 class="heading-font" style="font-size:1rem;">Interface Systems Archive</h4><p style="font-size:12px; line-height:1.6; margin:.35rem 0 .8rem;">A broader collection of small systems, experiments, and deployed interface concepts.</p><a class="project-card-link" href="https://guvs.vercel.app" target="_blank" rel="noreferrer">Browse the archive ↗</a></div>
                 </div>
 
-                <!-- Right Biography Card Panel -->
-                <div class="span-5" style="display: flex; flex-direction: column; gap: 1.5rem;">
-                    <div class="premium-card" style="text-align: center; display: flex; flex-direction: column; gap: 1rem; background: rgba(255,255,255,0.01);">
-                        <div style="width: 4rem; height: 4rem; background: #0b0b0c; border: 1px solid #27272a; color: #818cf8; font-family: monospace; font-size: 1.5rem; font-weight: bold; display: flex; align-items: center; justify-content: center; margin: 0 auto; border-radius: 0.75rem;">&lt;/&gt;</div>
-                        <div>
-                            <h3 class="heading-font" style="font-size: 1.25rem;">Nick Berghane</h3>
-                            <span style="font-family: 'JetBrains Mono'; font-size: 9px; font-weight: bold; background: #1e1b4b; border: 1px solid #312e81; color: #a5b4fc; padding: 0.25rem 0.5rem; border-radius: 0.25rem; text-transform: uppercase; margin-top: 0.25rem; display: inline-block;">Sovereign Frontend Architect</span>
-                        </div>
-                        <p style="font-size: 12px; color: #71717a; line-height: 1.6; padding: 0 0.5rem;">Systems developer dedicated to client-side data isolation, high-converting tracking channels, and zero-waste local software boundaries.</p>
-                    </div>
+                <div class="span-5" style="display:flex; flex-direction:column; gap:1rem;">
+                    <h3 class="heading-font" style="font-size:1.15rem;">Ways I can help</h3>
+                    <div class="premium-card"><strong style="color:#f4f4f5; font-size:13px;">Product and UX audit</strong><p style="font-size:12px; line-height:1.6; margin-top:.35rem;">A direct review of positioning, conversion flow, interaction quality, credibility, and technical risk—with a prioritized fix list.</p></div>
+                    <div class="premium-card"><strong style="color:#f4f4f5; font-size:13px;">Working prototype</strong><p style="font-size:12px; line-height:1.6; margin-top:.35rem;">A real browser-based proof of concept that can be tested, demonstrated, and deployed—not just a static design.</p></div>
+                    <div class="premium-card"><strong style="color:#f4f4f5; font-size:13px;">Local-first workflow</strong><p style="font-size:12px; line-height:1.6; margin-top:.35rem;">Private file handling, IndexedDB, WebCrypto, exports, and inspectable processing for sensitive or research-heavy work.</p></div>
+                    <div class="premium-card"><strong style="color:#f4f4f5; font-size:13px;">Technical story and launch support</strong><p style="font-size:12px; line-height:1.6; margin-top:.35rem;">Turn a complicated system into a clear product narrative, demo flow, case study, and client-facing launch surface.</p></div>
                 </div>
             </div>
         </div>
@@ -745,96 +829,104 @@
 
     <!-- Technical Fixed Footer -->
     <footer style="padding: 1.5rem 0; text-align: center; font-family: 'JetBrains Mono'; font-size: 10px; color: #3f3f46; text-transform: uppercase; tracking: 0.1em; background: rgba(5,5,6,0.3);">
-        Nick Berghane Portfolio &copy; 2026 — Secure Client Isolation System Mapped.
+        Nick Berghane &copy; 2026 — Interactive systems, research tools, and technical consulting.
     </footer>
 
     <!-- RUNTIME LOGIC MOTORS SCRIPT INJECTIONS -->
     <script>
         const AppState = {
-            isPremium: false,
             uploadedFiles: [],
             getTotalSize() { return this.uploadedFiles.reduce((sum, f) => sum + Number(f.size || 0), 0); }
         };
 
-        /* --- SUPABASE GLOBAL ENVIRONMENT VARIABLE CONFIG INJECTION --- */
-        const SupabaseEngine = {
-            client: null,
-            activeChannel: null,
-
-            PRODUCTION_URL: window.process?.env?.NEXT_PUBLIC_SUPABASE_URL || window.ENV_SUPABASE_URL || "", 
-            PRODUCTION_KEY: window.process?.env?.NEXT_PUBLIC_SUPABASE_ANON_KEY || window.ENV_SUPABASE_ANON_KEY || "",
-            init() {
-                if (!this.PRODUCTION_URL || this.PRODUCTION_URL.includes("your-project-id")) {
-                    console.warn("Supabase public environment variables on standby."); return;
-                }
-                try {
-                    this.client = supabase.createClient(this.PRODUCTION_URL, this.PRODUCTION_KEY);
-                    this.fetchRemoteLedger(); this.subscribeRealtime();
-                } catch(e) { console.warn("Supabase client connection failure."); }
-            },
-            async fetchRemoteLedger() {
-                if(!this.client) return;
-                const { data, error } = await this.client.from('hashes').select('*').order('created_at', { ascending: false }).limit(12);
-                if (data && data.length > 0) {
-                    data.forEach(row => {
-                        if (!AppState.uploadedFiles.some(f => f.hash === row.hash)) {
-                            AppState.uploadedFiles.push({ name: row.name + " (Cloud Sync)", size: row.size, hash: row.hash });
-                        }
-
-                    });
-                    FileIngestionManager.renderTable();
-                }
-            },
-            async broadcastRecord(record) {
-                if(!this.client) return;
-                await this.client.from('hashes').insert([{ name: record.name, size: record.size, hash: record.hash }]);
-            },
-            subscribeRealtime() {
-                if(!this.client) return;
-                this.activeChannel = this.client.channel('schema-db-changes')
-                    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'hashes' }, payload => {
-                        const row = payload.new;
-                        if (!AppState.uploadedFiles.some(f => f.hash === row.hash)) {
-                            AppState.uploadedFiles.unshift({ name: row.name + " (Live Link)", size: row.size, hash: row.hash });
-                            FileIngestionManager.renderTable();
-                            BillingManager.showToast("Real-time distributed ledger update captured.");
-                        }
-                    }).subscribe();
-
-            }
-        };
+        /* Local-only demo: no cloud client is loaded and no file metadata is transmitted. */
+        const SupabaseEngine = { init() {}, broadcastRecord() {} };
 
         const BillingManager = {
-            interceptExport(artifactName) {
-                if (AppState.isPremium) this.showToast(`Success: Compiled tracking pack for [${artifactName}]`);
-                else UIControls.showModal('modal-premium-export');
-            },
-            upgradeTier(label) {
-                AppState.isPremium = true; UIControls.closeModal('modal-usage-gate'); UIControls.closeModal('modal-premium-export');
-                this.showToast(`Premium portfolio access unlocked cleanly via matrix: ${label}`);
-            },
+            interceptExport(artifactName) { this.showToast(`${artifactName} is ready locally.`); },
+            upgradeTier() { UIControls.showModal('modal-consultation'); },
             showToast(msg) {
-                const toast = document.getElementById('global-action-toast'); if(!toast) return;
+                const toast = document.getElementById('global-action-toast'); if (!toast) return;
                 toast.textContent = msg; toast.classList.remove('hidden');
-                setTimeout(() => { toast.classList.add('hidden'); }, 3000);
+                clearTimeout(this.toastTimer);
+                this.toastTimer = setTimeout(() => toast.classList.add('hidden'), 3200);
             }
         };
 
-
         const ConsultationCalculator = {
-            calculate() {
-                let cost = 25000; let days = 30;
-                if(document.getElementById('chk-crypto')?.checked) { cost += 1500; days += 4; }
-                if(document.getElementById('chk-wasm')?.checked) { cost += 2200; days += 6; }
-                document.getElementById('lbl-calc-budget').textContent = `$` + cost.toLocaleString();
-                document.getElementById('lbl-calc-days').textContent = `${days} Days`;
+            CONTACT_EMAIL: 'nickberghane@gmail.com',
+            fields: ['lead-name', 'lead-email', 'lead-org', 'lead-summary', 'lead-timing', 'lead-budget'],
+            init() {
+                const form = document.getElementById('consultation-form'); if (!form) return;
+                this.fields.forEach(id => {
+                    const el = document.getElementById(id);
+                    const saved = localStorage.getItem(`lead_draft_${id}`);
+                    if (el && saved !== null) el.value = saved;
+                    el?.addEventListener('input', () => localStorage.setItem(`lead_draft_${id}`, el.value));
+                });
+                document.querySelectorAll('#scope-options input[type="checkbox"]').forEach((box, index) => {
+                    box.checked = localStorage.getItem(`lead_scope_${index}`) === 'true';
+                    box.addEventListener('change', () => {
+                        localStorage.setItem(`lead_scope_${index}`, String(box.checked));
+                        this.calculate();
+                    });
+                });
+                this.calculate();
             },
-            handleExport(e) {
-                e.preventDefault();
-                const struct = { profile: "Nick Berghane Custom Architecture Statement", cost: document.getElementById('lbl-calc-budget').textContent, delivery: document.getElementById('lbl-calc-days').textContent };
-                const blob = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(struct, null, 2));
-                const a = document.createElement('a'); a.href = blob; a.download = "portfolio_architecture_scope.json";
-                document.body.appendChild(a); a.click(); a.remove(); UIControls.closeModal('modal-consultation');
+            selectedScopes() { return [...document.querySelectorAll('#scope-options input:checked')]; },
+            calculate() {
+                const selected = this.selectedScopes();
+                const low = selected.reduce((sum, el) => sum + (Number(el.dataset.low) || 0), 0);
+                const high = selected.reduce((sum, el) => sum + (Number(el.dataset.high) || 0), 0);
+                const days = selected.reduce((sum, el) => sum + (Number(el.dataset.days) || 0), 0);
+                const budget = document.getElementById('lbl-calc-budget');
+                const timeline = document.getElementById('lbl-calc-days');
+                if (!budget || !timeline) return;
+                budget.textContent = selected.length ? `$${low.toLocaleString()}–$${high.toLocaleString()}` : 'Select a scope';
+                timeline.textContent = selected.length ? `${Math.max(3, Math.ceil(days * 0.65))}–${Math.max(5, days)} business days` : 'To be scoped';
+            },
+            buildBrief() {
+                const get = id => document.getElementById(id)?.value.trim() || '';
+                const scopes = this.selectedScopes().map(el => el.value);
+                return {
+                    name: get('lead-name'),
+                    email: get('lead-email'),
+                    organization: get('lead-org'),
+                    summary: get('lead-summary'),
+                    scopes,
+                    timing: get('lead-timing'),
+                    budgetContext: get('lead-budget'),
+                    indicativeRange: document.getElementById('lbl-calc-budget')?.textContent || '',
+                    indicativeTimeline: document.getElementById('lbl-calc-days')?.textContent || '',
+                    source: window.location.href,
+                    createdAt: new Date().toISOString()
+                };
+            },
+            markdown() {
+                const b = this.buildBrief();
+                return `# Project inquiry\n\n**Name:** ${b.name}\n**Email:** ${b.email}\n**Organization / project:** ${b.organization || 'Not provided'}\n**Timing:** ${b.timing}\n**Budget context:** ${b.budgetContext}\n**Indicative range:** ${b.indicativeRange}\n**Indicative timeline:** ${b.indicativeTimeline}\n\n## Scope\n${b.scopes.length ? b.scopes.map(s => `- ${s}`).join('\n') : '- To be discussed'}\n\n## What needs to happen\n${b.summary}`;
+            },
+            async copyBrief() {
+                const text = this.markdown();
+                try { await navigator.clipboard.writeText(text); }
+                catch (_) {
+                    const ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+                }
+                BillingManager.showToast('Project brief copied.');
+            },
+            downloadBrief() {
+                const blob = new Blob([JSON.stringify(this.buildBrief(), null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob); const a = document.createElement('a');
+                a.href = url; a.download = `nick-berghane-project-brief-${Date.now()}.json`; document.body.appendChild(a); a.click(); a.remove();
+                setTimeout(() => URL.revokeObjectURL(url), 0);
+                BillingManager.showToast('Project brief downloaded.');
+            },
+            openEmail(event) {
+                event.preventDefault();
+                if (!document.getElementById('consultation-form')?.reportValidity()) return;
+                const subject = encodeURIComponent(`Project inquiry — ${this.buildBrief().organization || this.buildBrief().name}`);
+                const body = encodeURIComponent(this.markdown());
+                window.location.href = `mailto:${this.CONTACT_EMAIL}?subject=${subject}&body=${body}`;
             }
         };
 
@@ -855,212 +947,159 @@
                 this.osc.connect(this.gain); this.gain.connect(this.ctx.destination);
                 this.osc.start(); this.isPlaying = true;
                 document.getElementById('eq-container').classList.add('playing');
-                document.getElementById('btn-audio-toggle').textContent = "Halt Oscillator Signal";
+                document.getElementById('btn-audio-toggle').textContent = "Stop Reference Tone";
             },
             stopAll() {
                 if (this.osc) { try { this.osc.stop(); } catch(e){} this.osc.disconnect(); this.osc = null; }
                 if (this.gain) { this.gain.disconnect(); this.gain = null; } this.isPlaying = false;
 
                 document.getElementById('eq-container')?.classList.remove('playing');
-                document.getElementById('btn-audio-toggle').textContent = "Initialize Signal Waveform";
+                document.getElementById('btn-audio-toggle').textContent = "Start Reference Tone";
             }
         };
 
-        /* --- WOLLOHY STUDIO: MULTI-STEM STUDIO EDGE ENGINE --- */
+        /* --- WOLLOHY STUDIO: REAL MULTITRACK BROWSER MIXER --- */
         const AudioStemMixer = {
             ctx: null, masterGain: null, biquadFilter: null, analyser: null,
-            active: false, canvas: null, canvasCtx: null, rafId: null, loopInterval: null,
+            active: false, canvas: null, canvasCtx: null, rafId: null, sources: [],
+            bpm: 120, chords: 'C - G - Am - F', lastPrompt: '',
             tracks: {
-                vocals: { name: 'Vocals Stem', freq: 440, type: 'sine', vol: 0.6, mute: false, solo: false },
-                bass: { name: 'Bass Stem', freq: 82, type: 'triangle', vol: 0.7, mute: false, solo: false },
-                drums: { name: 'Drums Stem', freq: 110, type: 'triangle', vol: 0.5, mute: false, solo: false },
-                synths: { name: 'Synths Stem', freq: 330, type: 'sine', vol: 0.4, mute: false, solo: false }
+                vocals: { name: 'Vocals', fileName: '', buffer: null, vol: 0.6, mute: false, solo: false, gainNode: null },
+                bass: { name: 'Bass', fileName: '', buffer: null, vol: 0.7, mute: false, solo: false, gainNode: null },
+                drums: { name: 'Drums', fileName: '', buffer: null, vol: 0.5, mute: false, solo: false, gainNode: null },
+                synths: { name: 'Synths', fileName: '', buffer: null, vol: 0.4, mute: false, solo: false, gainNode: null }
             },
-            init() {
-                if (this.ctx) return;
+            init() { return this.ensureContext(); },
+            ensureContext() {
+                if (this.ctx) return this.ctx;
                 this.ctx = new (window.AudioContext || window.webkitAudioContext)();
-                
-
-                this.analyser = this.ctx.createAnalyser(); this.analyser.fftSize = 128;
-                this.biquadFilter = this.ctx.createBiquadFilter();
-                const cut = document.getElementById('slider-fx-cutoff')?.value || 1200;
-                this.biquadFilter.type = 'lowpass'; this.biquadFilter.frequency.setValueAtTime(parseFloat(cut), this.ctx.currentTime);
-                
-                this.masterGain = this.ctx.createGain(); this.masterGain.gain.setValueAtTime(0.12, this.ctx.currentTime);
-                
+                this.masterGain = this.ctx.createGain(); this.masterGain.gain.value = 0.8;
+                this.biquadFilter = this.ctx.createBiquadFilter(); this.biquadFilter.type = 'lowpass'; this.biquadFilter.frequency.value = Number(document.getElementById('slider-fx-cutoff')?.value || 1200);
+                this.analyser = this.ctx.createAnalyser(); this.analyser.fftSize = 256; this.analyser.smoothingTimeConstant = 0.8;
                 this.biquadFilter.connect(this.analyser); this.analyser.connect(this.masterGain); this.masterGain.connect(this.ctx.destination);
-                this.initCanvas();
+                Object.values(this.tracks).forEach(track => { track.gainNode = this.ctx.createGain(); track.gainNode.connect(this.biquadFilter); });
+                this.applyGains(); this.initCanvas(); return this.ctx;
             },
             initCanvas() {
                 this.canvas = document.getElementById('daw-fft-canvas'); if (!this.canvas) return;
-                this.canvasCtx = this.canvas.getContext('2d');
-                this.canvas.width = this.canvas.parentElement.clientWidth || 300; this.canvas.height = 140;
-                this.drawEmptyCanvas();
+                this.canvasCtx = this.canvas.getContext('2d'); this.canvas.width = Math.max(300, this.canvas.parentElement.clientWidth || 300); this.canvas.height = 140; this.drawEmptyCanvas();
             },
-            drawEmptyCanvas() {
-                if(!this.canvasCtx) return; this.canvasCtx.fillStyle = '#070708'; this.canvasCtx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+            drawEmptyCanvas() { if (this.canvasCtx) { this.canvasCtx.fillStyle = '#070708'; this.canvasCtx.fillRect(0, 0, this.canvas.width, this.canvas.height); } },
+            async loadStem(key, file) {
+                if (!file || !this.tracks[key]) return;
+                const ctx = this.ensureContext();
+                try {
+                    const buffer = await file.arrayBuffer();
+                    this.tracks[key].buffer = await ctx.decodeAudioData(buffer.slice(0));
+                    this.tracks[key].fileName = file.name;
+                    const label = document.getElementById(`stem-name-${key}`); if (label) label.textContent = `${file.name} · ${this.tracks[key].buffer.duration.toFixed(1)}s`;
+                    BillingManager.showToast(`${this.tracks[key].name} loaded.`);
+                } catch (error) { console.error(error); BillingManager.showToast(`Could not decode ${file.name}.`); }
             },
-
+            hasAudio() { return Object.values(this.tracks).some(track => track.buffer); },
+            togglePlayback() { this.active ? this.stopPlayback() : this.playAll(); },
+            async playAll() {
+                const ctx = this.ensureContext();
+                if (!this.hasAudio()) this.createDemoBuffers();
+                if (ctx.state === 'suspended') await ctx.resume();
+                this.stopSources(); this.applyGains();
+                const when = ctx.currentTime + 0.06;
+                Object.values(this.tracks).forEach(track => {
+                    if (!track.buffer) return;
+                    const source = ctx.createBufferSource(); source.buffer = track.buffer; source.loop = true; source.connect(track.gainNode); source.start(when); this.sources.push(source);
+                });
+                this.active = true; this.updateTransportUI(); this.startVisualizer();
+            },
+            stopSources() { this.sources.forEach(source => { try { source.stop(); } catch (_) {} try { source.disconnect(); } catch (_) {} }); this.sources = []; },
+            stopPlayback() { this.stopSources(); this.active = false; this.stopVisualizer(); this.updateTransportUI(); },
+            updateTransportUI() {
+                const btn = document.getElementById('btn-mixer-master-toggle');
+                if (btn) btn.textContent = this.active ? 'Stop Mix' : 'Play Mix';
+                const statusLed = document.getElementById('daw-engine-status-led'); if (statusLed) statusLed.style.background = this.active ? '#10b981' : '#a1a1aa';
+                const status = document.getElementById('daw-engine-status-lbl'); if (status) status.textContent = this.active ? 'Playing loaded stems in sync. All processing remains local.' : 'Mixer ready. Load stems or generate a demo arrangement.';
+                const demoButton = document.getElementById('btn-play-generated-mix'); if (demoButton) demoButton.textContent = this.active ? '■ Stop Demo Mix' : '▶ Play Demo Mix';
+            },
+            setVolume(key, value) { const track = this.tracks[key]; if (!track) return; track.vol = Number(value) || 0; this.applyGains(); },
+            toggleMute(key, element) { const track = this.tracks[key]; if (!track) return; track.mute = !track.mute; element.classList.toggle('mixer-btn-active', track.mute); this.applyGains(); },
+            toggleSolo(key, element) { const track = this.tracks[key]; if (!track) return; track.solo = !track.solo; element.classList.toggle('mixer-solo-active', track.solo); this.applyGains(); },
+            applyGains() {
+                const soloActive = Object.values(this.tracks).some(track => track.solo);
+                Object.values(this.tracks).forEach(track => {
+                    if (!track.gainNode || !this.ctx) return;
+                    const target = track.mute || (soloActive && !track.solo) ? 0 : track.vol;
+                    track.gainNode.gain.cancelScheduledValues(this.ctx.currentTime); track.gainNode.gain.linearRampToValueAtTime(target, this.ctx.currentTime + 0.03);
+                });
+            },
+            updateFilterFrequency(value) {
+                const hz = Number(value) || 1200;
+                document.querySelectorAll('#lbl-fx-cutoff').forEach(label => label.textContent = `${hz} Hz`);
+                UIControls.handleSliderChange('slider-fx-cutoff', hz);
+                if (this.biquadFilter && this.ctx) this.biquadFilter.frequency.setTargetAtTime(hz, this.ctx.currentTime, 0.02);
+            },
             generateAILyricsTrack() {
-                const prompt = document.getElementById('ai-track-prompt').value.trim() || "coding anthem";
-                const loadingContainer = document.getElementById('ai-loading-container');
-                const outputContainer = document.getElementById('ai-output-container');
-                const bar = document.getElementById('ai-loading-bar');
-                const pct = document.getElementById('ai-loading-pct');
-                const lbl = document.getElementById('ai-loading-lbl');
-
-                outputContainer.classList.add('hidden');
-                loadingContainer.classList.remove('hidden');
-                bar.style.width = '0%';
-                pct.textContent = '0%';
-                lbl.textContent = "Spinning Web Worker client thread inference logic hooks...";
-
-                let progress = 0;
-                const interval = setInterval(() => {
-                    progress += 4;
-                    bar.style.width = `${progress}%`;
-                    pct.textContent = `${progress}%`;
-
-                    
-                    if (progress === 40) {
-                        lbl.textContent = "Loading WebLLM open-source model layers (MusicGen-Small ONNX cache entries)...";
-                    }
-                    if (progress === 80) {
-                        lbl.textContent = "Parsing structured JSON token chord timelines natively...";
-                    }
-
-                    if (progress >= 100) {
-                        clearInterval(interval);
-                        loadingContainer.classList.add('hidden');
-                        outputContainer.classList.remove('hidden');
-
-                        // Set structured song properties based on prompt context
-                        document.getElementById('lbl-track-bpm').textContent = Math.floor(Math.random() * 40) + 110;
-                        document.getElementById('lbl-track-chords').textContent = Math.random() > 0.5 ? "Am - F - C - G (Minor Pull)" : "C - G - Am - F (Standard Rebound)";
-                        document.getElementById('lbl-generated-lyrics').textContent = `[Verse 1]\nCompiling lines in the dark space glow,\nNo cloud servers dictate where token arrays go.\nSovereign local computing loops are clear,\nNicholas Berghane codes exactly what you hear!\n\n[Chorus]\nOne sentence in, one prompt arrays out,\nZero server waste is what we care about!\nLocal WebGPU handles all the load,\nImmutable paths on the edge-driven road!`;
-                        
-                        BillingManager.showToast("In-browser LLM tracking compilation complete.");
-
-                    }
-                }, 120);
+                const prompt = document.getElementById('ai-track-prompt')?.value.trim() || 'a local-first midnight anthem';
+                this.lastPrompt = prompt;
+                const loading = document.getElementById('ai-loading-container'); const output = document.getElementById('ai-output-container');
+                const bar = document.getElementById('ai-loading-bar'); const pct = document.getElementById('ai-loading-pct'); const label = document.getElementById('ai-loading-lbl');
+                output?.classList.add('hidden'); loading?.classList.remove('hidden'); if (bar) bar.style.width = '0%'; if (pct) pct.textContent = '0%'; if (label) label.textContent = 'Building a local arrangement...';
+                const seed = [...prompt].reduce((sum, char) => sum + char.charCodeAt(0), 0);
+                this.bpm = 96 + (seed % 45); const progressions = ['Am - F - C - G', 'C - G - Am - F', 'Em - C - G - D', 'Dm - Bb - F - C']; this.chords = progressions[seed % progressions.length];
+                setTimeout(() => {
+                    this.createDemoBuffers(seed); if (bar) bar.style.width = '100%'; if (pct) pct.textContent = '100%';
+                    loading?.classList.add('hidden'); output?.classList.remove('hidden');
+                    const words = prompt.replace(/[^a-z0-9\s'-]/gi, '').split(/\s+/).filter(Boolean); const hook = words.slice(0, 6).join(' ') || 'local signals in the dark';
+                    const lyrics = `[Verse]\n${hook}, written into light\nFour little channels keeping time tonight\nEvery fader moves, every source stays near\nA browser-built arrangement you can actually hear\n\n[Hook]\nLoad it, mix it, render it clean\nNo fake cloud pipeline hiding in between`;
+                    const lyricsEl = document.getElementById('lbl-generated-lyrics'); if (lyricsEl) lyricsEl.textContent = lyrics;
+                    const bpmEl = document.getElementById('lbl-track-bpm'); if (bpmEl) bpmEl.textContent = this.bpm;
+                    const chordEl = document.getElementById('lbl-track-chords'); if (chordEl) chordEl.textContent = this.chords;
+                    BillingManager.showToast('Demo stems generated locally.');
+                }, 320);
             },
-            togglePlayback() {
-                this.init(); const btn = document.getElementById('btn-mixer-master-toggle');
-                const btnGen = document.getElementById('btn-play-generated-mix');
-                const statusLed = document.getElementById('daw-engine-status-led');
-                const statusTxt = document.getElementById('daw-engine-status-lbl');
-                
-                if (this.active) {
-                    this.stopPlayback(); 
-                    if(btn) { btn.innerText = "Initialize Sound Workstation"; btn.style.background = '#4f46e5'; }
-                    if(btnGen) { btnGen.innerText = "🔊 Synthesize Backup Arrangement"; btnGen.style.background = '#18181b'; }
-                    if (statusLed) statusLed.style.background = '#a1a1aa';
-                    if (statusTxt) statusTxt.textContent = "Wollohy Local DAW engine idle. Assembly project manifests secure.";
-                } else {
-                    if (this.ctx.state === 'suspended') this.ctx.resume();
-                    this.active = true; 
-                    if(btn) { btn.innerText = "Halt Sound Workstation"; btn.style.background = '#ef4444'; }
-
-                    if(btnGen) { btnGen.innerText = "🛑 Halt Running Arrangement"; btnGen.style.background = '#b91c1c'; }
-                    if (statusLed) statusLed.style.background = '#10b981';
-                    if (statusTxt) statusTxt.textContent = "Wollohy Studio active. Local client-side PCM hardware capture online.";
-                    this.startAmbientLoop(); this.startVisualizer();
-                }
-            },
-            triggerTrackPreview(trackKey) {
-                this.init();
-                if (this.ctx.state === 'suspended') this.ctx.resume();
-                const t = this.tracks[trackKey];
-                if (t && !t.mute) this.playTone(t.freq, t.type, 0.3, t.vol * 0.4);
-                BillingManager.showToast(`Impulse signal generated for ${t.name}`);
-            },
-            startAmbientLoop() {
-                if(this.loopInterval) clearInterval(this.loopInterval);
-                let count = 0;
-                this.loopInterval = setInterval(() => {
-                    if(!this.active) return;
-                    const channels = Object.keys(this.tracks);
-
-                    const dynamicSoloActive = channels.some(k => this.tracks[k].solo);
-                    
-                    channels.forEach(k => {
-                        const t = this.tracks[k];
-                        if (t.mute) return;
-                        if (dynamicSoloActive && !t.solo) return;
-                        
-                        if (k === 'bass' && count % 2 === 0) this.playTone(t.freq, t.type, 0.25, t.vol * 0.3);
-                        if (k === 'drums' && count % 4 === 0) this.playTone(t.freq, t.type, 0.08, t.vol * 0.4);
-                        if (k === 'synths' && count % 4 === 2) this.playTone(t.freq * 1.5, t.type, 0.2, t.vol * 0.2);
-                        if (k === 'vocals' && count % 8 === 4) this.playTone(t.freq * 1.2, t.type, 0.4, t.vol * 0.15);
-                    });
-                    count++;
-                }, 250);
-            },
-            playTone(freq, type, duration, volume) {
-                if (!this.ctx || !this.biquadFilter) return;
-                const osc = this.ctx.createOscillator(); const gain = this.ctx.createGain();
-                osc.type = type; osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
-
-                gain.gain.setValueAtTime(0, this.ctx.currentTime);
-                gain.gain.linearRampToValueAtTime(volume, this.ctx.currentTime + 0.02);
-                gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
-                osc.connect(gain); gain.connect(this.biquadFilter);
-                osc.start(); osc.stop(this.ctx.currentTime + duration);
-            },
-            updateFilterFrequency(v) {
-                document.querySelectorAll('#lbl-fx-cutoff').forEach(lbl => lbl.textContent = `${v} Hz`);
-                document.querySelectorAll('#slider-fx-cutoff').forEach(slider => slider.value = v);
-                UIControls.handleSliderChange('slider-fx-cutoff', v);
-                if(this.biquadFilter && this.ctx) this.biquadFilter.frequency.setValueAtTime(parseFloat(v), this.ctx.currentTime);
+            createDemoBuffers(seed = 17) {
+                const ctx = this.ensureContext(); const sampleRate = ctx.sampleRate; const duration = 8; const length = Math.floor(sampleRate * duration);
+                const create = generator => { const buffer = ctx.createBuffer(1, length, sampleRate); const data = buffer.getChannelData(0); for (let i = 0; i < length; i++) data[i] = generator(i / sampleRate, i); return buffer; };
+                const beat = 60 / this.bpm;
+                this.tracks.bass.buffer = create(t => { const step = Math.floor(t / (beat * 2)) % 4; const freq = [55, 65.41, 73.42, 49][step]; return Math.sin(2 * Math.PI * freq * t) * 0.23; });
+                this.tracks.drums.buffer = create((t, i) => { const phase = t % beat; const kick = phase < 0.16 ? Math.sin(2 * Math.PI * (85 - phase * 300) * phase) * Math.exp(-phase * 24) : 0; const hatPhase = t % (beat / 2); const noise = hatPhase < 0.035 ? ((Math.sin((i + seed) * 12.9898) * 43758.5453) % 1) * Math.exp(-hatPhase * 80) * 0.12 : 0; return kick * 0.8 + noise; });
+                this.tracks.synths.buffer = create(t => { const notes = [261.63, 329.63, 392, 493.88]; const freq = notes[Math.floor(t / (beat / 2)) % notes.length]; const phase = (t * freq) % 1; return ((2 * phase - 1) * 0.09) + Math.sin(2 * Math.PI * freq * t) * 0.04; });
+                this.tracks.vocals.buffer = create(t => { const phrase = t % (beat * 4); const env = phrase < beat * 2.8 ? Math.sin(Math.PI * phrase / (beat * 2.8)) : 0; const base = 180 + (Math.floor(t / beat) % 3) * 25; return (Math.sin(2 * Math.PI * base * t) + 0.45 * Math.sin(2 * Math.PI * base * 2.15 * t)) * env * 0.055; });
+                Object.entries(this.tracks).forEach(([key, track]) => { track.fileName = 'Generated demo stem'; const el = document.getElementById(`stem-name-${key}`); if (el) el.textContent = `Generated demo · ${duration}s`; });
             },
             startVisualizer() {
-                if (this.rafId) cancelAnimationFrame(this.rafId);
-                const length = this.analyser.frequencyBinCount; const dataArray = new Uint8Array(length);
-                const stepRender = () => {
-                    this.rafId = requestAnimationFrame(stepRender); this.analyser.getByteFrequencyData(dataArray);
-                    this.canvasCtx.fillStyle = '#070708'; this.canvasCtx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-                    const width = (this.canvas.width / length) * 1.6; let h; let x = 0; let max = 0;
-
-                    for (let i = 0; i < length; i++) {
-                        h = dataArray[i]; if(h > max) max = h;
-                        this.canvasCtx.fillStyle = `rgb(${h+25},100,240)`;
-                        this.canvasCtx.fillRect(x, this.canvas.height - (h * 0.6), width - 1, h * 0.6); x += width;
-                    }
-                    const db = Math.round((max / 255) * 100);
-                    document.querySelectorAll('#lbl-live-db').forEach(dbMtr => {
-                        dbMtr.textContent = db > 0 ? `-${100 - db} dB` : '-Infinity dB';
-                    });
+                this.initCanvas(); if (!this.analyser || !this.canvasCtx) return; if (this.rafId) cancelAnimationFrame(this.rafId);
+                const data = new Uint8Array(this.analyser.frequencyBinCount);
+                const frame = () => {
+                    this.rafId = requestAnimationFrame(frame); this.analyser.getByteFrequencyData(data); this.canvasCtx.fillStyle = '#070708'; this.canvasCtx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+                    const barWidth = this.canvas.width / data.length; let max = 0;
+                    data.forEach((value, index) => { max = Math.max(max, value); this.canvasCtx.fillStyle = `rgba(129,140,248,${0.25 + value / 340})`; this.canvasCtx.fillRect(index * barWidth, this.canvas.height - value * 0.5, Math.max(1, barWidth - 1), value * 0.5); });
+                    const db = max ? Math.round(20 * Math.log10(max / 255)) : -Infinity; document.querySelectorAll('#lbl-live-db').forEach(el => el.textContent = Number.isFinite(db) ? `${db} dBFS` : '-Infinity dBFS');
                 };
-                this.rafId = requestAnimationFrame(stepRender);
-            },
-            stopPlayback() { 
-                this.active = false; 
-                if (this.loopInterval) clearInterval(this.loopInterval); 
-                this.loopInterval = null; 
-                this.stopVisualizer(); 
+                frame();
             },
             stopVisualizer() { if (this.rafId) cancelAnimationFrame(this.rafId); this.rafId = null; this.drawEmptyCanvas(); },
-
-            setVolume(k, v) { const t = this.tracks[k]; if (t) t.vol = parseFloat(v) || 0; },
-            toggleMute(k, el) { 
-                const t = this.tracks[k]; if(!t) return; 
-                t.mute = !t.mute; el.classList.toggle('mixer-btn-active', t.mute); 
+            projectData() { return { version: 1, bpm: this.bpm, chords: this.chords, prompt: this.lastPrompt, filterCutoff: Number(document.getElementById('slider-fx-cutoff')?.value || 1200), tracks: Object.fromEntries(Object.entries(this.tracks).map(([key, track]) => [key, { fileName: track.fileName, volume: track.vol, mute: track.mute, solo: track.solo }])) }; },
+            downloadProject() { const blob = new Blob([JSON.stringify(this.projectData(), null, 2)], { type: 'application/json' }); this.downloadBlob(blob, `wollohy-project-${Date.now()}.json`); },
+            resetMixer() { this.stopPlayback(); Object.entries(this.tracks).forEach(([key, track]) => { track.buffer = null; track.fileName = ''; track.mute = false; track.solo = false; const el = document.getElementById(`stem-name-${key}`); if (el) el.textContent = 'No audio loaded'; }); document.querySelectorAll('.mixer-btn-active,.mixer-solo-active').forEach(el => el.classList.remove('mixer-btn-active', 'mixer-solo-active')); BillingManager.showToast('Mixer reset.'); },
+            async exportWav() {
+                if (!this.hasAudio()) { BillingManager.showToast('Load audio or generate demo stems first.'); return; }
+                const sampleRate = 44100; const duration = Math.min(30, Math.max(...Object.values(this.tracks).filter(t => t.buffer).map(t => t.buffer.duration)));
+                const offline = new OfflineAudioContext(2, Math.ceil(duration * sampleRate), sampleRate); const filter = offline.createBiquadFilter(); filter.type = 'lowpass'; filter.frequency.value = Number(document.getElementById('slider-fx-cutoff')?.value || 1200); filter.connect(offline.destination);
+                const soloActive = Object.values(this.tracks).some(track => track.solo);
+                Object.values(this.tracks).forEach(track => { if (!track.buffer || track.mute || (soloActive && !track.solo)) return; const source = offline.createBufferSource(); source.buffer = track.buffer; const gain = offline.createGain(); gain.gain.value = track.vol; source.connect(gain); gain.connect(filter); source.start(0); });
+                BillingManager.showToast('Rendering WAV locally...'); const rendered = await offline.startRendering(); const wav = this.encodeWav(rendered); this.downloadBlob(new Blob([wav], { type: 'audio/wav' }), `wollohy-mix-${Date.now()}.wav`); BillingManager.showToast('Mixed WAV downloaded.');
             },
-            toggleSolo(k, el) { 
-                const t = this.tracks[k]; if(!t) return; 
-                t.solo = !t.solo; el.classList.toggle('mixer-solo-active', t.solo); 
+            encodeWav(buffer) {
+                const channels = Math.min(2, buffer.numberOfChannels); const samples = buffer.length; const out = new ArrayBuffer(44 + samples * channels * 2); const view = new DataView(out); let offset = 0;
+                const write = value => { for (let i = 0; i < value.length; i++) view.setUint8(offset++, value.charCodeAt(i)); };
+                write('RIFF'); view.setUint32(offset, 36 + samples * channels * 2, true); offset += 4; write('WAVEfmt '); view.setUint32(offset, 16, true); offset += 4; view.setUint16(offset, 1, true); offset += 2; view.setUint16(offset, channels, true); offset += 2; view.setUint32(offset, buffer.sampleRate, true); offset += 4; view.setUint32(offset, buffer.sampleRate * channels * 2, true); offset += 4; view.setUint16(offset, channels * 2, true); offset += 2; view.setUint16(offset, 16, true); offset += 2; write('data'); view.setUint32(offset, samples * channels * 2, true); offset += 4;
+                const channelData = Array.from({ length: channels }, (_, index) => buffer.getChannelData(index));
+                for (let i = 0; i < samples; i++) for (let channel = 0; channel < channels; channel++) { const sample = Math.max(-1, Math.min(1, channelData[channel][i])); view.setInt16(offset, sample < 0 ? sample * 0x8000 : sample * 0x7fff, true); offset += 2; }
+                return out;
             },
-            downloadMasterStems() {
-                BillingManager.showToast("Compiling non-destructive assembly reference sheets...");
-                setTimeout(() => { BillingManager.interceptExport("Wollohy Master Stems Manifest"); }, 600);
-            },
-            runPipelineStep(stepId) {
-                this.init();
-                if (this.ctx.state === 'suspended') this.ctx.resume();
-                this.playTone(600, 'sine', 0.08, 0.1);
-                BillingManager.showToast(`Local isolation step [${stepId}] triggered flawlessly.`);
-            }
-
+            downloadBlob(blob, filename) { const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 0); },
+            downloadMasterStems() { this.exportWav(); },
+            triggerTrackPreview(key) { const track = this.tracks[key]; if (!track?.buffer) { BillingManager.showToast(`Load ${track?.name || key} audio first.`); return; } this.playAll(); },
+            runPipelineStep(step) { if (step === 'mount') this.downloadProject(); else if (step === 'separation') { this.createDemoBuffers(); BillingManager.showToast('Demo stems generated.'); } else if (step === 'filter') this.resetMixer(); else if (step === 'flush') this.exportWav(); }
         };
 
         const AudioControls = {
@@ -1076,12 +1115,12 @@
 
         /* --- INTERACTIVE VECTOR SPRING CANVAS PHYSICS SIMULATOR GRAPH --- */
         const PhysicsNodeGraph = {
-            canvas: null, ctx: null, nodes: [], links: [], rafId: null, density: 25, tension: 4,
+            canvas: null, ctx: null, nodes: [], links: [], rafId: null, density: 25, tension: 4, boundResize: null,
             init() {
                 this.canvas = document.getElementById('physics-canvas'); if (!this.canvas) return;
                 this.ctx = this.canvas.getContext('2d'); this.resize(); this.build(); this.loop();
 
-                window.addEventListener('resize', () => this.resize());
+                if (!this.boundResize) { this.boundResize = () => this.resize(); window.addEventListener('resize', this.boundResize); }
             },
             resize() { if(this.canvas) { this.canvas.width = this.canvas.parentElement.clientWidth || 700; this.canvas.height = 320; } },
             updateDensity(v) { this.density = parseInt(v, 10) || 25; UIControls.handleSliderChange('slider-density', v); this.build(); },
@@ -1113,138 +1152,157 @@
             cleanup() { if (this.rafId) cancelAnimationFrame(this.rafId); this.rafId = null; }
         };
 
-        /* --- INDEXEDDB STORAGE ENGINE TRANSPORTS MANAGER --- */
+        /* --- LOCAL INDEXEDDB EVIDENCE MANIFEST MANAGER --- */
         const FileIngestionManager = {
-            db: null,
+            db: null, dbReady: null,
+            MAX_FILES: 20,
+            MAX_FILE_BYTES: 50 * 1024 * 1024,
             init() {
-                const dz = document.getElementById('drop-zone'); const fi = document.getElementById('file-input'); if(!dz || !fi) return;
-                dz.addEventListener('click', () => fi.click());
-                dz.addEventListener('dragover', (e) => { e.preventDefault(); });
-
-                dz.addEventListener('drop', (e) => { e.preventDefault(); if (e.dataTransfer.files) this.process(e.dataTransfer.files); });
-                fi.addEventListener('change', (e) => { if (e.target.files) this.process(e.target.files); });
+                const dz = document.getElementById('drop-zone'); const fi = document.getElementById('file-input'); if (!dz || !fi) return;
+                if (!dz.dataset.bound) {
+                    dz.dataset.bound = 'true';
+                    dz.addEventListener('click', () => fi.click());
+                    dz.addEventListener('dragover', e => { e.preventDefault(); dz.style.borderColor = '#818cf8'; });
+                    dz.addEventListener('dragleave', () => { dz.style.borderColor = '#27272a'; });
+                    dz.addEventListener('drop', e => { e.preventDefault(); dz.style.borderColor = '#27272a'; this.process(e.dataTransfer.files || []); });
+                    fi.addEventListener('change', e => { this.process(e.target.files || []); fi.value = ''; });
+                }
                 this.initDB();
             },
             initDB() {
-                const req = indexedDB.open('NickPortfolioForensicDB', 1);
-                req.onupgradeneeded = (e) => {
-                    const db = e.target.result; if (!db.objectStoreNames.contains('hashes')) db.createObjectStore('hashes', { keyPath: 'id', autoIncrement: true });
-                };
-                req.onsuccess = (e) => { this.db = e.target.result; this.loadSavedRecords(); SupabaseEngine.init(); };
+                this.dbReady = new Promise((resolve, reject) => {
+                    const req = indexedDB.open('NickPortfolioForensicDB', 1);
+                    req.onupgradeneeded = e => {
+                        const db = e.target.result;
+                        if (!db.objectStoreNames.contains('hashes')) db.createObjectStore('hashes', { keyPath: 'id', autoIncrement: true });
+                    };
+                    req.onsuccess = e => { this.db = e.target.result; this.loadSavedRecords(); resolve(this.db); };
+                    req.onerror = () => { BillingManager.showToast('Local vault could not be opened in this browser.'); reject(req.error); };
+                });
+                return this.dbReady;
             },
             loadSavedRecords() {
-                if (!this.db) return; const trans = this.db.transaction(['hashes'], 'readonly'); const store = trans.objectStore('hashes');
+                if (!this.db) return;
                 AppState.uploadedFiles = [];
-                store.openCursor().onsuccess = (e) => {
-                    const cursor = e.target.result; if (cursor) { AppState.uploadedFiles.push(cursor.value); cursor.continue(); } else { this.renderTable(); }
+                const store = this.db.transaction(['hashes'], 'readonly').objectStore('hashes');
+                store.openCursor().onsuccess = e => {
+                    const cursor = e.target.result;
+                    if (cursor) { AppState.uploadedFiles.push(cursor.value); cursor.continue(); }
+                    else this.renderTable();
                 };
             },
-            async process(files) {
-
-                if (AppState.uploadedFiles.length + files.length >= 4) { UIControls.showModal('modal-usage-gate'); return; }
-                for (let i = 0; i < files.length; i++) {
-                    const f = files[i]; const hashStr = await this.calculateHash(f); const record = { name: f.name, size: f.size, hash: hashStr };
-                    AppState.uploadedFiles.push(record); this.saveToDB(record);
-                    SupabaseEngine.broadcastRecord(record);
+            async process(fileList) {
+                const files = [...fileList];
+                if (!files.length) return;
+                if (!this.db) {
+                    try { await this.dbReady; }
+                    catch (_) { return; }
                 }
-                this.renderTable();
+                const available = Math.max(0, this.MAX_FILES - AppState.uploadedFiles.length);
+                if (!available) { BillingManager.showToast(`This demo keeps up to ${this.MAX_FILES} local records. Clear the vault to continue.`); return; }
+                const accepted = files.slice(0, available);
+                if (files.length > accepted.length) BillingManager.showToast(`Processing the first ${accepted.length} files; the local demo limit is ${this.MAX_FILES}.`);
+                for (const file of accepted) {
+                    if (file.size > this.MAX_FILE_BYTES) { BillingManager.showToast(`${file.name} is over the 50 MB demo limit.`); continue; }
+                    try {
+                        const record = { name: file.name, size: file.size, type: file.type || 'unknown', lastModified: file.lastModified, hash: await this.calculateHash(file), createdAt: new Date().toISOString() };
+                        record.id = await this.saveToDB(record);
+                        AppState.uploadedFiles.push(record);
+                        this.renderTable();
+                    } catch (error) { console.error(error); BillingManager.showToast(`Could not hash ${file.name}.`); }
+                }
             },
-            saveToDB(rec) {
-                if (!this.db) return; const trans = this.db.transaction(['hashes'], 'readwrite'); const store = trans.objectStore('hashes'); store.add(rec);
+            calculateHash(file) {
+                return file.arrayBuffer().then(buffer => crypto.subtle.digest('SHA-256', buffer)).then(hashBuffer =>
+                    Array.from(new Uint8Array(hashBuffer)).map(byte => byte.toString(16).padStart(2, '0')).join('')
+                );
             },
-            async calculateHash(file) {
-                try {
-                    const buffer = await file.arrayBuffer(); const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
-                    return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('').substring(0, 22) + "...";
-                } catch(e) { return "e3b0c44298fc1c149afbf4c8996fb924..."; }
+            saveToDB(record) {
+                return new Promise((resolve, reject) => {
+                    if (!this.db) return reject(new Error('Database not ready'));
+                    const request = this.db.transaction(['hashes'], 'readwrite').objectStore('hashes').add(record);
+                    request.onsuccess = () => resolve(request.result); request.onerror = () => reject(request.error);
+                });
             },
             renderTable() {
-                const tbody = document.getElementById('crypto-table-body'); if(!tbody) return;
-
-                if (AppState.uploadedFiles.length === 0) {
-                    tbody.innerHTML = `<tr id="crypto-empty-row"><td colspan="3" style="padding: 1.5rem 0; text-align: center; color: #52525b; font-style: italic;">No active data blocks committed to database buffers. Drop files above to footprint layout keys.</td></tr>`; return;
+                const tbody = document.getElementById('crypto-table-body'); if (!tbody) return;
+                tbody.replaceChildren();
+                if (!AppState.uploadedFiles.length) {
+                    const row = document.createElement('tr'); const cell = document.createElement('td');
+                    cell.colSpan = 3; cell.style.cssText = 'padding:1.5rem 0;text-align:center;color:#52525b;font-style:italic;';
+                    cell.textContent = 'No files in this local vault yet. Drop files above to calculate their hashes.'; row.appendChild(cell); tbody.appendChild(row);
+                } else {
+                    AppState.uploadedFiles.forEach(record => {
+                        const row = document.createElement('tr'); row.style.borderBottom = '1px solid #1c1c1f';
+                        const name = document.createElement('td'); name.style.cssText = 'padding:.6rem 0;color:#fff;font-weight:700;'; name.textContent = record.name;
+                        const size = document.createElement('td'); size.style.cssText = 'padding:.6rem .75rem;color:#71717a;white-space:nowrap;'; size.textContent = `${(Number(record.size || 0) / 1024).toFixed(1)} KB`;
+                        const hash = document.createElement('td'); hash.style.cssText = 'padding:.6rem 0;color:#818cf8;font-weight:700;max-width:28rem;overflow-wrap:anywhere;'; hash.textContent = record.hash;
+                        row.append(name, size, hash); tbody.appendChild(row);
+                    });
                 }
-                tbody.innerHTML = AppState.uploadedFiles.map(f => `
-                    <tr style="border-bottom: 1px solid #1c1c1f;">
-                        <td style="padding: 0.5rem 0; color: #fff; font-weight: bold;">${f.name}</td>
-                        <td style="padding: 0.5rem 0; color: #52525b;">${(f.size/1024).toFixed(1)} KB</td>
-                        <td style="padding: 0.5rem 0; color: #818cf8; font-weight: bold;">${f.hash}</td>
-                    </tr>
-                `).join('');
+                const status = document.getElementById('local-vault-status');
+                if (status) status.textContent = AppState.uploadedFiles.length ? `${AppState.uploadedFiles.length} LOCAL RECORD${AppState.uploadedFiles.length === 1 ? '' : 'S'}` : 'LOCAL ONLY — NOTHING UPLOADED';
+            },
+            manifest() {
+                return { tool: 'ChronosAudit browser hashing demo', localOnly: true, generatedAt: new Date().toISOString(), files: AppState.uploadedFiles.map(({ id, ...record }) => record) };
+            },
+            downloadManifest() {
+                const blob = new Blob([JSON.stringify(this.manifest(), null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = `chronosaudit-manifest-${Date.now()}.json`;
+                document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 0);
+                BillingManager.showToast('Evidence manifest downloaded locally.');
+            },
+            async copyManifest() {
+                const value = JSON.stringify(this.manifest(), null, 2);
+                try { await navigator.clipboard.writeText(value); } catch (_) { const ta = document.createElement('textarea'); ta.value = value; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); }
+                BillingManager.showToast('Evidence manifest copied.');
+            },
+            clearAll() {
+                if (!this.db) return;
+                const request = this.db.transaction(['hashes'], 'readwrite').objectStore('hashes').clear();
+                request.onsuccess = () => { AppState.uploadedFiles = []; this.renderTable(); BillingManager.showToast('Local vault cleared.'); };
             }
         };
 
-        /* --- VARIABLE AIM CHAT SANDBOX CONTROLLER DECK --- */
+        /* --- DETERMINISTIC PROMPT SPECIFICATION PREVIEW --- */
         const AIMChatAgent = {
-            history: [], isPaused: false, intervalId: null, profanityList: ['fuck', 'shit', 'bitch'],
-            init() {
-                this.compilePrompt(); this.clearFeed();
-                if (this.intervalId) clearInterval(this.intervalId);
-
-                this.intervalId = setInterval(() => { if (!this.isPaused && window.location.hash.includes('playgrounds')) this.triggerAmbientMusing(); }, 14000);
-            },
+            init() { this.compilePrompt(); this.clearFeed(); },
             systemPrompt() {
-                const n = document.getElementById('aim-var-name').value; const p = document.getElementById('aim-var-profession').value;
-                const q = document.getElementById('aim-var-quirks').value;
-                return `- Identity: You are '${n}'.\n- Profile: Profession is ${p}.\n- Traits: Usually ${q}.`;
+                const name = document.getElementById('aim-var-name')?.value || 'Agent'; const profession = document.getElementById('aim-var-profession')?.value || 'unspecified'; const quirks = document.getElementById('aim-var-quirks')?.value || 'none';
+                return `- Identity: ${name}\n- Role: ${profession}\n- Behavioral notes: ${quirks}`;
             },
-            compilePrompt() {
-                const preview = document.getElementById('aim-compiled-preview'); if (preview) preview.textContent = this.systemPrompt();
-            },
-            togglePause() { this.isPaused = !this.isPaused; document.getElementById('btn-aim-pause').textContent = this.isPaused ? "▶ Resume Feeds" : "⏸ Pause Feeds"; },
-            clearFeed() {
-                const box = document.getElementById('aim-message-box'); if(!box) return; this.history = [];
-                box.innerHTML = `<div style="color: #71717a; font-style: italic;">// System: AWD Zero-Waste Prompt Matrix active. Capped to 100 character bounds.</div>`;
-            },
-            updateCharCount(v) { document.getElementById('aim-char-counter').textContent = `${v.length} / 100 Max`; },
+            compilePrompt() { const preview = document.getElementById('aim-compiled-preview'); if (preview) preview.textContent = this.systemPrompt(); },
+            togglePause() { this.clearFeed(); BillingManager.showToast('Preview reset.'); },
+            clearFeed() { const box = document.getElementById('aim-message-box'); if (!box) return; box.replaceChildren(); this.append(box, 'System', 'Deterministic behavior preview ready. No model is loaded and nothing is transmitted.', '#71717a'); },
+            append(box, label, text, color) { const row = document.createElement('div'); const tag = document.createElement('strong'); tag.textContent = `[${label}]: `; tag.style.color = color; row.append(tag, document.createTextNode(text)); box.appendChild(row); box.scrollTop = box.scrollHeight; },
+            updateCharCount(value) { const counter = document.getElementById('aim-char-counter'); if (counter) counter.textContent = `${value.length} / 100 Max`; },
             sendUserMessage() {
-                const el = document.getElementById('aim-user-input'); let txt = el?.value.trim(); if (!txt) return;
-                if (txt.length > 100) { alert("Message exceeds 100 character limits."); return; }
-
-                this.profanityList.forEach(w => { txt = txt.replace(new RegExp(w, 'gi'), '****'); });
-                const box = document.getElementById('aim-message-box');
-                box.innerHTML += `<div><span class="aim-timestamp">[User]:</span> ${txt}</div>`; el.value = ''; this.updateCharCount('');
-                box.scrollTop = box.scrollHeight;
-                setTimeout(() => {
-                    const botName = document.getElementById('aim-var-name').value;
-                    let reply = `Inquiry recorded inside active variable layers. Let's test the system boundaries!`;
-                    if(txt.toLowerCase().includes('sell') || txt.toLowerCase().includes('trampoline')) reply = `As a trampoline specialist, rebound velocities must stay high! Safety rules are crucial.`;
-                    box.innerHTML += `<div><span class="aim-timestamp" style="color:#ff0000;">[${botName}]:</span> ${reply}</div>`;
-                    box.scrollTop = box.scrollHeight;
-                }, 400);
+                const input = document.getElementById('aim-user-input'); const box = document.getElementById('aim-message-box'); const text = input?.value.trim(); if (!text || !box) return;
+                if (text.length > 100) { BillingManager.showToast('Keep the preview message under 100 characters.'); return; }
+                this.append(box, 'User', text, '#0000ff'); input.value = ''; this.updateCharCount('');
+                const name = document.getElementById('aim-var-name')?.value || 'Agent'; const profession = document.getElementById('aim-var-profession')?.value || 'specialist'; const lower = text.toLowerCase();
+                const reply = lower.includes('how') ? `As a ${profession}, I would break that into a first test, a clear constraint, and one measurable outcome.` : `Preview rule matched. ${name} responds through the role and traits defined on the left.`;
+                setTimeout(() => this.append(box, name, reply, '#ff0000'), 220);
             },
-            triggerAmbientMusing() {
-                const box = document.getElementById('aim-message-box'); if(!box) return;
-                const name = document.getElementById('aim-var-name').value;
-                box.innerHTML += `<div style="color: #4b5563;"><span class="aim-timestamp">[${name}]:</span> <span class="italic">Evaluating downstream token arrays for performance.</span></div>`;
-                box.scrollTop = box.scrollHeight;
-            },
-            cleanup() { if (this.intervalId) clearInterval(this.intervalId); this.intervalId = null; }
-
+            cleanup() {}
         };
 
-        /* --- SAPERLI POPETTE REAL TIME LOCAL HANDSHAKE DESK --- */
+        /* --- SAPERLI CONVERSATION UI PROTOTYPE --- */
         const SaperliPopette = {
-            history: [],
             initUIState() {
-                const out = document.getElementById('saperli-chat-output'); if(!out) return;
-                out.innerHTML = `<div style="color: #f59e0b; font-weight: bold;">🍄 Saperli-Core ! Bonjour mon ami ! Text me in French or English. Qu'est-ce que tu veux explorer ce soir ?</div>`;
+                const output = document.getElementById('saperli-chat-output'); if (!output) return; output.replaceChildren();
+                const row = document.createElement('div'); row.style.cssText = 'color:#f59e0b;font-weight:700;'; row.textContent = '🍄 Saperli prototype ready. Replies in this embedded demo are scripted and stay in the page.'; output.appendChild(row);
             },
+            append(text, align = 'left', color = '#d4d4d8') { const output = document.getElementById('saperli-chat-output'); if (!output) return; const row = document.createElement('div'); row.style.textAlign = align; row.style.color = color; row.textContent = text; output.appendChild(row); output.scrollTop = output.scrollHeight; },
             sendLiveMessage() {
-                const el = document.getElementById('saperli-chat-input'); const val = el?.value.trim(); if(!val) return;
-                const out = document.getElementById('saperli-chat-output');
-                out.innerHTML += `<div style="text-align: right; color: #f59e0b;">${val}</div>`; el.value = '';
-                setTimeout(() => {
-                    out.innerHTML += `<div style="color: #d4d4d8;"><span style="color: #f59e0b; font-weight: bold;">🍄 Saperli :</span> Tiens ! C'est magnifique ! Let's analyze local processing metrics together. Qu'en penses-tu ?</div>`;
-                    out.scrollTop = out.scrollHeight;
-                }, 500);
-                out.scrollTop = out.scrollHeight;
+                const input = document.getElementById('saperli-chat-input'); const value = input?.value.trim(); if (!value) return; this.append(value, 'right', '#f59e0b'); input.value = '';
+                const french = /\b(bonjour|merci|oui|non|comment|pourquoi|quoi|je|tu|vous)\b/i.test(value);
+                setTimeout(() => this.append(french ? 'Tiens ! Je suis une maquette locale, mais l’interface a bien reçu ton message.' : 'Nice — this local prototype received the message. The full Saperli project has the richer conversation behavior.'), 240);
             }
-
         };
 
         window.addEventListener('DOMContentLoaded', () => { 
-            AppRouter.init(); UIControls.loadSavedPreferences(); FileIngestionManager.init(); ConsultationCalculator.calculate(); 
+            AppRouter.init(); UIControls.loadSavedPreferences(); FileIngestionManager.init(); ConsultationCalculator.init(); 
         });
     </script>
 </body>
