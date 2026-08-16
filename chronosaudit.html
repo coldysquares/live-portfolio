@@ -628,7 +628,7 @@
           remove.setAttribute("aria-label", `Remove ${record.relativePath || record.name}`);
           remove.addEventListener("click", async () => {
             if (createBusy) return;
-            await deleteRecord(record.id);
+            if (db) await deleteRecord(record.id);
             records = records.filter((item) => item.id !== record.id);
             renderCreate();
             setStatus($("#createStatus"), `Removed ${record.relativePath || record.name}.`);
@@ -645,7 +645,7 @@
         $("#count").textContent = String(records.length);
         $("#size").textContent = bytes(records.reduce((sum, record) => sum + Number(record.size || 0), 0));
         $("#duplicates").textContent = String(duplicateGroups().length);
-        $("#dbState").textContent = db ? "Ready" : "Unavailable";
+        $("#dbState").textContent = db ? "Ready" : "Memory only";
         ["#downloadManifest","#copyManifest","#clearVault"].forEach((selector) => {
           $(selector).disabled = !hasRecords || createBusy;
         });
@@ -680,7 +680,7 @@
               sha256: hash,
               addedAt: new Date().toISOString()
             };
-            await putRecord(record);
+            if (db) await putRecord(record);
             const existing = records.findIndex((item) => item.id === record.id);
             if (existing >= 0) records.splice(existing, 1, record);
             else records.push(record);
@@ -719,7 +719,7 @@
         const url = new URL(window.location.href);
         if (create) url.searchParams.delete("mode");
         else url.searchParams.set("mode", "verify");
-        history.replaceState({ mode }, "", url);
+        try { history.replaceState({ mode }, "", url); } catch {}
       }
 
       function normalizeManifest(parsed) {
@@ -980,7 +980,7 @@
       });
       $("#clearVault").addEventListener("click", async () => {
         if (!confirm(`Clear ${records.length} local record${records.length === 1 ? "" : "s"}? Original files are not affected.`)) return;
-        await clearRecords();
+        if (db) await clearRecords();
         records = [];
         renderCreate();
         setStatus($("#createStatus"), "Local records cleared. Original files were not changed.");
@@ -1016,7 +1016,7 @@
         } catch (error) {
           console.error(error);
           renderCreate();
-          setStatus($("#createStatus"), "IndexedDB is unavailable in this browser. Hashing still works, but records cannot persist.", true);
+          setStatus($("#createStatus"), "IndexedDB is unavailable in this browser. Hashing and exports still work, but records will last only for this tab.", true);
         }
         const verify = new URLSearchParams(location.search).get("mode") === "verify";
         setMode(verify ? "verify" : "create");
