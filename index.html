@@ -1,1 +1,209 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f6f1e7"><title>ChronosAudit</title><style>html,body{height:100%;margin:0;background:#f6f1e7;color:#182126;font:15px/1.5 system-ui,sans-serif}body{display:grid;place-items:center}.boot{text-align:center}.mark{font:34px Georgia,serif;color:#a84d36}.note{color:#74766f;font-size:12px}</style></head><body><div class="boot"><div class="mark">ChronosAudit</div><div class="note" id="status">Opening the sample investigation…</div></div><script>(async()=>{try{if(!('DecompressionStream' in window))throw new Error('This preview needs a browser with DecompressionStream support.');const parts=await Promise.all(Array.from({length:8},(_,i)=>fetch(`/payload.${i}.txt`,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(`payload ${i}: ${r.status}`);return r.text()})));const b64=parts.join('').trim();const bytes=Uint8Array.from(atob(b64),c=>c.charCodeAt(0));const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));const html=await new Response(stream).text();document.open();document.write(html);document.close();}catch(e){console.error(e);document.getElementById('status').textContent='Preview could not open: '+e.message;}})();</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f1e7">
+  <meta name="description" content="ChronosAudit reconstructs a messy local document corpus as an inspectable timeline where every event leads back to exact source evidence.">
+  <title>ChronosAudit — Local Forensic Timeline Reconstruction</title>
+  <link rel="stylesheet" href="./assets/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="./" aria-label="ChronosAudit home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-name">ChronosAudit</span>
+      </a>
+      <nav class="header-nav" aria-label="Primary navigation">
+        <a href="#case">Sample case</a>
+        <a href="./method/">Method</a>
+        <a href="./security/">Security</a>
+        <a class="header-primary" href="#case">Open demo</a>
+      </nav>
+      <span class="header-status">Deterministic fixture</span>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero">
+      <div class="section-inner hero-grid">
+        <div>
+          <p class="eyebrow">Device-native forensic timeline reconstruction</p>
+          <h1>Reconstruct what happened.<em>Prove where it came from.</em></h1>
+          <p class="hero-dek">
+            ChronosAudit turns a messy local document corpus into an inspectable historical timeline. Every event remains connected to the extracted claim, exact passage, original file, and processing record beneath it.
+          </p>
+          <div class="hero-actions">
+            <button class="button" id="openCaseButton" type="button">Explore the sample investigation <span aria-hidden="true">↓</span></button>
+            <a class="button secondary" href="./method/">Read the method</a>
+          </div>
+        </div>
+
+        <div class="hero-proof" aria-label="Preview of the sample investigation">
+          <article class="proof-sheet">
+            <p class="proof-kicker">THE HARBOR PERMIT REVISION</p>
+            <h2>A review requirement disappears between drafts.</h2>
+            <p class="proof-question">When was it removed, who authorized it, and what did the public record say afterward?</p>
+            <div class="mini-timeline">
+              <div class="mini-event">
+                <time>JAN 12</time>
+                <div><strong>Requirement appears</strong><p>Draft V1 requires written environmental clearance.</p></div>
+                <span class="mini-mark" aria-hidden="true"></span>
+              </div>
+              <div class="mini-event conflict">
+                <time>FEB 06</time>
+                <div><strong>Authority conflict</strong><p>Minutes say retain. Counsel later says removal was authorized.</p></div>
+                <span class="mini-mark" aria-hidden="true"></span>
+              </div>
+              <div class="mini-event conflict">
+                <time>MAR 01</time>
+                <div><strong>Public history changes</strong><p>A press release says the requirement never existed.</p></div>
+                <span class="mini-mark" aria-hidden="true"></span>
+              </div>
+            </div>
+            <div class="evidence-chain-preview">
+              <p>Every conclusion stays reversible</p>
+              <div class="chain-row"><span>event</span><span>claim</span><span>exact lines</span><span>original</span><span>provenance</span></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="principle-strip" aria-label="Core product principles">
+      <div class="section-inner principle-grid">
+        <article class="principle"><b>Source before interpretation</b><p>Machine conclusions never overwrite what the document actually contains.</p></article>
+        <article class="principle"><b>Uncertainty stays visible</b><p>Observed, relative, inferred, conflicting, and unresolved dates remain distinct.</p></article>
+        <article class="principle"><b>Originals remain immutable</b><p>Derived text, timelines, and model output are stored separately from source bytes.</p></article>
+        <article class="principle"><b>Reports remain portable</b><p>The evidentiary record can survive outside the application that produced it.</p></article>
+      </div>
+    </section>
+
+    <section class="case-section" id="case">
+      <div class="section-inner">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Working public demonstration</p>
+            <h2>Follow one event all the way back.</h2>
+          </div>
+          <p>
+            This checked-in fictional corpus demonstrates the authority chain without asking a visitor to upload private files. Select an event, inspect the assertions beneath it, then open the exact supporting lines and file record.
+          </p>
+        </div>
+
+        <section class="case-shell" aria-label="Interactive ChronosAudit sample case">
+          <header class="case-topbar">
+            <div>
+              <p class="case-id">CASE 001 · SYNTHETIC GOLDEN CORPUS</p>
+              <h3>The Harbor Permit Revision</h3>
+              <p>Question: When was Section 7.4 removed, who authorized it, and what did the public record say afterward?</p>
+            </div>
+            <div class="case-stats" aria-label="Case summary">
+              <div class="case-stat"><strong>12</strong><span>source files</span></div>
+              <div class="case-stat"><strong>12</strong><span>event records</span></div>
+              <div class="case-stat"><strong>3</strong><span>contradictions</span></div>
+              <div class="case-stat"><strong>1</strong><span>metadata anomaly</span></div>
+            </div>
+          </header>
+          <div class="case-disclaimer">Fictional demonstration corpus. No real agency, people, permit, or investigation is represented.</div>
+
+          <div class="case-controls">
+            <label for="caseSearch" class="sr-only">Search the case</label>
+            <input class="case-search" id="caseSearch" type="search" placeholder="Search events, claims, or source files…" autocomplete="off">
+            <div class="filter-group" id="filterGroup" aria-label="Timeline filters">
+              <button class="filter-button" type="button" data-filter="all" aria-pressed="true">All evidence</button>
+              <button class="filter-button" type="button" data-filter="flags" aria-pressed="false">Flags only</button>
+              <button class="filter-button" type="button" data-filter="relative" aria-pressed="false">Relative dates</button>
+              <button class="filter-button" type="button" data-filter="metadata" aria-pressed="false">Metadata</button>
+              <button class="filter-button" type="button" data-filter="unresolved" aria-pressed="false">Unresolved</button>
+            </div>
+            <button class="button quiet small" id="downloadManifest" type="button">Download case JSON</button>
+            <button class="button quiet small" id="printReport" type="button">Print report</button>
+          </div>
+
+          <div class="case-workspace">
+            <section class="timeline-pane" aria-label="Case timeline">
+              <div class="pane-head"><h4>Timeline</h4><span id="timelineCount">12 shown</span></div>
+              <ol class="timeline-list" id="timelineList"></ol>
+            </section>
+
+            <section class="event-pane" id="eventPane" aria-label="Selected event">
+              <div class="pane-head"><h4>Event record</h4><span>derived projection</span></div>
+              <div class="event-content" id="eventContent" aria-live="polite"></div>
+            </section>
+
+            <aside class="evidence-pane" id="evidencePane" aria-label="Evidence inspector">
+              <div class="pane-head"><h4>Evidence inspector</h4><span>source authority</span></div>
+              <div class="evidence-scroll" id="evidenceContent" aria-live="polite"></div>
+            </aside>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section class="method-section" id="method">
+      <div class="section-inner">
+        <div class="section-heading">
+          <div><p class="eyebrow">The operating sequence</p><h2>Preserve. Extract. Reconstruct. Verify.</h2></div>
+          <p>ChronosAudit is not a chatbot laid over a folder. It is a controlled transformation pipeline in which every derived object retains its inputs and every uncertainty remains inspectable.</p>
+        </div>
+        <div class="method-grid">
+          <article class="method-step"><span class="number">01</span><h3>Preserve</h3><p>Inventory original bytes, compute integrity hashes, record metadata, and prevent downstream tools from mutating the source corpus.</p></article>
+          <article class="method-step"><span class="number">02</span><h3>Extract</h3><p>Capture explicit dates, email headers, embedded metadata, relative references, and source locations without treating them as interchangeable.</p></article>
+          <article class="method-step"><span class="number">03</span><h3>Reconstruct</h3><p>Cluster assertions into events, compare versions, and surface changes, omissions, contradictions, and unresolved sequences.</p></article>
+          <article class="method-step"><span class="number">04</span><h3>Verify</h3><p>Move backward from any timeline event to the exact claim, highlighted passage, original file, and recorded processing run.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="audience-section">
+      <div class="section-inner audience-grid">
+        <div class="audience-copy">
+          <p class="eyebrow">Built for evidence-heavy work</p>
+          <h2>When sequence and source matter as much as content.</h2>
+          <p>ChronosAudit is intended for people who need to explain not only what a corpus says, but when a claim appeared, how it changed, and whether the supporting record agrees.</p>
+        </div>
+        <div class="use-list">
+          <article class="use-item"><b>Investigations</b><p>Reconstruct decision paths across emails, notices, drafts, attachments, and public statements.</p></article>
+          <article class="use-item"><b>Legal and discovery</b><p>Separate document dates, metadata dates, stated dates, and later interpretations before chronology hardens into narrative.</p></article>
+          <article class="use-item"><b>Historical research</b><p>Trace changing terminology and claims across a fragmented private or institutional archive.</p></article>
+          <article class="use-item"><b>Corporate review</b><p>Identify when requirements, approvals, commitments, or ownership changed across revisions.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="local-section">
+      <div class="section-inner local-grid">
+        <div class="local-copy">
+          <p class="eyebrow">Private corpus, local instrument</p>
+          <h2>Your investigation should not become somebody else’s dataset.</h2>
+          <p>The canonical application is designed to process real corpora on the investigator’s own device. The public website uses a bundled synthetic case so a visitor can understand the product without selecting a private file or trusting an unexplained upload boundary.</p>
+          <a class="button secondary" href="./security/">Read the security boundary</a>
+        </div>
+        <article class="boundary-card">
+          <h3>Public demo boundary</h3>
+          <ul class="boundary-list">
+            <li>Uses only a checked-in fictional corpus.</li>
+            <li>Makes no network request for analysis or inference.</li>
+            <li>Does not ask the visitor to select or upload files.</li>
+            <li>Exposes the same event-to-evidence relationship the local product must preserve.</li>
+            <li>Keeps hashing in the provenance record, not in the sales pitch.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div><p class="footer-title">ChronosAudit</p><p class="footer-note">Source before interpretation. Preserve originals. Make uncertainty visible.</p></div>
+      <nav class="footer-links" aria-label="Footer navigation"><a href="#case">Sample case</a><a href="./method/">Method</a><a href="./security/">Security</a></nav>
+    </div>
+  </footer>
+
+  <script src="./cases/harbor-permit/case-data.js"></script>
+  <script src="./assets/app.js"></script>
+</body>
+</html>
