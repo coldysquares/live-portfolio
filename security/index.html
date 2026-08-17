@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f1e7">
+  <meta name="description" content="ChronosAudit security boundary: real investigation corpora remain local; the public demonstration uses only a bundled synthetic case.">
+  <title>Security Boundary — ChronosAudit</title>
+  <link rel="stylesheet" href="../assets/styles.0.css">
+  <link rel="stylesheet" href="../assets/styles.1.css">
+  <link rel="stylesheet" href="../assets/styles.2.css">
+  <link rel="stylesheet" href="../assets/styles.3.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span class="brand-name">ChronosAudit</span></a>
+      <nav class="header-nav" aria-label="Primary navigation"><a href="../#case">Sample case</a><a href="../method/">Method</a><a href="./">Security</a><a class="header-primary" href="../#case">Open demo</a></nav>
+      <span class="header-status">Local-first boundary</span>
+    </div>
+  </header>
+  <main id="main">
+    <section class="page-hero">
+      <div class="section-inner">
+        <p class="eyebrow">Security boundary</p>
+        <h1>A private corpus should remain private by default.</h1>
+        <p>The public site explains and demonstrates the product. The canonical working instrument is designed to process real investigations on the user’s own device.</p>
+      </div>
+    </section>
+    <section class="section-inner prose-layout">
+      <nav class="prose-nav" aria-label="Security sections">
+        <a href="#public-demo">Public demo</a>
+        <a href="#local-app">Local application</a>
+        <a href="#originals">Original evidence</a>
+        <a href="#inference">Model boundary</a>
+        <a href="#exports">Exports</a>
+      </nav>
+      <article class="prose">
+        <h2 id="public-demo">The public demo requests no private files</h2>
+        <p>The sample investigation is a deterministic, fictional corpus checked into the site. It makes no analysis request to an external model and does not ask a visitor to select or upload documents. Its purpose is to demonstrate the event-to-evidence relationship honestly.</p>
+
+        <h2 id="local-app">Real corpora belong in the local application</h2>
+        <p>The intended desktop application inventories and processes investigation files on the user’s computer. Local processing is important for unpublished reporting, whistleblower material, legal discovery, proprietary documents, personal archives, and other sensitive collections.</p>
+        <p>“Local-first” does not mean “risk-free.” The application still needs clear file permissions, scoped sidecar capabilities, encrypted-device guidance, explicit export destinations, and reproducible update and rollback procedures.</p>
+
+        <h2 id="originals">Original evidence remains immutable</h2>
+        <p>Source bytes are preserved separately from extracted text, thumbnails, normalized metadata, timeline events, and model output. Reprocessing creates a new run and new receipts rather than silently replacing the previous result.</p>
+        <table class="definition-table">
+          <tr><th>Originals</th><td>Read-only source bytes retained under stable identifiers.</td></tr>
+          <tr><th>Derived artifacts</th><td>Extracted text, previews, normalized dates, and indexes stored separately.</td></tr>
+          <tr><th>Review receipts</th><td>Append-only records of human confirmation, dispute, rejection, or correction.</td></tr>
+          <tr><th>Integrity hashes</th><td>Byte-identity checks that support preservation but do not independently prove authorship or truth.</td></tr>
+        </table>
+
+        <h2 id="inference">Remote inference is opt-in and bounded</h2>
+        <p>The core evidence model must work without turning the corpus into an opaque provider upload. Any optional model operation should disclose exactly what material leaves the device, why it is needed, which provider receives it, and what record of that operation is retained.</p>
+        <p>Model output may propose assertions, links, or classifications. It may not mutate originals or silently promote inference into observed fact.</p>
+
+        <h2 id="exports">Exports can contain sensitive evidence</h2>
+        <p>Reports, source packages, and project backups may contain confidential material even when the application itself is local. Export workflows should support redaction, public-safe subsets, manifest inspection, and clear warnings before a bundle leaves the device.</p>
+        <blockquote>The safest public demonstration is one that proves the product without asking a stranger to trust an unexplained upload box.</blockquote>
+      </article>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="footer-inner"><div><p class="footer-title">ChronosAudit</p><p class="footer-note">Source before interpretation. Preserve originals. Make uncertainty visible.</p></div><nav class="footer-links"><a href="../">Home</a><a href="../#case">Sample case</a><a href="../method/">Method</a></nav></div></footer>
+</body>
+</html>
