@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f6f1e7">
+  <meta name="description" content="ChronosAudit method: preserve originals, distinguish temporal evidence, reconstruct events, and retain an exact path back to the source.">
+  <title>Method — ChronosAudit</title>
+  <link rel="stylesheet" href="../assets/styles.0.css">
+  <link rel="stylesheet" href="../assets/styles.1.css">
+  <link rel="stylesheet" href="../assets/styles.2.css">
+  <link rel="stylesheet" href="../assets/styles.3.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="../"><span class="brand-mark" aria-hidden="true"></span><span class="brand-name">ChronosAudit</span></a>
+      <nav class="header-nav" aria-label="Primary navigation"><a href="../#case">Sample case</a><a href="./">Method</a><a href="../security/">Security</a><a class="header-primary" href="../#case">Open demo</a></nav>
+      <span class="header-status">Method canon</span>
+    </div>
+  </header>
+  <main id="main">
+    <section class="page-hero">
+      <div class="section-inner">
+        <p class="eyebrow">Method</p>
+        <h1>Evidence stays beneath every conclusion.</h1>
+        <p>ChronosAudit treats the timeline as a derived projection. The authority remains in preserved source bytes, exact locations, recorded assertions, and the transformations that connect them.</p>
+      </div>
+    </section>
+    <section class="section-inner prose-layout">
+      <nav class="prose-nav" aria-label="Method sections">
+        <a href="#authority">Authority model</a>
+        <a href="#temporal">Temporal evidence</a>
+        <a href="#pipeline">Processing pipeline</a>
+        <a href="#contradictions">Contradictions</a>
+        <a href="#reports">Portable outputs</a>
+      </nav>
+      <article class="prose">
+        <h2 id="authority">Authority model</h2>
+        <blockquote>timeline event → extracted claim → exact source passage → original file → file hash / provenance record</blockquote>
+        <p>A timeline event is not the underlying truth. It is a projection built from one or more temporal assertions. Each assertion points to a precise location in a source asset and records how its date was observed, normalized, or inferred.</p>
+        <table class="definition-table">
+          <tr><th>Source asset</th><td>The preserved original file and its integrity, format, metadata, and import record.</td></tr>
+          <tr><th>Source location</th><td>The page, line, byte range, message field, or other exact location that supports a claim.</td></tr>
+          <tr><th>Temporal assertion</th><td>A dated claim extracted from a source, with evidence type, precision, method, confidence, and review status.</td></tr>
+          <tr><th>Event cluster</th><td>A derived grouping of related assertions presented on the working timeline.</td></tr>
+          <tr><th>Processing run</th><td>A receipt describing the tool version, settings, inputs, outputs, and time of a transformation.</td></tr>
+        </table>
+
+        <h2 id="temporal">Temporal evidence remains typed</h2>
+        <p>ChronosAudit does not flatten every date into one chronology without qualification. Filesystem timestamps, embedded metadata, email headers, dates stated in text, relative references, machine-inferred dates, conflicts, and unresolved expressions remain distinguishable in both the data model and the interface.</p>
+        <h3>Observation and inference</h3>
+        <p>An email header that states a sent time is an observation about the message record. Resolving “last Tuesday” against that header is a normalization step. Guessing that a meeting probably occurred before a document was edited is an inference. Those are not equivalent and should not be styled or stored as if they were.</p>
+
+        <h2 id="pipeline">Processing pipeline</h2>
+        <h3>1. Preserve</h3>
+        <p>Inventory source files, retain original bytes, record format and metadata, and compute integrity hashes. Hashing confirms byte identity; it does not establish authorship, truth, or custody by itself.</p>
+        <h3>2. Extract</h3>
+        <p>Use format-specific adapters to recover text, metadata, headers, and explicit source locations. Every adapter records its version and warnings rather than silently dropping unsupported material.</p>
+        <h3>3. Normalize</h3>
+        <p>Represent dates as points, ranges, partial dates, relative references, or unresolved expressions. Preserve the raw expression beside the normalized value.</p>
+        <h3>4. Reconstruct</h3>
+        <p>Cluster compatible assertions into candidate events, compare document versions, and identify missing or changed obligations, claims, and dates.</p>
+        <h3>5. Review</h3>
+        <p>Allow a human reviewer to confirm, dispute, reject, or correct derived assertions while preserving an append-only receipt of the decision.</p>
+
+        <h2 id="contradictions">Contradictions are shown, not “fixed”</h2>
+        <p>When two records disagree, ChronosAudit links them in a contradiction object and presents both claims with their support. It does not silently choose a winner or rewrite the chronology into a smooth narrative. Resolution can be recorded, but the original conflict remains inspectable.</p>
+
+        <h2 id="reports">Portable outputs</h2>
+        <p>A completed investigation should export a readable report, a structured manifest, an evidence index, and processing receipts. The report must remain useful without a live service, and its links must resolve against the exported source package or clearly identify unavailable material.</p>
+      </article>
+    </section>
+  </main>
+  <footer class="site-footer"><div class="footer-inner"><div><p class="footer-title">ChronosAudit</p><p class="footer-note">Source before interpretation. Preserve originals. Make uncertainty visible.</p></div><nav class="footer-links"><a href="../">Home</a><a href="../#case">Sample case</a><a href="../security/">Security</a></nav></div></footer>
+</body>
+</html>
