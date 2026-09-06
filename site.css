@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Silkscreen:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Bricolage+Grotesque:wght@500;600;700&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Silkscreen:wght@400;700&display=swap');
 
 :root{
   --void:#09090b;
@@ -10,7 +10,7 @@
   --ink:#111116;
   --muted:#777781;
   --muted-light:#a9a9b1;
-  --pink:#ff2d91;
+  --pink:#ff7a00;
   --yellow:#f5ff19;
   --cyan:#62fff1;
   --violet:#8067ff;
@@ -544,3 +544,5 @@ h1{
   .resume .wrap::before{margin:-28px -18px 22px}
   .resume h1{font-size:48px}
 }
+/* hiring homepage refinement */
+.hero h1{font-family:'Bricolage Grotesque',var(--mono);font-weight:600;letter-spacing:-.035em;line-height:.98;text-transform:none;text-shadow:4px 4px 0 rgba(128,103,255,.18)}
